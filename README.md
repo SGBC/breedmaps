@@ -2,7 +2,7 @@
 
 Pipeline for building a graph genome.
 
-[vcf_pipeline.pdf](https://github.com/ItachiBal/Business-Intelligence/files/5584548/vcf_pipeline.pdf)
+![image](https://user-images.githubusercontent.com/51156520/99992659-e8ebd700-2db6-11eb-8dee-35e5c13b6cd7.png)
 
 Tools 
 
