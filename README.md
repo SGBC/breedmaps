@@ -1,7 +1,6 @@
 # breedmaps
 
-Pipeline for building a graph genome.
-
+Pipeline for variant calling.
 ![image](https://user-images.githubusercontent.com/51156520/99992659-e8ebd700-2db6-11eb-8dee-35e5c13b6cd7.png)
 
 Tools 
