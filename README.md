@@ -1,6 +1,7 @@
 # breedmaps
 
-Pipeline for variant calling.
+Pipeline for variant calling and construction of graph genome.
+Scripts: bash, Nextflow.
 
 Tools 
 
