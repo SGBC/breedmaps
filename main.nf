@@ -47,7 +47,7 @@ process markedups {
         script:
         """
         java -jar /opt/sw/picard/1.137/picard.jar MarkDuplicates \
-        I=${bamfile} O=${pair_id}_sorted_duplicates_rm.bam M=${pair_id}_markedup_metrics.txt // marking the duplicates and removing them
+        I=${bamfile} O=${pair_id}_sorted_duplicates_rm.bam M=${pair_id}_markedup_metrics.txt // marking the duplicates
         module load samtools
         samtools index ${pair_id}_sorted_duplicates_rm.bam // indexing the updated bam
 
