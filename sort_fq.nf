@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 params.outdir = "/proj/breedmap/sorted_data"
-reads_ch = Channel.fromFilePairs('/proj/breedmap/data/RDCSWEM000000000433_R{1,2}.fastq.gz', flat: true)
+reads_ch = Channel.fromFilePairs('/proj/breedmap/data/*{1,2}.fastq.gz', flat: true)
 
 process sort_fq {
         publishDir "${params.outdir}", mode:'copy'
@@ -13,8 +13,8 @@ process sort_fq {
 
         script:
         """
-        zcat ${sam1} |paste - - - - |sort -k1,1 -S 3G| tr '\t' '\n'| gzip > ${sample_id}_sorted_1.fastq.gz
-        zcat ${sam2} |paste - - - - |sort -k1,1 -S 3G| tr '\t' '\n'| gzip > ${sample_id}_sorted_2.fastq.gz
+        zcat ${sam1} |paste - - - - |sort -k1,1 -S 3G| tr '\t' '\n'| gzip > ${sample_id}sorted_1.fastq.gz
+        zcat ${sam2} |paste - - - - |sort -k1,1 -S 3G| tr '\t' '\n'| gzip > ${sample_id}sorted_2.fastq.gz
         """
 
 }
