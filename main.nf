@@ -74,7 +74,6 @@ process markedups {
 	"""
 }
 
-/*
 process BQSR_table {
 	publishDir "${params.outdir}/BQSR", mode: 'copy'
 	input:
@@ -125,11 +124,11 @@ process Analyze_covariates {
 	-before ${recal_table} -after after_recal.table -plots ${pair_id}_recal_plots.pdf
 	"""
 }
-*/
+
 process delly_variants {
 	publishDir "${params.outdir}/bcf_output", mode:'copy'
 	input:
-	set pair_id, path(marked_bam) from markedup_bam_ch
+	set pair_id, path(marked_bam) from printreads_ch
 	path ref from params.REF
 	file(baifile) from marked_index_ch
 	output:
