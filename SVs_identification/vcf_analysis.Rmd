@@ -8,7 +8,7 @@ params:
   workingDir: "/Users/jj/breedmaps/SVs_identification/"
   dataDir: "data/"
   gff_file: "UMD1.2_QTLdb.gff"
-  vcf_file: "BTA125_S1_L001_R_SV.vcf"
+  vcf_file: "BTA125_S1_L003_R_SV.vcf"
 ---
 
 ```{r setup, include=FALSE}
@@ -33,8 +33,8 @@ vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
 vcf <- read.vcfR(vcf_path)
 
 # Load annotation gff file. Comes from QTLdb for UMD1.2 reference
-gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
-x = import_gff_gtf(gff_path, "gff")
+#gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
+#annotation = import_gff_gtf(gff_path, "gff")
 ```
 
 # Format data and filter
@@ -63,6 +63,22 @@ breakends = filtered %>% filter(ALT != "<DUP>" & ALT != "<DEL>" & ALT != "<INV>"
 
 ```
 
+# Results
+## BTA125_S1
+L001: 297 deletions,
+	40 duplications,
+	56 inversions,
+	113 breakends.
+
+L002: 307 deletions, 
+	42 duplications, 
+	45 inversions, 
+	114 breakends.
+
+L003: 269 deletions, 
+	34 duplications, 
+	48 inversions, 
+	108 breakends.
 
 
 
