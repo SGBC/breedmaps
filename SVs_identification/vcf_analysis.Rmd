@@ -1,0 +1,69 @@
+---
+title: "Structural variations analysis"
+author: "Jenny Jakobsson"
+date: "2/1/2021"
+output: html_document
+
+params: 
+  workingDir: "/Users/jj/breedmaps/SVs_identification/"
+  dataDir: "data/"
+  gff_file: "UMD1.2_QTLdb.gff"
+  vcf_file: "BTA125_S1_L001_R_SV.vcf"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#install.packages("devtools")
+#install.packages("vcfR")
+#install_github("pablobio/GALLO")
+
+library(devtools)
+library(GALLO)
+library(vcfR)
+library(tidyverse)
+library(tidyr)
+
+```
+
+# Load data
+
+```{r read files}
+# Load VCF file
+vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
+vcf <- read.vcfR(vcf_path)
+
+# Load annotation gff file. Comes from QTLdb for UMD1.2 reference
+gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
+x = import_gff_gtf(gff_path, "gff")
+```
+
+# Format data and filter
+
+```{r formatting and filtering}
+# Convert vcfR object to a tidy object
+df = vcfR2tidy(vcf)
+
+# Extract only the relevant data (not meta data and info columns)
+meta = data.frame(df$meta)
+variants = data.frame(df$fix)
+gt = data.frame(df$gt)
+
+#Filter out variations that did not pass quality control
+filtered = variants %>% filter(FILTER=="PASS")
+
+```
+
+# Find specific SVs
+
+```{r find specific SVs}
+duplications = filtered %>% filter(ALT=="<DUP>")
+deletions = filtered %>% filter(ALT=="<DEL>")
+inversions = filtered %>% filter(ALT=="<INV>")
+breakends = filtered %>% filter(ALT != "<DUP>" & ALT != "<DEL>" & ALT != "<INV>")
+
+```
+
+
+
+
+
