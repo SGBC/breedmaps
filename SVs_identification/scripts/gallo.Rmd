@@ -7,7 +7,7 @@ output: html_document
 params: 
   workingDir: "/Users/jj/breedmaps/SVs_identification/"
   dataDir: "data/"
-  resultsDir: "results/GALLO/"
+  resultsDir: "results/GALLO/BTA125_S1_L001_R_SV/"
   gff_file: "UMD1.2_QTLdb_UTF-8.txt"
   vcf_file: "BTA125_S1_L001_R_SV.vcf"
   gene_file: "Bos_taurus.ARS-UCD1.2.102.gtf"
