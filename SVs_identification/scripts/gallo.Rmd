@@ -1,0 +1,317 @@
+---
+title: "GALLO analysis"
+author: "Jenny Jakobsson"
+date: "2/4/2021"
+output: html_document
+
+params: 
+  workingDir: "/Users/jj/breedmaps/SVs_identification/"
+  dataDir: "data/"
+  resultsDir: "results/GALLO/"
+  gff_file: "UMD1.2_QTLdb_UTF-8.txt"
+  vcf_file: "BTA125_S1_L001_R_SV.vcf"
+  gene_file: "Bos_taurus.ARS-UCD1.2.102.gtf"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#install.packages("devtools")
+#install.packages("vcfR")
+#install_github("pablobio/GALLO")
+
+library(devtools)
+library(GALLO)
+library(vcfR)
+library("tidyverse")
+library(GenomicRanges)
+
+```
+
+# Load data
+Gene information downloaded from ENSEMBL(https://www.ensembl.org/info/data/ftp/index.html). QTL data downloaded from QTLdb(https://www.animalgenome.org/cgi-bin/QTLdb/index).
+
+```{r read files}
+# Load VCF file
+vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
+vcf <- read.vcfR(vcf_path)
+
+# Load annotation gff file. Comes from QTLdb for UMD1.2 reference
+gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
+annotation = import_gff_gtf(gff_path, "gff")
+
+# Load gene info
+gene_path = paste(params$workingDir, params$dataDir, params$gene_file, sep="")
+gene_ann = import_gff_gtf(gene_path, "gtf")
+
+```
+
+# Format data and filter
+
+```{r formatting and filtering}
+# Convert vcfR object to a tidy object
+df = vcfR2tidy(vcf)
+
+# Extract only the relevant data (not meta data and info columns)
+meta = data.frame(df$meta)
+variants = data.frame(df$fix)
+gt = data.frame(df$gt)
+
+#Filter out variations that did not pass quality control
+filt_variants = variants %>% filter(FILTER=="PASS")
+filt_variants = filt_variants %>% rename(CHROM = "CHR", POS = "BP1", END="BP2")
+
+```
+
+# Find specific SVs
+
+```{r find specific SVs}
+duplications = filt_variants %>% filter(ALT=="<DUP>")
+deletions = filt_variants %>% filter(ALT=="<DEL>")
+inversions = filt_variants %>% filter(ALT=="<INV>")
+breakends = filt_variants %>% filter(ALT != "<DUP>" & ALT != "<DEL>" & ALT != "<INV>")
+
+```
+
+
+```{r gallo}
+dup_qtl = find_genes_qtls_around_markers(annotation,
+                                         duplications,
+                                         method = "qtl",
+                                         marker = "haplotype")
+del_qtl = find_genes_qtls_around_markers(annotation,
+                                         deletions,
+                                         method = "qtl",
+                                         marker = "haplotype")
+inv_qtl = find_genes_qtls_around_markers(annotation,
+                                         inversions,
+                                         method = "qtl",
+                                         marker = "haplotype")
+
+dup_gene = find_genes_qtls_around_markers(gene_ann,
+                                          duplications,
+                                          method = "gene",
+                                          marker = "haplotype")
+del_gene = find_genes_qtls_around_markers(gene_ann,
+                                          deletions,
+                                          method = "gene",
+                                          marker = "haplotype")
+inv_gene = find_genes_qtls_around_markers(gene_ann,
+                                          inversions,
+                                          method = "gene",
+                                          marker = "haplotype")
+```
+```{r clean files}
+# Clean QTL files
+dup_qtl_final = dup_qtl %>% dplyr::rename(
+  SV_ID = "ID",
+  DUP_start = "BP1",
+  DUP_end = "BP2",
+  QTL_chr = "chr",
+  QTL_start = "start_pos",
+  QTL_end = "end_pos",
+  extra = "trait_ID",
+  trait_ID = "breed"
+) %>% dplyr::select(
+  SV_ID,
+  CHR,
+  DUP_start,
+  DUP_end,
+  QTL_chr,
+  QTL_start,
+  QTL_end,
+  QTL_type,
+  QTL_ID,
+  trait_ID,
+  Name,
+  pubmed_id
+) %>% unique()
+del_qtl_final = del_qtl %>% dplyr::rename(
+  SV_ID = "ID",
+  DEL_start = "BP1",
+  DEL_end = "BP2",
+  QTL_chr = "chr",
+  QTL_start = "start_pos",
+  QTL_end = "end_pos",
+  extra = "trait_ID",
+  trait_ID = "breed"
+) %>% dplyr::select(
+  SV_ID,
+  CHR,
+  DEL_start,
+  DEL_end,
+  QTL_chr,
+  QTL_start,
+  QTL_end,
+  QTL_type,
+  QTL_ID,
+  trait_ID,
+  Name,
+  pubmed_id
+) %>% unique()
+inv_qtl_final = inv_qtl %>% dplyr::rename(
+  SV_ID = "ID",
+  INV_start = "BP1",
+  INV_end = "BP2",
+  QTL_chr = "chr",
+  QTL_start = "start_pos",
+  QTL_end = "end_pos",
+  extra = "trait_ID",
+  trait_ID = "breed"
+) %>% dplyr::select(
+  SV_ID,
+  CHR,
+  INV_start,
+  INV_end,
+  QTL_chr,
+  QTL_start,
+  QTL_end,
+  QTL_type,
+  QTL_ID,
+  trait_ID,
+  Name,
+  pubmed_id
+) %>% unique()
+# Clean gene files
+dup_gene_final = dup_gene %>% dplyr::rename(
+  SV_ID = "ID",
+  DUP_start = "BP1",
+  DUP_end = "BP2",
+  gene_chr = "chr",
+  gene_start = "start_pos",
+  gene_end = "end_pos"
+) %>% dplyr::select(
+  SV_ID,
+  CHR,
+  DUP_start,
+  DUP_end,
+  gene_id,
+  gene_name,
+  gene_chr,
+  gene_start,
+  gene_end,
+  gene_biotype
+) %>% unique()
+del_gene_final = del_gene %>% dplyr::rename(
+  SV_ID = "ID",
+  DEL_start = "BP1",
+  DEL_end = "BP2",
+  gene_chr = "chr",
+  gene_start = "start_pos",
+  gene_end = "end_pos"
+) %>% dplyr::select(
+  SV_ID,
+  CHR,
+  DEL_start,
+  DEL_end,
+  gene_id,
+  gene_name,
+  gene_chr,
+  gene_start,
+  gene_end,
+  gene_biotype
+) %>% unique()
+inv_gene_final = inv_gene %>% dplyr::rename(
+  SV_ID = "ID",
+  INV_start = "BP1",
+  INV_end = "BP2",
+  gene_chr = "chr",
+  gene_start = "start_pos",
+  gene_end = "end_pos"
+) %>% dplyr::select(
+  SV_ID,
+  CHR,
+  INV_start,
+  INV_end,
+  gene_id,
+  gene_name,
+  gene_chr,
+  gene_start,
+  gene_end,
+  gene_biotype
+) %>% unique()
+```
+
+```{r print to file}
+# Print qtl files
+results_dup_qtl = paste(params$workingDir,
+                params$resultsDir,
+                "dup_qtl.tsv",
+                sep = "")
+write.table(
+  x = dup_qtl_final,
+  file = results_dup_qtl,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+
+results_del_qtl = paste(params$workingDir,
+                params$resultsDir,
+                "del_qtl.tsv",
+                sep = "")
+write.table(
+  x = del_qtl_final,
+  file = results_del_qtl,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+
+results_inv_qtl = paste(params$workingDir,
+                params$resultsDir,
+                "inv_qtl.tsv",
+                sep = "")
+write.table(
+  x = inv_qtl_final,
+  file = results_inv_qtl,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+# print gene files
+results_dup_gene = paste(params$workingDir,
+                params$resultsDir,
+                "dup_gene.tsv",
+                sep = "")
+write.table(
+  x = dup_gene_final,
+  file = results_dup_gene,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+
+results_del_gene = paste(params$workingDir,
+                params$resultsDir,
+                "del_gene.tsv",
+                sep = "")
+write.table(
+  x = del_gene_final,
+  file = results_del_gene,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+results_inv_gene = paste(params$workingDir,
+                params$resultsDir,
+                "inv_gene.tsv",
+                sep = "")
+write.table(
+  x = inv_gene_final,
+  file = results_inv_gene,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+
+
+``` 
+
+
+
+
