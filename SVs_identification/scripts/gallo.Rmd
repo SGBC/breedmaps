@@ -1,5 +1,5 @@
 ---
-title: "GALLO analysis"
+title: "Structural variations analysis with GALLO"
 author: "Jenny Jakobsson"
 date: "2/4/2021"
 output: html_document
@@ -8,7 +8,7 @@ params:
   workingDir: "/Users/jj/breedmaps/SVs_identification/"
   dataDir: "data/"
   resultsDir: "results/GALLO/BTA125_S1_L001_R_SV/"
-  gff_file: "UMD1.2_QTLdb_UTF-8.txt"
+  gff_file: "UMD3.1_QTLdb.gff"
   vcf_file: "BTA125_S1_L001_R_SV.vcf"
   gene_file: "Bos_taurus.ARS-UCD1.2.102.gtf"
 ---
@@ -22,19 +22,19 @@ library(devtools)
 library(GALLO)
 library(vcfR)
 library("tidyverse")
-library(GenomicRanges)
+library(clusterProfiler)
 
 ```
 
 # Load data
-Gene information downloaded from ENSEMBL(https://www.ensembl.org/info/data/ftp/index.html). QTL data downloaded from QTLdb(https://www.animalgenome.org/cgi-bin/QTLdb/index).
+Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/gtf/bos_taurus/). QTL data downloaded from QTLdb(https://www.animalgenome.org/cgi-bin/QTLdb/BT/index) in gff format for reference UMD3.1.
 
 ```{r read files}
 # Load VCF file
 vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
 vcf <- read.vcfR(vcf_path)
 
-# Load annotation gff file. Comes from QTLdb for UMD1.2 reference
+# Load QTLdb gff file
 gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
 annotation = import_gff_gtf(gff_path, "gff")
 
@@ -43,6 +43,8 @@ gene_path = paste(params$workingDir, params$dataDir, params$gene_file, sep="")
 gene_ann = import_gff_gtf(gene_path, "gtf")
 
 ```
+
+
 
 # Format data and filter
 
@@ -57,7 +59,7 @@ gt = data.frame(df$gt)
 
 #Filter out variations that did not pass quality control
 filt_variants = variants %>% filter(FILTER=="PASS")
-filt_variants = filt_variants %>% rename(CHROM = "CHR", POS = "BP1", END="BP2")
+filt_variants = filt_variants %>% dplyr::rename(CHR= "CHROM", BP1 = "POS", BP2="END")
 
 ```
 
@@ -99,9 +101,22 @@ inv_gene = find_genes_qtls_around_markers(gene_ann,
                                           method = "gene",
                                           marker = "haplotype")
 ```
+
+```{r plotting}
+# Plots the distribution of the trait types
+plot = plot_qtl_info(dup_qtl, qtl_plot="qtl_type") %>% title(main="Duplications", xlab="Trait percentage")
+
+# Performs a QTL enrichment analysis
+enrich = qtl_enrich(annotation, dup_qtl, qtl_type="QTL_type", enrich_type="genome")
+# Plot the enrichment
+enrich_plot = QTLenrich_plot(enrich, "QTL", "pvalue")
+enrich_plot
+```
+
+
 ```{r clean files}
 # Clean QTL files
-dup_qtl_final = dup_qtl %>% dplyr::rename(
+dup_qtl_cleaned = dup_qtl %>% dplyr::rename(
   SV_ID = "ID",
   DUP_start = "BP1",
   DUP_end = "BP2",
@@ -124,7 +139,7 @@ dup_qtl_final = dup_qtl %>% dplyr::rename(
   Name,
   pubmed_id
 ) %>% unique()
-del_qtl_final = del_qtl %>% dplyr::rename(
+del_qtl_cleaned = del_qtl %>% dplyr::rename(
   SV_ID = "ID",
   DEL_start = "BP1",
   DEL_end = "BP2",
@@ -147,7 +162,7 @@ del_qtl_final = del_qtl %>% dplyr::rename(
   Name,
   pubmed_id
 ) %>% unique()
-inv_qtl_final = inv_qtl %>% dplyr::rename(
+inv_qtl_cleaned = inv_qtl %>% dplyr::rename(
   SV_ID = "ID",
   INV_start = "BP1",
   INV_end = "BP2",
@@ -171,7 +186,7 @@ inv_qtl_final = inv_qtl %>% dplyr::rename(
   pubmed_id
 ) %>% unique()
 # Clean gene files
-dup_gene_final = dup_gene %>% dplyr::rename(
+dup_gene_cleaned = dup_gene %>% dplyr::rename(
   SV_ID = "ID",
   DUP_start = "BP1",
   DUP_end = "BP2",
@@ -190,7 +205,7 @@ dup_gene_final = dup_gene %>% dplyr::rename(
   gene_end,
   gene_biotype
 ) %>% unique()
-del_gene_final = del_gene %>% dplyr::rename(
+del_gene_cleaned = del_gene %>% dplyr::rename(
   SV_ID = "ID",
   DEL_start = "BP1",
   DEL_end = "BP2",
@@ -209,7 +224,7 @@ del_gene_final = del_gene %>% dplyr::rename(
   gene_end,
   gene_biotype
 ) %>% unique()
-inv_gene_final = inv_gene %>% dplyr::rename(
+inv_gene_cleaned = inv_gene %>% dplyr::rename(
   SV_ID = "ID",
   INV_start = "BP1",
   INV_end = "BP2",
@@ -230,6 +245,25 @@ inv_gene_final = inv_gene %>% dplyr::rename(
 ) %>% unique()
 ```
 
+
+
+```{r add more annotation to genes}
+
+# Translating ID
+# dup_gene_ann = dup_gene_cleaned %>% dplyr::select(SV_ID, gene_id)
+# universe <- bitr(
+#   unique(dup_gene_ann$gene_id),
+#   fromType = "ENSEMBL",
+#   toType = c("UNIPROT"),
+#   OrgDb = org.Dm.eg.db
+# )
+# universe  =  universe %>% dplyr::rename(gene_id = ENSEMBL, name = UNIPROT)
+
+```
+
+
+
+
 ```{r print to file}
 # Print qtl files
 results_dup_qtl = paste(params$workingDir,
@@ -237,7 +271,7 @@ results_dup_qtl = paste(params$workingDir,
                 "dup_qtl.tsv",
                 sep = "")
 write.table(
-  x = dup_qtl_final,
+  x = dup_qtl_cleaned,
   file = results_dup_qtl,
   quote = F,
   sep = "\t",
@@ -250,7 +284,7 @@ results_del_qtl = paste(params$workingDir,
                 "del_qtl.tsv",
                 sep = "")
 write.table(
-  x = del_qtl_final,
+  x = del_qtl_cleaned,
   file = results_del_qtl,
   quote = F,
   sep = "\t",
@@ -263,7 +297,7 @@ results_inv_qtl = paste(params$workingDir,
                 "inv_qtl.tsv",
                 sep = "")
 write.table(
-  x = inv_qtl_final,
+  x = inv_qtl_cleaned,
   file = results_inv_qtl,
   quote = F,
   sep = "\t",
@@ -276,7 +310,7 @@ results_dup_gene = paste(params$workingDir,
                 "dup_gene.tsv",
                 sep = "")
 write.table(
-  x = dup_gene_final,
+  x = dup_gene_cleaned,
   file = results_dup_gene,
   quote = F,
   sep = "\t",
@@ -289,7 +323,7 @@ results_del_gene = paste(params$workingDir,
                 "del_gene.tsv",
                 sep = "")
 write.table(
-  x = del_gene_final,
+  x = del_gene_cleaned,
   file = results_del_gene,
   quote = F,
   sep = "\t",
@@ -301,7 +335,7 @@ results_inv_gene = paste(params$workingDir,
                 "inv_gene.tsv",
                 sep = "")
 write.table(
-  x = inv_gene_final,
+  x = inv_gene_cleaned,
   file = results_inv_gene,
   quote = F,
   sep = "\t",
