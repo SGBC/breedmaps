@@ -1,0 +1,113 @@
+---
+title: "test"
+author: "Jenny Jakobsson"
+date: "2/8/2021"
+output: html_document
+
+params: 
+  workingDir: "/Users/jj/breedmaps/SVs_identification/"
+  dataDir: "data/"
+  resultsDir: "results/reformatted_data/"
+  gff_file: "UMD3.1_QTLdb.gff"
+  vcf_file: "BTA125_S1_L001_R_SV.vcf"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("tidyverse")
+library(devtools)
+library(GALLO)
+
+```
+
+```{r load}
+# Load VCF file
+vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
+vcf <- read.vcfR(vcf_path)
+
+# Load QTL info from QTLdb gff file
+gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
+annotation = import_gff_gtf(gff_path, "gff")
+
+# Convert vcfR object to a tidy object to more easily handle the data
+df = vcfR2tidy(vcf)
+
+# Split the data frame. The variants are contained in the fix column
+meta = data.frame(df$meta)
+variants = data.frame(df$fix)
+gt = data.frame(df$gt)
+
+# Filter out variations that did not pass quality control
+filt_variants = variants %>% filter(FILTER=="PASS")
+
+# GALLO needs columns to be called CHR, BP1 and BP2.
+filt_variants = filt_variants %>% dplyr::rename(CHR= "CHROM", BP1 = "POS", BP2="END")
+duplications = filt_variants %>% filter(ALT=="<DUP>")
+
+```
+
+
+```{r extract}
+tmp.split<-stringr::str_split_fixed(annotation$extra_info, ";",n=Inf)
+tmp.split = as.data.frame(tmp.split)
+output_qtls = annotation
+
+result = output_qtls[,-which(colnames(output_qtls)%in%"extra_info")]
+cols = c("QTL_ID", "trait_ID", "trait", "breed", "Name", "Abbrev", "Model", "Test_Base", "PUBMED_ID", "P-value", "Bayes-value", "Flank_Markers", "Variance", "VTO_name", "PTO_name", "CMO_name", "Map_Type", "Model", "Test_Base", "peak_cM", "Significance", "Dominance_Effect", "Additive_Effect", "gene_ID", "gene_IDsrc", "F-Stat", "Likelihood_Ratio")
+
+new = data.frame(matrix(NA, nrow = dim(annotation)[1], ncol = length(cols)))
+colnames(new) <- cols
+
+for (row in 1:dim(new)[1]) {
+  for (col in 1:dim(new)[2]) {
+    if (is.null(tmp.split[row, col])) {
+    }
+    else if (tmp.split[row, col] == "") {
+    } else {
+      split = stringr::str_split_fixed(tmp.split[row, col], "=", n = 2)
+      new[row, split[1]] = tmp.split[row, col]
+    }
+  }
+}
+
+```
+
+```{r write to file}
+reformatted = paste(params$workingDir,
+                params$resultsDir,
+                "reformatted_QTLdb.tsv",
+                sep = "")
+write.table(
+  x = new,
+  file = reformatted,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+org1 = new %>% rename(pval = "P-value", bval = "Bayes-value", fstat = "F-Stat")
+org2 = org1 %>% mutate(extra_info = paste(QTL_ID, trait_ID, trait, breed, Name, Abbrev, Model, Test_Base, PUBMED_ID, pval, bval, Flank_Markers, Variance, VTO_name, PTO_name, CMO_name, Map_Type, Model, Test_Base, peak_cM, Significance, Dominance_Effect, Additive_Effect, gene_ID, gene_IDsrc, fstat, Likelihood_Ratio, sep=";"))
+
+org3 = data.frame(annotation[,-which(colnames(annotation)%in%"extra_info")], org2$extra_info)
+org4 = org3 %>% mutate(extra_info = gsub("pval", "P-value", org2.extra_info))
+org5 = org4 %>% mutate(extra_info = gsub("bval", "Bayes-value", org2.extra_info))
+org6 = org5 %>% mutate(extra_info = gsub("fstat", "F-Stat", org2.extra_info))
+
+
+reformatted_org = paste(params$workingDir,
+                params$resultsDir,
+                "org_format_QTLdb.tsv",
+                sep = "")
+
+write.table(
+  x = new,
+  file = reformatted_org,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
+
+```
+
+
