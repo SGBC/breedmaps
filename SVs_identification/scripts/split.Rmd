@@ -1,5 +1,5 @@
 ---
-title: "test"
+title: "Reformatting the QTLdb files"
 author: "Jenny Jakobsson"
 date: "2/8/2021"
 output: html_document
@@ -14,6 +14,8 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+#install.packages("devtools")
+#install_github("pablobio/GALLO")
 library("tidyverse")
 library(devtools)
 library(GALLO)
@@ -50,25 +52,33 @@ duplications = filt_variants %>% filter(ALT=="<DUP>")
 ```{r extract}
 tmp.split<-stringr::str_split_fixed(annotation$extra_info, ";",n=Inf)
 tmp.split = as.data.frame(tmp.split)
-output_qtls = annotation
 
-result = output_qtls[,-which(colnames(output_qtls)%in%"extra_info")]
 cols = c("QTL_ID", "trait_ID", "trait", "breed", "Name", "Abbrev", "Model", "Test_Base", "PUBMED_ID", "P-value", "Bayes-value", "Flank_Markers", "Variance", "VTO_name", "PTO_name", "CMO_name", "Map_Type", "Model", "Test_Base", "peak_cM", "Significance", "Dominance_Effect", "Additive_Effect", "gene_ID", "gene_IDsrc", "F-Stat", "Likelihood_Ratio")
 
-new = data.frame(matrix(NA, nrow = dim(annotation)[1], ncol = length(cols)))
-colnames(new) <- cols
+reformat_QTLdb = data.frame(matrix(NA, nrow = dim(annotation)[1], ncol = length(cols)))
+colnames(reformat_QTLdb) <- cols
 
-for (row in 1:dim(new)[1]) {
-  for (col in 1:dim(new)[2]) {
+for (row in 1:dim(reformat_QTLdb)[1]) {
+  for (col in 1:dim(reformat_QTLdb)[2]) {
     if (is.null(tmp.split[row, col])) {
     }
     else if (tmp.split[row, col] == "") {
     } else {
       split = stringr::str_split_fixed(tmp.split[row, col], "=", n = 2)
-      new[row, split[1]] = tmp.split[row, col]
+      reformat_QTLdb[row, split[1]] = tmp.split[row, col]
     }
   }
 }
+
+```
+
+```{r recreate the original format}
+org_format = reformat_QTLdb %>% rename(pval = "P-value", bval = "Bayes-value", fstat = "F-Stat")
+org_format_name = org_format %>% mutate(extra_info = paste(QTL_ID, trait_ID, trait, breed, Name, Abbrev, Model, Test_Base, PUBMED_ID, pval, bval, Flank_Markers, Variance, VTO_name, PTO_name, CMO_name, Map_Type, Model, Test_Base, peak_cM, Significance, Dominance_Effect, Additive_Effect, gene_ID, gene_IDsrc, fstat, Likelihood_Ratio, sep=";")) %>% dplyr::select(extra_info)
+
+org_format_sub = org_format_name %>% mutate(extra_info = gsub("pval", "P-value", extra_info))%>% mutate(extra_info = gsub("bval", "Bayes-value", extra_info)) %>% mutate(extra_info = gsub("fstat", "F-Stat", extra_info))
+
+org_format_final = data.frame(annotation[,-which(colnames(annotation) %in% "extra_info")], org_format_sub)
 
 ```
 
@@ -78,20 +88,14 @@ reformatted = paste(params$workingDir,
                 "reformatted_QTLdb.tsv",
                 sep = "")
 write.table(
-  x = new,
+  x = reformat_QTLdb,
   file = reformatted,
   quote = F,
   sep = "\t",
   row.names = F,
   col.names = T
 )
-org1 = new %>% rename(pval = "P-value", bval = "Bayes-value", fstat = "F-Stat")
-org2 = org1 %>% mutate(extra_info = paste(QTL_ID, trait_ID, trait, breed, Name, Abbrev, Model, Test_Base, PUBMED_ID, pval, bval, Flank_Markers, Variance, VTO_name, PTO_name, CMO_name, Map_Type, Model, Test_Base, peak_cM, Significance, Dominance_Effect, Additive_Effect, gene_ID, gene_IDsrc, fstat, Likelihood_Ratio, sep=";"))
 
-org3 = data.frame(annotation[,-which(colnames(annotation)%in%"extra_info")], org2$extra_info)
-org4 = org3 %>% mutate(extra_info = gsub("pval", "P-value", org2.extra_info))
-org5 = org4 %>% mutate(extra_info = gsub("bval", "Bayes-value", org2.extra_info))
-org6 = org5 %>% mutate(extra_info = gsub("fstat", "F-Stat", org2.extra_info))
 
 
 reformatted_org = paste(params$workingDir,
@@ -100,7 +104,7 @@ reformatted_org = paste(params$workingDir,
                 sep = "")
 
 write.table(
-  x = new,
+  x = org_format_final,
   file = reformatted_org,
   quote = F,
   sep = "\t",
