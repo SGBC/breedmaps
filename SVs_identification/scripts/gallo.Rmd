@@ -14,15 +14,19 @@ params:
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+# Install packages (only needs to be run 1 time)
 #install.packages("devtools")
 #install.packages("vcfR")
 #install_github("pablobio/GALLO")
 
+
+# Load the packages
 library(devtools)
 library(GALLO)
 library(vcfR)
 library("tidyverse")
-library(clusterProfiler)
+
 
 ```
 
@@ -34,11 +38,11 @@ Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/g
 vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
 vcf <- read.vcfR(vcf_path)
 
-# Load QTLdb gff file
+# Load QTL info from QTLdb gff file
 gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
 annotation = import_gff_gtf(gff_path, "gff")
 
-# Load gene info
+# Load gene info from ENSEMBL gtf file
 gene_path = paste(params$workingDir, params$dataDir, params$gene_file, sep="")
 gene_ann = import_gff_gtf(gene_path, "gtf")
 
@@ -48,24 +52,29 @@ gene_ann = import_gff_gtf(gene_path, "gtf")
 
 # Format data and filter
 
+The files needs to be formatted to get the variant data. I filter out the variants that did not pass the quality control in DELLY.
+
 ```{r formatting and filtering}
-# Convert vcfR object to a tidy object
+# Convert vcfR object to a tidy object to more easily handle the data
 df = vcfR2tidy(vcf)
 
-# Extract only the relevant data (not meta data and info columns)
+# Split the data frame. The variants are contained in the fix column
 meta = data.frame(df$meta)
 variants = data.frame(df$fix)
 gt = data.frame(df$gt)
 
-#Filter out variations that did not pass quality control
+# Filter out variations that did not pass quality control
 filt_variants = variants %>% filter(FILTER=="PASS")
-filt_variants = filt_variants %>% dplyr::rename(CHR= "CHROM", BP1 = "POS", BP2="END")
 
+# GALLO needs columns to be called CHR, BP1 and BP2.
+filt_variants = filt_variants %>% dplyr::rename(CHR= "CHROM", BP1 = "POS", BP2="END")
 ```
 
 # Find specific SVs
+To more easily get an overview of the data it is split into the SV types. Breakends are not relevant here so only duplications, deletions and inversions are analyzed.
 
 ```{r find specific SVs}
+
 duplications = filt_variants %>% filter(ALT=="<DUP>")
 deletions = filt_variants %>% filter(ALT=="<DEL>")
 inversions = filt_variants %>% filter(ALT=="<INV>")
@@ -73,6 +82,8 @@ breakends = filt_variants %>% filter(ALT != "<DUP>" & ALT != "<DEL>" & ALT != "<
 
 ```
 
+# GALLO
+Using GALLO the QTLs and genes around the variants can be found
 
 ```{r gallo}
 dup_qtl = find_genes_qtls_around_markers(annotation,
@@ -101,6 +112,7 @@ inv_gene = find_genes_qtls_around_markers(gene_ann,
                                           method = "gene",
                                           marker = "haplotype")
 ```
+## Plotting
 
 ```{r plotting}
 # Plots the distribution of the trait types
@@ -113,7 +125,8 @@ enrich_plot = QTLenrich_plot(enrich, "QTL", "pvalue")
 enrich_plot
 ```
 
-
+# Clean files
+To make it easier to read the output some columns are removed.
 ```{r clean files}
 # Clean QTL files
 dup_qtl_cleaned = dup_qtl %>% dplyr::rename(
@@ -247,25 +260,10 @@ inv_gene_cleaned = inv_gene %>% dplyr::rename(
 
 
 
-```{r add more annotation to genes}
-
-# Translating ID
-# dup_gene_ann = dup_gene_cleaned %>% dplyr::select(SV_ID, gene_id)
-# universe <- bitr(
-#   unique(dup_gene_ann$gene_id),
-#   fromType = "ENSEMBL",
-#   toType = c("UNIPROT"),
-#   OrgDb = org.Dm.eg.db
-# )
-# universe  =  universe %>% dplyr::rename(gene_id = ENSEMBL, name = UNIPROT)
-
-```
-
-
-
+# Write to file
 
 ```{r print to file}
-# Print qtl files
+# Write QTL files
 results_dup_qtl = paste(params$workingDir,
                 params$resultsDir,
                 "dup_qtl.tsv",
