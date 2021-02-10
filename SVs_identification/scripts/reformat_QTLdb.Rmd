@@ -9,7 +9,6 @@ params:
   dataDir: "data/"
   resultsDir: "results/reformatted_data/"
   gff_file: "UMD3.1_QTLdb.gff"
-  vcf_file: "BTA125_S1_L001_R_SV.vcf"
 ---
 
 ```{r setup, include=FALSE}
@@ -18,34 +17,21 @@ knitr::opts_chunk$set(echo = TRUE)
 #install_github("pablobio/GALLO")
 library("tidyverse")
 library(devtools)
-library(GALLO)
 
 ```
 
 ```{r load}
-# Load VCF file
-vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
-vcf <- read.vcfR(vcf_path)
-
 # Load QTL info from QTLdb gff file
 gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
-annotation = import_gff_gtf(gff_path, "gff")
-
-# Convert vcfR object to a tidy object to more easily handle the data
-df = vcfR2tidy(vcf)
-
-# Split the data frame. The variants are contained in the fix column
-meta = data.frame(df$meta)
-variants = data.frame(df$fix)
-gt = data.frame(df$gt)
-
-# Filter out variations that did not pass quality control
-filt_variants = variants %>% filter(FILTER=="PASS")
-
-# GALLO needs columns to be called CHR, BP1 and BP2.
-filt_variants = filt_variants %>% dplyr::rename(CHR= "CHROM", BP1 = "POS", BP2="END")
-duplications = filt_variants %>% filter(ALT=="<DUP>")
-
+annotation = read.table(
+  file = gff_path ,
+  quote = "",
+  sep = "\t",
+  header = FALSE,
+  stringsAsFactors = FALSE
+)
+cols=c("chr", "database", "QTL_type", "start_pos", "end_pos", ".1", ".2", ".3","extra_info")
+colnames(annotation)<-cols
 ```
 
 
@@ -53,7 +39,7 @@ duplications = filt_variants %>% filter(ALT=="<DUP>")
 tmp.split<-stringr::str_split_fixed(annotation$extra_info, ";",n=Inf)
 tmp.split = as.data.frame(tmp.split)
 
-cols = c("QTL_ID", "trait_ID", "trait", "breed", "Name", "Abbrev", "Model", "Test_Base", "PUBMED_ID", "P-value", "Bayes-value", "Flank_Markers", "Variance", "VTO_name", "PTO_name", "CMO_name", "Map_Type", "Model", "Test_Base", "peak_cM", "Significance", "Dominance_Effect", "Additive_Effect", "gene_ID", "gene_IDsrc", "F-Stat", "Likelihood_Ratio")
+cols = c("QTL_ID", "trait_ID", "trait", "breed", "Name", "Abbrev", "Model", "Test_Base", "PUBMED_ID", "P-value", "Bayes-value", "Flank_Markers", "Variance", "VTO_name", "PTO_name", "CMO_name", "Map_Type", "peak_cM", "Significance", "Dominance_Effect", "Additive_Effect", "gene_ID", "gene_IDsrc", "F-Stat", "Likelihood_Ratio")
 
 reformat_QTLdb = data.frame(matrix(NA, nrow = dim(annotation)[1], ncol = length(cols)))
 colnames(reformat_QTLdb) <- cols
@@ -109,7 +95,7 @@ write.table(
   quote = F,
   sep = "\t",
   row.names = F,
-  col.names = T
+  col.names = F
 )
 
 ```
