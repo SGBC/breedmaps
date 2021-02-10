@@ -30,8 +30,7 @@ annotation = read.table(
   header = FALSE,
   stringsAsFactors = FALSE
 )
-cols=c("chr", "database", "QTL_type", "start_pos", "end_pos", ".1", ".2", ".3","extra_info")
-colnames(annotation)<-cols
+colnames(annotation)<-c("chr", "database", "QTL_type", "start_pos", "end_pos", ".1", ".2", ".3","extra_info")
 ```
 
 
@@ -39,7 +38,33 @@ colnames(annotation)<-cols
 tmp.split<-stringr::str_split_fixed(annotation$extra_info, ";",n=Inf)
 tmp.split = as.data.frame(tmp.split)
 
-cols = c("QTL_ID", "trait_ID", "trait", "breed", "Name", "Abbrev", "Model", "Test_Base", "PUBMED_ID", "P-value", "Bayes-value", "Flank_Markers", "Variance", "VTO_name", "PTO_name", "CMO_name", "Map_Type", "peak_cM", "Significance", "Dominance_Effect", "Additive_Effect", "gene_ID", "gene_IDsrc", "F-Stat", "Likelihood_Ratio")
+cols = c(
+  "QTL_ID",
+  "Name",
+  "Abbrev",
+  "PUBMED_ID",
+  "trait",
+  "trait_ID",
+  "FlankMarker",
+  "breed",
+  "VTO_name",
+  "CMO_name",
+  "Map_Type",
+  "Model",
+  "Test_Base",
+  "Bayes-value",
+  "P-value",
+  "Variance",
+  "PTO_name",
+  "peak_cM",
+  "Significance",
+  "Dominance_Effect",
+  "Additive_Effect",
+  "gene_ID",
+  "gene_IDsrc",
+  "F-Stat",
+  "Likelihood_Ratio"
+)
 
 reformat_QTLdb = data.frame(matrix(NA, nrow = dim(annotation)[1], ncol = length(cols)))
 colnames(reformat_QTLdb) <- cols
@@ -60,11 +85,40 @@ for (row in 1:dim(reformat_QTLdb)[1]) {
 
 ```{r recreate the original format}
 org_format = reformat_QTLdb %>% rename(pval = "P-value", bval = "Bayes-value", fstat = "F-Stat")
-org_format_name = org_format %>% mutate(extra_info = paste(QTL_ID, trait_ID, trait, breed, Name, Abbrev, Model, Test_Base, PUBMED_ID, pval, bval, Flank_Markers, Variance, VTO_name, PTO_name, CMO_name, Map_Type, Model, Test_Base, peak_cM, Significance, Dominance_Effect, Additive_Effect, gene_ID, gene_IDsrc, fstat, Likelihood_Ratio, sep=";")) %>% dplyr::select(extra_info)
+org_format_name = org_format %>% mutate(
+  extra_info = paste(
+    QTL_ID,
+    Name,
+    Abbrev,
+    PUBMED_ID,
+    trait,
+    trait_ID,
+    FlankMarker,
+    breed,
+    VTO_name,
+    CMO_name,
+    Map_Type,
+    Model,
+    Test_Base,
+    bval,
+    pval,
+    Variance,
+    PTO_name,
+    peak_cM,
+    Significance,
+    Dominance_Effect,
+    Additive_Effect,
+    gene_ID,
+    gene_IDsrc,
+    fstat,
+    Likelihood_Ratio,
+    sep = ";"
+  )
+) %>% dplyr::select(extra_info)
 
-org_format_sub = org_format_name %>% mutate(extra_info = gsub("pval", "P-value", extra_info))%>% mutate(extra_info = gsub("bval", "Bayes-value", extra_info)) %>% mutate(extra_info = gsub("fstat", "F-Stat", extra_info))
+org_format_sub = org_format_name %>% mutate(extra_info = gsub("pval", "P-value", extra_info)) %>% mutate(extra_info = gsub("bval", "Bayes-value", extra_info)) %>% mutate(extra_info = gsub("fstat", "F-Stat", extra_info))
 
-org_format_final = data.frame(annotation[,-which(colnames(annotation) %in% "extra_info")], org_format_sub)
+org_format_final = data.frame(annotation[, -which(colnames(annotation) %in% "extra_info")], org_format_sub)
 
 ```
 

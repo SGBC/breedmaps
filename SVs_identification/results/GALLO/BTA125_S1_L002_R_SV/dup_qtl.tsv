@@ -14,7 +14,7 @@ DUP00000253	6	5432986	5800660	6	5681470	5681474	Milk	64018	holstein	Milk ribofla
 DUP00000253	6	5432986	5800660	6	5689562	5689566	Milk	64019	holstein	Milk riboflavin content	25771056
 DUP00000253	6	5432986	5800660	6	5768623	5768627	Reproduction	30004	brahman	Interval to first estrus after calving	22100599
 DUP00000825	17	69569684	69572345	17	69571678	69571682	Reproduction	140648	brown swiss	Non-return rate	29178833
-DUP00000919	20	51838802	52373589	20	51887087	51887091	Health	16041	disease process measurement	Infectious bovine keratoconjunctivitis susceptibility	20665291
+DUP00000919	20	51838802	52373589	20	51887087	51887091	Health	16041		Infectious bovine keratoconjunctivitis susceptibility	20665291
 DUP00001269	X	84573999	84673464	X	84585683	84585687	Reproduction	87790	Tropical Composite	Age at puberty	23785023
 DUP00001269	X	84573999	84673464	X	84585683	84585687	Reproduction	75723	Tropical Composite	Scrotal circumference	23785023
 DUP00001269	X	84573999	84673464	X	84590908	84590912	Reproduction	75724	Tropical Composite	Scrotal circumference	23785023

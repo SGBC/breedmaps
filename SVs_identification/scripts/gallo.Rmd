@@ -8,7 +8,7 @@ params:
   workingDir: "/Users/jj/breedmaps/SVs_identification/"
   dataDir: "data/"
   resultsDir: "results/GALLO/BTA125_S1_L001_R_SV/"
-  gff_file: "UMD3.1_QTLdb.gff"
+  gff_file: "results/reformatted_data/org_format_QTLdb.tsv"
   vcf_file: "BTA125_S1_L001_R_SV.vcf"
   gene_file: "Bos_taurus.ARS-UCD1.2.102.gtf"
 ---
@@ -39,7 +39,7 @@ vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
 vcf <- read.vcfR(vcf_path)
 
 # Load QTL info from QTLdb gff file
-gff_path = paste(params$workingDir, params$dataDir, params$gff_file, sep="")
+gff_path = paste(params$workingDir, params$gff_file, sep="")
 annotation = import_gff_gtf(gff_path, "gff")
 
 # Load gene info from ENSEMBL gtf file

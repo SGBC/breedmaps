@@ -97,8 +97,8 @@ INV00001168	X	263326	64362382	X	36648188	36648192	Milk	173269	holstein,jersey	Mi
 INV00001194	X	35296661	38445756	X	36648188	36648192	Milk	173269	holstein,jersey	Milk mid-infrared spectra	31178181
 INV00001167	X	262959	64362299	X	53750465	53750469	Reproduction	92319	Tropical Composite	Age at puberty	23785023
 INV00001168	X	263326	64362382	X	53750465	53750469	Reproduction	92319	Tropical Composite	Age at puberty	23785023
-INV00001167	X	262959	64362299	X	16194830	16194834	Health	96075	Genome	Liver abscess	27065119
-INV00001168	X	263326	64362382	X	16194830	16194834	Health	96075	Genome	Liver abscess	27065119
+INV00001167	X	262959	64362299	X	16194830	16194834	Health	96075		Liver abscess	27065119
+INV00001168	X	263326	64362382	X	16194830	16194834	Health	96075		Liver abscess	27065119
 INV00001167	X	262959	64362299	X	23326586	23326590	Reproduction	56963	brahman,Tropical Composite	Scrotal circumference	25975716
 INV00001168	X	263326	64362382	X	23326586	23326590	Reproduction	56963	brahman,Tropical Composite	Scrotal circumference	25975716
 INV00001167	X	262959	64362299	X	23326586	23326590	Production	56965	brahman,Tropical Composite	Body weight (birth)	25975716
@@ -123,8 +123,8 @@ INV00001167	X	262959	64362299	X	1110258	1110262	Exterior	54055	holstein	Stature	
 INV00001168	X	263326	64362382	X	1110258	1110262	Exterior	54055	holstein	Stature	21831322
 INV00001167	X	262959	64362299	X	1110258	1110262	Exterior	54056	holstein	Strength	21831322
 INV00001168	X	263326	64362382	X	1110258	1110262	Exterior	54056	holstein	Strength	21831322
-INV00001167	X	262959	64362299	X	741365	741369	Health	57587	disease process measurement	Bovine respiratory disease susceptibility	26020874
-INV00001168	X	263326	64362382	X	741365	741369	Health	57587	disease process measurement	Bovine respiratory disease susceptibility	26020874
+INV00001167	X	262959	64362299	X	741365	741369	Health	57587		Bovine respiratory disease susceptibility	26020874
+INV00001168	X	263326	64362382	X	741365	741369	Health	57587		Bovine respiratory disease susceptibility	26020874
 INV00001167	X	262959	64362299	X	625134	625138	Production	54057	holstein	Body depth	21831322
 INV00001168	X	263326	64362382	X	625134	625138	Production	54057	holstein	Body depth	21831322
 INV00001167	X	262959	64362299	X	625134	625138	Exterior	54058	holstein	Dairy form	21831322
@@ -147,10 +147,10 @@ INV00001167	X	262959	64362299	X	625134	625138	Exterior	54066	holstein	Strength	2
 INV00001168	X	263326	64362382	X	625134	625138	Exterior	54066	holstein	Strength	21831322
 INV00001167	X	262959	64362299	X	582989	582993	Reproduction	213009	holstein	Inseminations per conception	32650431
 INV00001168	X	263326	64362382	X	582989	582993	Reproduction	213009	holstein	Inseminations per conception	32650431
-INV00001167	X	262959	64362299	X	1626461	1626465	Reproduction	30110	female fertility trait	Interval to first estrus after calving	22100599
-INV00001168	X	263326	64362382	X	1626461	1626465	Reproduction	30110	female fertility trait	Interval to first estrus after calving	22100599
-INV00001167	X	262959	64362299	X	1626461	1626465	Reproduction	30331	female fertility trait	Interval to first estrus after calving	22100599
-INV00001168	X	263326	64362382	X	1626461	1626465	Reproduction	30331	female fertility trait	Interval to first estrus after calving	22100599
+INV00001167	X	262959	64362299	X	1626461	1626465	Reproduction	30110		Interval to first estrus after calving	22100599
+INV00001168	X	263326	64362382	X	1626461	1626465	Reproduction	30110		Interval to first estrus after calving	22100599
+INV00001167	X	262959	64362299	X	1626461	1626465	Reproduction	30331		Interval to first estrus after calving	22100599
+INV00001168	X	263326	64362382	X	1626461	1626465	Reproduction	30331		Interval to first estrus after calving	22100599
 INV00001167	X	262959	64362299	X	1794219	1794223	Reproduction	54067	holstein	Calving ease (maternal)	21831322
 INV00001168	X	263326	64362382	X	1794219	1794223	Reproduction	54067	holstein	Calving ease (maternal)	21831322
 INV00001167	X	262959	64362299	X	1794219	1794223	Reproduction	54068	holstein	Stillbirth (maternal)	21831322
@@ -289,8 +289,8 @@ INV00001167	X	262959	64362299	X	3322260	3322264	Exterior	54139	holstein	Udder de
 INV00001168	X	263326	64362382	X	3322260	3322264	Exterior	54139	holstein	Udder depth	21831322
 INV00001167	X	262959	64362299	X	2294771	2294775	Production	69497	charolais,gelbvieh,hereford,limousin,pinzgauer,red angus,red poll,simmental,Angus	Body weight gain	19966163
 INV00001168	X	263326	64362382	X	2294771	2294775	Production	69497	charolais,gelbvieh,hereford,limousin,pinzgauer,red angus,red poll,simmental,Angus	Body weight gain	19966163
-INV00001167	X	262959	64362299	X	3777175	3777179	Milk	32580	milk fatty acid C18:0 amount	Milk stearic acid content	24858810
-INV00001168	X	263326	64362382	X	3777175	3777179	Milk	32580	milk fatty acid C18:0 amount	Milk stearic acid content	24858810
+INV00001167	X	262959	64362299	X	3777175	3777179	Milk	32580		Milk stearic acid content	24858810
+INV00001168	X	263326	64362382	X	3777175	3777179	Milk	32580		Milk stearic acid content	24858810
 INV00001167	X	262959	64362299	X	4340223	4340227	Reproduction	56300	holstein	sperm counts	26051317
 INV00001168	X	263326	64362382	X	4340223	4340227	Reproduction	56300	holstein	sperm counts	26051317
 INV00001167	X	262959	64362299	X	5392426	5392430	Reproduction	30704	brahman	Percentage normal sperm	22811567
@@ -1093,16 +1093,16 @@ INV00001167	X	262959	64362299	X	35042042	35042046	Reproduction	94603	Tropical Co
 INV00001168	X	263326	64362382	X	35042042	35042046	Reproduction	94603	Tropical Composite	Age at puberty	23785023
 INV00001167	X	262959	64362299	X	35042042	35042046	Reproduction	80169	Tropical Composite	Scrotal circumference	23785023
 INV00001168	X	263326	64362382	X	35042042	35042046	Reproduction	80169	Tropical Composite	Scrotal circumference	23785023
-INV00001167	X	262959	64362299	X	35080637	35080641	Health	57567	disease process measurement	Bovine respiratory disease susceptibility	26020874
-INV00001168	X	263326	64362382	X	35080637	35080641	Health	57567	disease process measurement	Bovine respiratory disease susceptibility	26020874
+INV00001167	X	262959	64362299	X	35080637	35080641	Health	57567		Bovine respiratory disease susceptibility	26020874
+INV00001168	X	263326	64362382	X	35080637	35080641	Health	57567		Bovine respiratory disease susceptibility	26020874
 INV00001167	X	262959	64362299	X	35193404	35193408	Reproduction	80239	Tropical Composite	Scrotal circumference	23785023
 INV00001168	X	263326	64362382	X	35193404	35193408	Reproduction	80239	Tropical Composite	Scrotal circumference	23785023
 INV00001167	X	262959	64362299	X	35193404	35193408	Reproduction	84331	Tropical Composite	Percentage normal sperm	23785023
 INV00001168	X	263326	64362382	X	35193404	35193408	Reproduction	84331	Tropical Composite	Percentage normal sperm	23785023
 INV00001167	X	262959	64362299	X	35193404	35193408	Reproduction	93777	Tropical Composite	Age at puberty	23785023
 INV00001168	X	263326	64362382	X	35193404	35193408	Reproduction	93777	Tropical Composite	Age at puberty	23785023
-INV00001167	X	262959	64362299	X	35236547	35236551	Health	57577	disease process measurement	Bovine respiratory disease susceptibility	26020874
-INV00001168	X	263326	64362382	X	35236547	35236551	Health	57577	disease process measurement	Bovine respiratory disease susceptibility	26020874
+INV00001167	X	262959	64362299	X	35236547	35236551	Health	57577		Bovine respiratory disease susceptibility	26020874
+INV00001168	X	263326	64362382	X	35236547	35236551	Health	57577		Bovine respiratory disease susceptibility	26020874
 INV00001167	X	262959	64362299	X	63456123	63456127	Reproduction	80215	Tropical Composite	Scrotal circumference	23785023
 INV00001168	X	263326	64362382	X	63456123	63456127	Reproduction	80215	Tropical Composite	Scrotal circumference	23785023
 INV00001167	X	262959	64362299	X	63456123	63456127	Reproduction	93938	Tropical Composite	Age at puberty	23785023
