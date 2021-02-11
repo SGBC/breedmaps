@@ -6,7 +6,8 @@ output: html_document
 
 params: 
   workingDir: "/Users/jj/breedmaps/SVs_identification/"
-  dataDir: "data/"
+  annDir: "data/annotation/"
+  vcfDir: "data/vcf/"
   resultsDir: "results/GALLO/BTA125_S1_L001_R_SV/"
   gff_file: "results/reformatted_data/org_format_QTLdb.tsv"
   vcf_file: "BTA125_S1_L001_R_SV.vcf"
@@ -19,10 +20,13 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages("devtools")
 #install.packages("vcfR")
 #install_github("pablobio/GALLO")
+#install.packages("DT")
 
 
 # Load the packages
+library(devtools)
 library(GALLO)
+#library(DT)
 library(vcfR)
 library("tidyverse")
 
@@ -34,15 +38,15 @@ Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/g
 
 ```{r read files}
 # Load VCF file
-vcf_path = paste(params$workingDir, params$dataDir, params$vcf_file, sep="")
-vcf <- read.vcfR(vcf_path)
+vcf_path = paste(params$workingDir, params$vcfDir, params$vcf_file, sep="")
+vcf <- read.vcfR(vcf_path, verbose = FALSE)
 
 # Load QTL info from QTLdb gff file
 gff_path = paste(params$workingDir, params$gff_file, sep="")
 annotation = import_gff_gtf(gff_path, "gff")
 
 # Load gene info from ENSEMBL gtf file
-gene_path = paste(params$workingDir, params$dataDir, params$gene_file, sep="")
+gene_path = paste(params$workingDir, params$annDir, params$gene_file, sep="")
 gene_ann = import_gff_gtf(gene_path, "gtf")
 
 ```
@@ -55,7 +59,7 @@ The files needs to be formatted to get the variant data. I filter out the varian
 
 ```{r formatting and filtering}
 # Convert vcfR object to a tidy object to more easily handle the data
-df = vcfR2tidy(vcf)
+df = vcfR2tidy(vcf, verbose=FALSE)
 
 # Split the data frame. The variants are contained in the fix column
 meta = data.frame(df$meta)
@@ -85,16 +89,18 @@ svs_qtl = find_genes_qtls_around_markers(annotation,
                                          svs,
                                          method = "qtl",
                                          marker = "haplotype",
-                                         interval = 500000,
+                                         interval = 0,
                                          nThreads = 1)
-
-DT:datatable(svs_qtl, row.names = FALSE, extensions = 'FixedColums', options=list(scrollX = TRUE))
+# Show subset of data
+DT::datatable(svs_qtl[1:100,], rownames = FALSE, extensions = 'FixedColumns', options=list(scrollX = TRUE))
 
 svs_gene = find_genes_qtls_around_markers(gene_ann,
                                           svs,
                                           method = "gene",
                                           marker = "haplotype")
-DT:datatable(svs_gene, row.names = FALSE, extensions = 'FixedColums', options=list(scrollX = TRUE))
+
+# Show subset of data
+DT::datatable(svs_gene[1:100,], rownames = FALSE, extensions = 'FixedColumns', options=list(scrollX = TRUE))
 
 ```
 ## Plotting
