@@ -22,7 +22,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Load the packages
-library(devtools)
 library(GALLO)
 library(vcfR)
 library("tidyverse")
@@ -73,12 +72,8 @@ filt_variants = filt_variants %>% dplyr::rename(CHR= "CHROM", BP1 = "POS", BP2="
 # Find specific SVs
 To more easily get an overview of the data it is split into the SV types. Breakends are not relevant here so only duplications, deletions and inversions are analyzed.
 
-```{r find specific SVs}
-
-duplications = filt_variants %>% filter(ALT=="<DUP>")
-deletions = filt_variants %>% filter(ALT=="<DEL>")
-inversions = filt_variants %>% filter(ALT=="<INV>")
-breakends = filt_variants %>% filter(ALT != "<DUP>" & ALT != "<DEL>" & ALT != "<INV>")
+```{r remove break ends}
+svs = filt_variants %>% filter(ALT == "<DUP>" | ALT == "<DEL>" | ALT == "<INV>")
 
 ```
 
@@ -86,40 +81,30 @@ breakends = filt_variants %>% filter(ALT != "<DUP>" & ALT != "<DEL>" & ALT != "<
 Using GALLO the QTLs and genes around the variants can be found
 
 ```{r gallo}
-dup_qtl = find_genes_qtls_around_markers(annotation,
-                                         duplications,
+svs_qtl = find_genes_qtls_around_markers(annotation,
+                                         svs,
                                          method = "qtl",
-                                         marker = "haplotype")
-del_qtl = find_genes_qtls_around_markers(annotation,
-                                         deletions,
-                                         method = "qtl",
-                                         marker = "haplotype")
-inv_qtl = find_genes_qtls_around_markers(annotation,
-                                         inversions,
-                                         method = "qtl",
-                                         marker = "haplotype")
+                                         marker = "haplotype",
+                                         interval = 500000,
+                                         nThreads = 1)
 
-dup_gene = find_genes_qtls_around_markers(gene_ann,
-                                          duplications,
+DT:datatable(svs_qtl, row.names = FALSE, extensions = 'FixedColums', options=list(scrollX = TRUE))
+
+svs_gene = find_genes_qtls_around_markers(gene_ann,
+                                          svs,
                                           method = "gene",
                                           marker = "haplotype")
-del_gene = find_genes_qtls_around_markers(gene_ann,
-                                          deletions,
-                                          method = "gene",
-                                          marker = "haplotype")
-inv_gene = find_genes_qtls_around_markers(gene_ann,
-                                          inversions,
-                                          method = "gene",
-                                          marker = "haplotype")
+DT:datatable(svs_gene, row.names = FALSE, extensions = 'FixedColums', options=list(scrollX = TRUE))
+
 ```
 ## Plotting
 
 ```{r plotting}
 # Plots the distribution of the trait types
-plot = plot_qtl_info(dup_qtl, qtl_plot="qtl_type") %>% title(main="Duplications", xlab="Trait percentage")
+plot = plot_qtl_info(svs_qtl, qtl_plot="qtl_type") %>% title(main="Structural variations", xlab="Trait percentage")
 
 # Performs a QTL enrichment analysis
-enrich = qtl_enrich(annotation, dup_qtl, qtl_type="QTL_type", enrich_type="genome")
+enrich = qtl_enrich(annotation, svs_qtl, qtl_type="QTL_type", enrich_type="genome")
 # Plot the enrichment
 enrich_plot = QTLenrich_plot(enrich, "QTL", "pvalue")
 enrich_plot
@@ -129,10 +114,10 @@ enrich_plot
 To make it easier to read the output some columns are removed.
 ```{r clean files}
 # Clean QTL files
-dup_qtl_cleaned = dup_qtl %>% dplyr::rename(
+svs_qtl_cleaned = svs_qtl %>% dplyr::rename(
   SV_ID = "ID",
-  DUP_start = "BP1",
-  DUP_end = "BP2",
+  SV_start = "BP1",
+  SV_end = "BP2",
   QTL_chr = "chr",
   QTL_start = "start_pos",
   QTL_end = "end_pos",
@@ -141,8 +126,8 @@ dup_qtl_cleaned = dup_qtl %>% dplyr::rename(
 ) %>% dplyr::select(
   SV_ID,
   CHR,
-  DUP_start,
-  DUP_end,
+  SV_start,
+  SV_end,
   QTL_chr,
   QTL_start,
   QTL_end,
@@ -150,67 +135,24 @@ dup_qtl_cleaned = dup_qtl %>% dplyr::rename(
   QTL_ID,
   trait_ID,
   Name,
-  pubmed_id
+  pubmed_id,
+  p_value
 ) %>% unique()
-del_qtl_cleaned = del_qtl %>% dplyr::rename(
-  SV_ID = "ID",
-  DEL_start = "BP1",
-  DEL_end = "BP2",
-  QTL_chr = "chr",
-  QTL_start = "start_pos",
-  QTL_end = "end_pos",
-  extra = "trait_ID",
-  trait_ID = "breed"
-) %>% dplyr::select(
-  SV_ID,
-  CHR,
-  DEL_start,
-  DEL_end,
-  QTL_chr,
-  QTL_start,
-  QTL_end,
-  QTL_type,
-  QTL_ID,
-  trait_ID,
-  Name,
-  pubmed_id
-) %>% unique()
-inv_qtl_cleaned = inv_qtl %>% dplyr::rename(
-  SV_ID = "ID",
-  INV_start = "BP1",
-  INV_end = "BP2",
-  QTL_chr = "chr",
-  QTL_start = "start_pos",
-  QTL_end = "end_pos",
-  extra = "trait_ID",
-  trait_ID = "breed"
-) %>% dplyr::select(
-  SV_ID,
-  CHR,
-  INV_start,
-  INV_end,
-  QTL_chr,
-  QTL_start,
-  QTL_end,
-  QTL_type,
-  QTL_ID,
-  trait_ID,
-  Name,
-  pubmed_id
-) %>% unique()
+
+
 # Clean gene files
-dup_gene_cleaned = dup_gene %>% dplyr::rename(
+svs_gene_cleaned = svs_gene %>% dplyr::rename(
   SV_ID = "ID",
-  DUP_start = "BP1",
-  DUP_end = "BP2",
+  SV_start = "BP1",
+  SV_end = "BP2",
   gene_chr = "chr",
   gene_start = "start_pos",
   gene_end = "end_pos"
 ) %>% dplyr::select(
   SV_ID,
   CHR,
-  DUP_start,
-  DUP_end,
+  SV_start,
+  SV_end,
   gene_id,
   gene_name,
   gene_chr,
@@ -218,44 +160,7 @@ dup_gene_cleaned = dup_gene %>% dplyr::rename(
   gene_end,
   gene_biotype
 ) %>% unique()
-del_gene_cleaned = del_gene %>% dplyr::rename(
-  SV_ID = "ID",
-  DEL_start = "BP1",
-  DEL_end = "BP2",
-  gene_chr = "chr",
-  gene_start = "start_pos",
-  gene_end = "end_pos"
-) %>% dplyr::select(
-  SV_ID,
-  CHR,
-  DEL_start,
-  DEL_end,
-  gene_id,
-  gene_name,
-  gene_chr,
-  gene_start,
-  gene_end,
-  gene_biotype
-) %>% unique()
-inv_gene_cleaned = inv_gene %>% dplyr::rename(
-  SV_ID = "ID",
-  INV_start = "BP1",
-  INV_end = "BP2",
-  gene_chr = "chr",
-  gene_start = "start_pos",
-  gene_end = "end_pos"
-) %>% dplyr::select(
-  SV_ID,
-  CHR,
-  INV_start,
-  INV_end,
-  gene_id,
-  gene_name,
-  gene_chr,
-  gene_start,
-  gene_end,
-  gene_biotype
-) %>% unique()
+
 ```
 
 
@@ -264,77 +169,26 @@ inv_gene_cleaned = inv_gene %>% dplyr::rename(
 
 ```{r print to file}
 # Write QTL files
-results_dup_qtl = paste(params$workingDir,
+results_qtl = paste(params$workingDir,
                 params$resultsDir,
-                "dup_qtl.tsv",
+                "svs_qtl.tsv",
                 sep = "")
 write.table(
-  x = dup_qtl_cleaned,
-  file = results_dup_qtl,
+  x = svs_qtl_cleaned,
+  file = results_qtl,
   quote = F,
   sep = "\t",
   row.names = F,
   col.names = T
 )
 
-results_del_qtl = paste(params$workingDir,
+results_gene = paste(params$workingDir,
                 params$resultsDir,
-                "del_qtl.tsv",
+                "svs_gene.tsv",
                 sep = "")
 write.table(
-  x = del_qtl_cleaned,
-  file = results_del_qtl,
-  quote = F,
-  sep = "\t",
-  row.names = F,
-  col.names = T
-)
-
-results_inv_qtl = paste(params$workingDir,
-                params$resultsDir,
-                "inv_qtl.tsv",
-                sep = "")
-write.table(
-  x = inv_qtl_cleaned,
-  file = results_inv_qtl,
-  quote = F,
-  sep = "\t",
-  row.names = F,
-  col.names = T
-)
-# print gene files
-results_dup_gene = paste(params$workingDir,
-                params$resultsDir,
-                "dup_gene.tsv",
-                sep = "")
-write.table(
-  x = dup_gene_cleaned,
-  file = results_dup_gene,
-  quote = F,
-  sep = "\t",
-  row.names = F,
-  col.names = T
-)
-
-results_del_gene = paste(params$workingDir,
-                params$resultsDir,
-                "del_gene.tsv",
-                sep = "")
-write.table(
-  x = del_gene_cleaned,
-  file = results_del_gene,
-  quote = F,
-  sep = "\t",
-  row.names = F,
-  col.names = T
-)
-results_inv_gene = paste(params$workingDir,
-                params$resultsDir,
-                "inv_gene.tsv",
-                sep = "")
-write.table(
-  x = inv_gene_cleaned,
-  file = results_inv_gene,
+  x = svs_gene_cleaned,
+  file = results_gene,
   quote = F,
   sep = "\t",
   row.names = F,
