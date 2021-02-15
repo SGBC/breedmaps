@@ -10,5 +10,8 @@
 #$ -e phan_mapping.log
 #$ -o phan_mapping.log
 
-echo "first command run by this job"
-./nextflow run main.nf 
+echo "Starting the pipeline"
+module load conda 
+. ../../scripts/conda.sh
+module load delly
+../../scripts/nextflow run ../../scripts/main.nf
