@@ -1,7 +1,21 @@
 #!/usr/bin/env/ nextflow
-params.ref = "/home/phanindra/TOY/transcriptome.fa" // change the path accordingly
-reads_ch = channel.fromFilePairs('/home/phanindra/TOY/*_{1,2}.fq') // creating the channel 
+params.ref = "/proj/breedmap/scripts/indexes/*.fa.gz" // change the path accordingly
+reads_raw = channel.fromFilePairs('/home/phanindra/TOY/*_{1,2}.fq') // creating the channel 
 params.outdir = "/home/phanindra/results" //A directory for storing the results
+
+process fastp {
+        publishDir "${params.outdir}/fastp_trimmed", mode : 'copy'
+        input :
+        tuple sample_id, file(x) from reads_raw
+        output:
+        set sample_id, file("${sample_id}1.fq.gz"), file("${sample_id}2.fq.gz") into reads_ch
+        file("*")
+        script:
+        """
+        module load fastp
+        fastp -i ${x[0]} -I ${x[1]} -o ${sample_id}1.fq.gz -O ${sample_id}2.fq.gz --detect_adapter_for_pe -h ${sample_id}.html -j ${sample_id}.json
+        """
+}
 
 process indexing_aligning {
         publishDir "${params.outdir}/indexed_aligned", mode: 'copy' // saves all the files available in the output into the specified directory
