@@ -154,15 +154,17 @@ def count_sv_type(alt_column):
 #     #     results[row]['SAMPLES'] = samples
 
 
-def count_svs(list):
+def count_svs(vcf_list):
     counts = {}
-    for row in range(len(list)):
-        chrom = list.iloc[row]['CHROM']
-        pos = list.iloc[row]['POS'].astype(str)
-        chrom_pos = chrom + ':' + pos
-        if chrom_pos in counts.keys():
-            counts[chrom_pos] += 1
-        else:
-            counts[chrom_pos] = 1
+    for list in vcf_list:
+        for row in range(len(list)):
+            chrom = list.iloc[row]['CHROM']
+            pos = list.iloc[row]['POS'].astype(str)
+            chrom_pos = chrom + ':' + pos
+            if chrom_pos in counts.keys():
+                counts[chrom_pos] += 1
+            else:
+                counts[chrom_pos] = 1
+
     return counts
 
