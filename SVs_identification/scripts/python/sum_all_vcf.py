@@ -50,12 +50,9 @@ plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("filtered_svs.png")
 
-# # -------- Read in the files -------- # # #
-## Counting how many svs are repeated in multiple genomes
-# First we want to join all vcfs to get all positions
 plt.figure(3)
 
-count_raw = functions.count_svs(vcf_raw)
+count_raw, genome_pos_raw, all_info_raw = functions.count_svs(vcf_raw, vcf_files)
 sorted_count_raw = sorted(count_raw.items())
 chr_pos_raw, num_raw = zip(*sorted_count_raw)
 plt.plot(num_raw)
@@ -65,7 +62,7 @@ plt.title('The number of times each SV(chr and start pos) has been found in the 
 plt.savefig("counted_nonfiltered_svs.png")
 
 plt.figure(4)
-count_filt = functions.count_svs(vcf_filtered)
+count_filt, genome_pos_filt, all_info_filt = functions.count_svs(vcf_filtered, vcf_files)
 sorted_count_filt = sorted(count_filt.items())
 chr_pos_filt, num_filt = zip(*sorted_count_filt)
 plt.plot(num_filt)
@@ -75,8 +72,17 @@ plt.title('The number of times each SV(chr and start pos) has been found in the 
 plt.savefig("counted_filtered_svs.png")
 plt.show()
 
-x = {k:v for (k,v) in count_filt.items() if v > 10}
-df = pd.Series(x)
-print(f"There were {len(df)} SVs found in 10 genomes or more.")
-print("CHR:POS              COUNT")
-print(df.to_string())
+top_svs = {k:v for (k,v) in count_filt.items() if v > 10}
+df_count = pd.Series(top_svs)
+print(f"There were {len(df_count)} SVs found in 10 genomes or more.")
+top_svs_genomes = {k:v for (k,v) in genome_pos_filt.items() if k in top_svs.keys()}
+df_genomes = pd.Series(top_svs_genomes)
+print("CHR:POS              COUNT   GENOMES")
+merged_top_svs = pd.concat([df_count, df_genomes], axis=1)
+print(merged_top_svs.to_string())
+
+top_svs_all_info = {k:v for (k,v) in all_info_filt.items() if k in top_svs.keys()}
+print(top_svs_all_info)
+df_all_info = pd.Series(top_svs_all_info)
+merged_top_svs_all_info = pd.concat([df_genomes, df_all_info], axis=1)
+merged_top_svs_all_info.to_csv('top_svs.csv', sep=',')

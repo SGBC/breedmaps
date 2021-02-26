@@ -154,17 +154,23 @@ def count_sv_type(alt_column):
 #     #     results[row]['SAMPLES'] = samples
 
 
-def count_svs(vcf_list):
+def count_svs(vcf_list, vcf_files):
     counts = {}
-    for list in vcf_list:
-        for row in range(len(list)):
-            chrom = list.iloc[row]['CHROM']
-            pos = list.iloc[row]['POS'].astype(str)
+    genomes_pos = {}
+    all_info = {}
+    for i in range(len(vcf_list)):
+        genome = get_genome_name(vcf_files[i])
+        for row in range(len(vcf_list[i])):
+            chrom = vcf_list[i].iloc[row]['CHROM']
+            pos = vcf_list[i].iloc[row]['POS'].astype(str)
             chrom_pos = chrom + ':' + pos
             if chrom_pos in counts.keys():
                 counts[chrom_pos] += 1
+                genomes_pos[chrom_pos] += ';' + genome
+                all_info[chrom_pos] += ';' + vcf_list[i].iloc[row].astype(str)
             else:
                 counts[chrom_pos] = 1
-
-    return counts
+                genomes_pos[chrom_pos] = genome
+                all_info[chrom_pos] = vcf_list[i].iloc[row].astype(str)
+    return counts, genomes_pos, all_info
 
