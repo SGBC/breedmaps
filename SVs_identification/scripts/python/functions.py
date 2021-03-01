@@ -84,7 +84,7 @@ def summarize_stats(df):
 
 
 def plot_stats(sum_stats, sample_name):
-    x_axis = ['DEL', 'DUP', 'INV', 'INS', 'TRA', 'UNK']
+    x_axis = ['DEL', 'DUP', 'INV', 'INS', 'TRA']
     plt.plot(x_axis, sum_stats, '.', label=sample_name)
 
 
@@ -93,7 +93,6 @@ def count_sv_type(alt_column):
     count_dup = 0
     count_ins = 0
     count_inv = 0
-    count_unk = 0
     count_tra = 0
     for j in alt_column:
         if j == '<DEL>':
@@ -104,12 +103,10 @@ def count_sv_type(alt_column):
             count_ins = count_ins + 1
         elif j == '<INV>':
             count_inv = count_inv + 1
-        elif j == '<TRA>':
-            count_tra = count_tra + 1
         else:
-            count_unk = count_unk + 1
+            count_tra = count_tra + 1
 
-    return [count_del, count_dup, count_inv, count_ins, count_tra, count_unk]
+    return [count_del, count_dup, count_inv, count_ins, count_tra]
 
 
 # def find_overlap(vcf_list, vcf_files):
@@ -157,7 +154,6 @@ def count_sv_type(alt_column):
 def count_svs(vcf_list, vcf_files):
     counts = {}
     genomes_pos = {}
-    all_info = {}
     for i in range(len(vcf_list)):
         genome = get_genome_name(vcf_files[i])
         for row in range(len(vcf_list[i])):
@@ -167,10 +163,8 @@ def count_svs(vcf_list, vcf_files):
             if chrom_pos in counts.keys():
                 counts[chrom_pos] += 1
                 genomes_pos[chrom_pos] += ';' + genome
-                all_info[chrom_pos] += ';' + vcf_list[i].iloc[row].astype(str)
             else:
                 counts[chrom_pos] = 1
                 genomes_pos[chrom_pos] = genome
-                all_info[chrom_pos] = vcf_list[i].iloc[row].astype(str)
-    return counts, genomes_pos, all_info
+    return counts, genomes_pos
 
