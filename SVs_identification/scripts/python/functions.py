@@ -2,10 +2,10 @@ import pandas as pd
 import io
 import csv
 import matplotlib.pyplot as plt
-import math
 
 
 def read_delly_vcf(path):
+    """Reads VCF files but specifically modified for VCF files created by DELLY. Returns a dataframe"""
     with open(path, 'r') as f:
         lines = [l for l in f if not l.startswith('##')]
     df = pd.read_csv(
@@ -20,6 +20,7 @@ def read_delly_vcf(path):
 
 
 def read_vcf(path):
+    """Reads VCF files and returns it as a data frame"""
     with open(path, 'r') as f:
         lines = [l for l in f if not l.startswith('##')]
     return pd.read_csv(
@@ -31,6 +32,7 @@ def read_vcf(path):
 
 
 def read_gtf(path):
+    """Reads a gene annotation file, in the format GTF, and returns it as a data frame"""
     with open(path, 'r') as f:
         lines = [l for l in f if not l.startswith('#!')]
     genes = pd.read_csv(io.StringIO(''.join(lines)), header=None,
@@ -39,30 +41,21 @@ def read_gtf(path):
                         dtype={'seqname': str, 'source': str, 'feature': str, 'start': int, 'end': int, 'score': str,
                                'strand': str,
                                'frame': str, 'attributes': str}, sep='\t')
-
-    # genes_split = genes['attributes'].str.split(";", expand=True)
-    # df = pd.DataFrame(genes_split)
-    # df2 = pd.DataFrame()
-    # df2[0,['col_name', 'value']] = df.iloc[0, 0].split(' ')
-    # print(df2.iloc[0,:])
-
-    #for row in range(len(df)):
-    #    for column in range(len(df.columns)):
-    #        df2[row][['col_name', 'value']] = df.iloc[row,column].split(' ')
-
-    #print(df2)
     return genes
 
 
 def filter_precise(df):
+    """Filter VCF data frame on the flag PRECISE(will remove IMPRECISE). Specific for DELLY"""
     return df.loc[df['PRECISE'] == 'PRECISE']
 
 
 def filter_qual(df):
+    """Filter on the FILTER coulmn in VCF files. Common for VCF files"""
     return df.loc[df['FILTER'] == 'PASS']
 
 
 def read_survivor_stats(path):
+    """A custom function for importing SURVIVOR stats files. Returns a data frame"""
     file = open(path)
     tsv = csv.reader(file, delimiter="\t")
     df = pd.DataFrame(tsv)
@@ -73,6 +66,7 @@ def read_survivor_stats(path):
 
 
 def get_genome_name(path):
+    """Takes a path and extracts the file name. In this case it means genome name as well"""
     split = path.split('/')
     split2 = split[-1].split('.')
     sample_name = split2[0]
@@ -80,15 +74,19 @@ def get_genome_name(path):
 
 
 def summarize_stats(df):
+    """Summerize the counts create in the SURVIVOR stats. Returns a list of counts"""
     return [df['Del'].sum(), df['Dup'].sum(), df['Inv'].sum(), df['INS'].sum(), df['TRA'].sum(), df['UNK'].sum()]
 
 
 def plot_stats(sum_stats, sample_name):
+    """Plots the summerized stats. Add plt.show to be able to show the graph"""
     x_axis = ['DEL', 'DUP', 'INV', 'INS', 'TRA']
     plt.plot(x_axis, sum_stats, '.', label=sample_name)
 
 
-def count_sv_type(alt_column):
+def count_sv_type(sample):
+    """Counts how many variants of each SV type(DEL, DUP, INV, INS and TRA). Returns a list of counts"""
+    alt_column = sample['ALT']
     count_del = 0
     count_dup = 0
     count_ins = 0
@@ -96,62 +94,22 @@ def count_sv_type(alt_column):
     count_tra = 0
     for j in alt_column:
         if j == '<DEL>':
-            count_del = count_del + 1
+            count_del += 1
         elif j == '<DUP>':
-            count_dup = count_dup + 1
+            count_dup += 1
         elif j == '<INS>':
-            count_ins = count_ins + 1
+            count_ins += 1
         elif j == '<INV>':
-            count_inv = count_inv + 1
+            count_inv += 1
         else:
-            count_tra = count_tra + 1
+            count_tra += 1
 
     return [count_del, count_dup, count_inv, count_ins, count_tra]
 
 
-# def find_overlap(vcf_list, vcf_files):
-#     joined = pd.DataFrame(columns=['CHR_POS'])
-#     for i in range(len(vcf_list)):
-#         chrom_col = vcf_list[i][['CHROM']]['CHROM'].astype(str)
-#         pos_col = vcf_list[i][['POS']]['POS'].astype(str)
-#         combined = pd.DataFrame()
-#         combined['CHR_POS'] = chrom_col.str.cat(pos_col, sep=":")
-#         if i == 0:
-#             colname = 'CHR_POS' + get_genome_name(vcf_files[i])
-#             joined = pd.DataFrame({colname: combined['CHR_POS']})
-#         else:
-#             vcf = pd.DataFrame({'CHR_POS': combined['CHR_POS']})
-#             joined = joined.join(vcf, how='outer', lsuffix=get_genome_name(vcf_files[i - 1]),
-#                                  rsuffix=get_genome_name(vcf_files[i]))
-#
-#     print(joined.to_string())
-#     index = joined.columns
-#     genome = []
-#     for row in index:
-#         split = row.split('CHR_POS')
-#         genome.append(split[-1])
-#
-#     # rows = len(df)
-#     # cols = len(df.columns)
-#     # results = pd.DataFrame(columns=['CHR', 'POS', 'COUNT', 'SAMPLES'])
-#     # samples = []
-#     # for row in range(rows):
-#     #     count = 0
-#     #     chr = df[row]['CHROM']
-#     #     pos = df[row]['POS']
-#     #     print(df.iloc[1,:])
-#     #     for col in range(cols):
-#     #         if df.iloc[row, col] != 'NaN':
-#     #             count = count + 1
-#     #             #samples.append(sample)
-#     #
-#     #     results[row]['CHR'] = chr
-#     #     results[row]['POS'] = pos
-#     #     results[row]['COUNT'] = count
-#     #     results[row]['SAMPLES'] = samples
-
-
 def count_svs(vcf_list, vcf_files):
+    """Counts how many SV is in each location. Returns one dict object with positions as keys and counts as values and
+    one dict with positions and what genomes have SVs there"""
     counts = {}
     genomes_pos = {}
     for i in range(len(vcf_list)):
@@ -167,4 +125,3 @@ def count_svs(vcf_list, vcf_files):
                 counts[chrom_pos] = 1
                 genomes_pos[chrom_pos] = genome
     return counts, genomes_pos
-

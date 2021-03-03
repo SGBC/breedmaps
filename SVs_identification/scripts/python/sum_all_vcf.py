@@ -26,7 +26,7 @@ plt.figure(1)
 genome_names = []
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
-    counts = functions.count_sv_type(sample['ALT'])
+    counts = functions.count_sv_type(sample)
     genome_name = functions.get_genome_name(vcf_files[i])
     genome_names.append(genome_name)
     functions.plot_stats(counts, genome_name)
@@ -41,7 +41,7 @@ plt.savefig("nonfiltered_svs.png")
 plt.figure(2)
 for i in range(len(vcf_filtered)):
     sample = vcf_filtered[i]
-    counts = functions.count_sv_type(sample['ALT'])
+    counts = functions.count_sv_type(sample)
     functions.plot_stats(counts, genome_names[i])
 
 plt.legend(loc='upper center', fontsize='xx-small', ncol=3)
