@@ -83,4 +83,11 @@ print(merged_top_svs.to_string())
 merged_dict = pd.Series(top_svs_genomes)
 merged_dict.to_csv('top_svs.csv', sep=',')
 
+unique_svs = {k: v for (k, v) in count_filt.items() if v == 1}
+df_unique = pd.Series(unique_svs)
+print(f"There were {len(df_unique)} SVs found in only one genome.")
+unique_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in unique_svs.keys()}
+df_unique_genomes = pd.Series(unique_svs_genomes)
+merged_unique_svs = pd.concat([df_unique, df_unique_genomes], axis=1)
+merged_unique_svs.to_csv('unique_svs.csv', sep=',')
 plt.show()
