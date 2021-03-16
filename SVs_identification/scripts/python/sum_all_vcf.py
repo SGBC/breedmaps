@@ -58,7 +58,7 @@ chr_pos_raw, num_raw = zip(*sorted_count_raw)
 plt.plot(num_raw)
 plt.xlabel('SVs')
 plt.ylabel('Number of times each SV is found')
-plt.title('The number of times each SV(chr and start pos) has been found in the raw VCF files')
+plt.title('The number of times each SV has been found in the raw VCF files')
 plt.savefig("counted_nonfiltered_svs.png")
 
 plt.figure(4)
@@ -68,7 +68,7 @@ chr_pos_filt, num_filt = zip(*sorted_count_filt)
 plt.plot(num_filt)
 plt.xlabel('SVs')
 plt.ylabel('Number of times each SV is found')
-plt.title('The number of times each SV(chr and start pos) has been found in the filtered VCF files')
+plt.title('The number of times each SV has been found in the filtered VCF files')
 plt.savefig("counted_filtered_svs.png")
 
 top_svs = {k: v for (k, v) in count_filt.items() if v > 10}

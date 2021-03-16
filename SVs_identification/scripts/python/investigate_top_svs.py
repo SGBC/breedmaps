@@ -22,8 +22,6 @@ for i in range(len(vcf_files)):
     genome_names.append(genome_name)
     vcf[genome_name] = precise
 
-# print(functions.get_genome_name(vcf_files[0]))
-# print(vcf[functions.get_genome_name(vcf_files[0])].columns)
 
 # Seperate the genomes
 genomes = top_svs['GENOMES'].str.split(';', expand=True)
@@ -40,20 +38,29 @@ for i in range(len(genome_names)):
             genome_dict[genome_names[i]] = False
     genome_dict_list.append(genome_dict)
 # Choose one location and one genome to go forward with
-df1 = vcf['BTA127_L4_SV']
+# df1 = vcf['BTA127_L4_SV']
+dfs = []
+joined = top_svs.copy()
+for i in range(len(genome_names)):
+    df1 = vcf[genome_names[i]]
+    df1_split = df1['INFO'].str.split(';', expand=True)
+    # Remove precise column since it is already in the previous data frame
+    df1_split = df1_split.iloc[:, 1:17]
+    df1_split.columns = ['SVTYPE', 'SVMETHOD', 'CHR2', 'END', 'PE', 'MAPQ', 'CT', 'CIPOS', 'CIEND', 'SRMAPQ', 'INSLEN', 'HOMLEN', 'SR', 'SRQ', 'CONSENSUS', 'CE']
 
-df1_split = df1['INFO'].str.split(';', expand=True)
-# Remove precise column since it is already in the previous data frame
-df1_split = df1_split.iloc[:, 1:17]
-df1_split.columns = ['SVTYPE', 'SVMETHOD', 'CHR2', 'END', 'PE', 'MAPQ', 'CT', 'CIPOS', 'CIEND', 'SRMAPQ', 'INSLEN', 'HOMLEN', 'SR', 'SRQ', 'CONSENSUS', 'CE']
+    for row in range(len(df1_split)):
 
-for row in range(len(df1_split)):
+        for col in range(len(df1_split.columns)):
+            column = df1_split.iloc[row, col]
+            df1_split_col = column.split('=')
+            df1_split.iloc[row, col] = df1_split_col[1]
 
-    for col in range(len(df1_split.columns)):
-        column = df1_split.iloc[row, col]
-        df1_split_col = column.split('=')
-        df1_split.iloc[row, col] = df1_split_col[1]
+    df1 = df1.join(df1_split)
+    joined = joined.join(df1, rsuffix=genome_names[i])
+print(joined.iloc[0,:].to_string())
 
-df1 = df1.join(df1_split)
 
-print(df1.iloc[0,:])
+
+
+
+# GT: 0/1 = Heterozygot, 1/1 = Homozygot, 0/0 = HOMO_REF
