@@ -3,8 +3,8 @@ import glob
 import functions
 import numpy as np
 
-# gene_ann_path = '/Users/jj/breedmaps/SVs_identification/data/annotation/Bos_taurus.ARS-UCD1.2.102.gtf'
-# genes = functions.read_gtf(gene_ann_path)
+gene_ann_path = '/Users/jj/breedmaps/SVs_identification/data/annotation/Bos_taurus.ARS-UCD1.2.102.gtf'
+genes = functions.read_gtf(gene_ann_path)
 top_svs = pd.read_csv('top_svs.csv', sep=',')
 top_svs.columns = ['CHR:POS', 'GENOMES']
 top_svs[['CHR', 'POS']] = top_svs['CHR:POS'].str.split(':', expand=True)
@@ -18,7 +18,7 @@ for i in range(len(vcf_files)):
     # Filtered by the FILTER column(FITLER == PASS) and PRECISE flag
     filtered = functions.filter_qual(file)
     precise = functions.filter_precise(filtered)
-    genome_name = functions.get_genome_name(vcf_files[i])
+    genome_name = functions.get_file_name(vcf_files[i])
     genome_names.append(genome_name)
     vcf[genome_name] = precise
 

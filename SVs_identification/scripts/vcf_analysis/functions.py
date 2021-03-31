@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 def read_delly_vcf(path):
     """Reads VCF files but specifically modified for VCF files created by DELLY. Returns a dataframe"""
     with open(path, 'r') as f:
+        # Read lines that is not a header line
         lines = [l for l in f if not l.startswith('##')]
     df = pd.read_csv(
         io.StringIO(''.join(lines)),
@@ -14,6 +15,7 @@ def read_delly_vcf(path):
                'QUAL': str, 'FILTER': str, 'INFO': str},
         sep='\t'
     ).rename(columns={'#CHROM': 'CHROM'})
+    # Save the PRECISE/IMPRECISE flag as an additional column
     df[['PRECISE', 'EXTRA']] = df['INFO'].str.split(';', 1, expand=True)
     df = df.drop(['EXTRA'], axis=1)
     return df
@@ -22,6 +24,7 @@ def read_delly_vcf(path):
 def read_vcf(path):
     """Reads VCF files and returns it as a data frame"""
     with open(path, 'r') as f:
+        # Read lines that is not a header line
         lines = [l for l in f if not l.startswith('##')]
     return pd.read_csv(
         io.StringIO(''.join(lines)),
@@ -46,31 +49,33 @@ def read_gtf(path):
 
 def filter_precise(df):
     """Filter VCF data frame on the flag PRECISE(will remove IMPRECISE). Specific for DELLY"""
+    # Saves only the variants with the PRECISE flag. IMPRECISE are filtered out
     return df.loc[df['PRECISE'] == 'PRECISE']
 
 
 def filter_qual(df):
     """Filter on the FILTER coulmn in VCF files. Common for VCF files"""
+    # Saves only the variants that passed the vcf filters. LowQual are filtered out
     return df.loc[df['FILTER'] == 'PASS']
 
 
 def read_survivor_stats(path):
     """A custom function for importing SURVIVOR stats files. Returns a data frame"""
     file = open(path)
-    tsv = csv.reader(file, delimiter="\t")
-    df = pd.DataFrame(tsv)
+    df = pd.read_csv(file, sep="\t")
     df.columns = df.loc[0, :]
     new_df = df.loc[1:5, :]
     final_df = new_df.astype({'Len': str, 'Del': int, 'Dup': int, 'Inv': int, 'INS': int, 'TRA': int, 'UNK': int})
     return final_df
 
 
-def get_genome_name(path):
-    """Takes a path and extracts the file name. In this case it means genome name as well"""
+def get_file_name(path):
+    """Takes a path and extracts the file name."""
+    # Split the path and extract the final part of the path(which will be the name)
     split = path.split('/')
     split2 = split[-1].split('.')
-    sample_name = split2[0]
-    return sample_name
+    file_name = split2[0]
+    return file_name
 
 
 def summarize_stats(df):
@@ -113,8 +118,9 @@ def count_svs(vcf_list, vcf_files):
     counts = {}
     genomes_pos = {}
     for i in range(len(vcf_list)):
-        genome = get_genome_name(vcf_files[i])
+        genome = get_file_name(vcf_files[i])
         for row in range(len(vcf_list[i])):
+            # Combine the chromosome and the start position to be able compare positions
             chrom = vcf_list[i].iloc[row]['CHROM']
             pos = vcf_list[i].iloc[row]['POS'].astype(str)
             chrom_pos = chrom + ':' + pos

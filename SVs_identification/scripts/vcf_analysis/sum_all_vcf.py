@@ -27,7 +27,7 @@ genome_names = []
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
     counts = functions.count_sv_type(sample)
-    genome_name = functions.get_genome_name(vcf_files[i])
+    genome_name = functions.get_file_name(vcf_files[i])
     genome_names.append(genome_name)
     functions.plot_stats(counts, genome_name)
 
