@@ -7,7 +7,7 @@ output: html_document
 params:
   workingDir: '/Users/jj/breedmaps/SVs_identification/'
   annDir: 'data/annotation/'
-  gene_ann: 'Bos_taurus.ARS-UCD1.2.102.gtf'
+  gene_ann: 'Bos_taurus.ARS-UCD1.2.103.gtf'
   vcfDir: 'data/vcf/'
 ---
 
@@ -17,119 +17,185 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(vcfR)
 library("tidyverse")
+library(GenomicRanges)
+library("rtracklayer")
+
+```
+
+```{r functions}
+read_delly_vcf = function(path) {
+  vcf = read.table(
+    file = path,
+    quote = "",
+    sep = "\t",
+    header = FALSE,
+    stringsAsFactors = F
+  )
+  # fix = V8, Meta = V9, gt = V10
+  renamed = vcf %>% dplyr::rename(
+    CHROM = V1,
+    POS = V2,
+    ID = V3,
+    REF = V4,
+    ALT = V5,
+    QUAL = V6,
+    FILTER = V7,
+    INFO = V8,
+    FORMAT = V9,
+    GT = V10
+  )
+  tmp.split = data.frame(stringr::str_split_fixed(renamed$INFO, ";", n = Inf))
+  info = data.frame(matrix(
+    data = NA,
+    nrow = dim(tmp.split)[1],
+    ncol = dim(tmp.split)[2] + 1
+  ))
+  rownames(info) = renamed$ID
+  colnames(info) = c(
+    "PRECISE",
+    "IMPRECISE",
+    "SVTYPE",
+    "SVMETHOD",
+    "CHR2",
+    "END",
+    "PE",
+    "MAPQ",
+    "CT",
+    "CIPOS",
+    "CIEND",
+    "SRMAPQ",
+    "INSLEN",
+    "HOMLEN",
+    "SR",
+    "SRQ",
+    "CONSENSUS",
+    "CE"
+  )
+  for (row in 1:dim(info)[1]) {
+    for (col in 1:dim(info)[2]) {
+      if (is.null(tmp.split[row, col])) {
+        
+      }
+      else if (tmp.split[row, col] == "") {
+        
+      }
+      else if (tmp.split[row, col] == "PRECISE") {
+        info[row, "PRECISE"] = TRUE
+        info[row, "IMPRECISE"] = FALSE
+      }
+      else if (tmp.split[row, col] == "IMPRECISE") {
+        info[row, "PRECISE"] = FALSE
+        info[row, "IMPRECISE"] = TRUE
+      }
+      else {
+        split = stringr::str_split_fixed(tmp.split[row, col], "=", n = 2)
+        #info[row, split[1]] = tmp.split[row, col]
+        info[row, split[1]] = split[[2]]
+      }
+    }
+  }
+  id_column = rownames_to_column(info, var = "ID")
+  result = inner_join(renamed, id_column, by = "ID")
+  cleaned = result %>% select(
+    CHROM,
+    POS,
+    ID,
+    REF,
+    ALT,
+    QUAL,
+    FILTER,
+    PRECISE,
+    SVTYPE,
+    CHR2,
+    END,
+    PE,
+    MAPQ,
+    CT,
+    CIPOS,
+    CIEND,
+    SRMAPQ,
+    INSLEN,
+    HOMLEN,
+    SR,
+    SRQ,
+    CONSENSUS,
+    CE
+  )
+  return (cleaned)
+}
+
+find_overlap(vcf_range, gene_range, vcf_df, gene_df){
+  overlap = data.frame(findOverlaps(vcf_range, gene_range, maxgap = 0))
+  # The output from findOverlaps needs to be reformatted to include the geneIDs we need to join
+  overlap$ID = df_list[[i]]$ID[overlap$queryHits]
+  overlap$gene_id = gene_df$gene_id[overlap$subjectHits]
+  overlap = overlap %>% dplyr::select(ID, gene_id)
+  joined_vcf  = inner_join(overlap, df_list[[i]], by = "ID")
+  joined_genes =  inner_join(joined_vcf,  gene_df, by = "gene_id")
+  precise_only = joined_genes %>% filter(PRECISE == TRUE) %>% filter(FILTER == "PASS")
+  overlap_list[[i]] = joined_genes
+}
 
 ```
 
 ## Load files
 Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/gtf/bos_taurus/).
 
+```{r load genes}
+# # Load gene info from ENSEMBL gtf file
+gene_path = paste(params$workingDir, params$annDir, params$gene_ann, sep="")
+gtf.file<-rtracklayer::import(gene_path)
+gene_df = as.data.frame(gtf.file)%>% filter(type == "gene")
+gene_range = makeGRangesFromDataFrame(
+    gene_df,
+    seqnames.field = "seqnames",
+    start.field = "start",
+    end.field = "end",
+    strand.field = "strand"
+  )
+
+```
+
 ```{r read files}
 # Load VCF file
 vcf_path = paste(params$workingDir, params$vcfDir, sep = "")
 vcf_files = list.files(path = vcf_path, pattern = "*.vcf")
+df_list = list()
+range_list = list()
 
-vcf = read.table(
-  file = paste(vcf_path, vcf_files[1], sep = ""),
-  quote = "",
-  sep = "\t",
-  header = FALSE,
-  stringsAsFactors = F
-)
-# fix = V8, Meta = V9, gt = V10
-renamed = vcf %>% rename(
-  CHROM = V1,
-  POS = V2,
-  ID = V3,
-  REF = V4,
-  ALT = V5,
-  QUAL = V6,
-  FILTER = V7,
-  INFO = V8,
-  FORMAT = V9,
-  GT = V10
-)
-tmp.split = data.frame(stringr::str_split_fixed(renamed$INFO, ";", n = Inf))
-info = data.frame(matrix(
-  data = NA,
-  nrow = dim(tmp.split)[1],
-  ncol = dim(tmp.split)[2] + 1
-))
-rownames(info) = renamed$ID
-colnames(info) = c(
-  "PRECISE",
-  "IMPRECISE",
-  "SVTYPE",
-  "SVMETHOD",
-  "CHR2",
-  "END",
-  "PE",
-  "MAPQ",
-  "CT",
-  "CIPOS",
-  "CIEND",
-  "SRMAPQ",
-  "INSLEN",
-  "HOMLEN",
-  "SR",
-  "SRQ",
-  "CONSENSUS",
-  "CE"
-)
-for (row in 1:dim(info)[1]) {
-  for (col in 1:dim(info)[2]) {
-    if (is.null(tmp.split[row, col])) {
-      
-    }
-    else if (tmp.split[row, col] == "") {
-      
-    }
-    else if (tmp.split[row, col] == "PRECISE") {
-      info[row, "PRECISE"] = TRUE
-      info[row, "IMPRECISE"] = FALSE
-    }
-    else if (tmp.split[row, col] == "IMPRECISE") {
-      info[row, "PRECISE"] = FALSE
-      info[row, "IMPRECISE"] = TRUE
-    }
-    else {
-      split = stringr::str_split_fixed(tmp.split[row, col], "=", n = 2)
-      #info[row, split[1]] = tmp.split[row, col]
-      info[row, split[1]] = split[[2]]
-    }
-  }
+for (i in 1:length(vcf_files)) {
+  vcf_file = paste(vcf_path, vcf_files[i], sep = "")
+  df = read_delly_vcf(vcf_file)
+  # Because of the ranges need to filter out the breakpoint
+  filt_var = df %>% filter(ALT == "<DUP>" | ALT == "<DEL>" | ALT == "<INV>" | ALT == "<INS>")
+  filt_var$file = vcf_files[i]
+  df_list[[i]] = filt_var
+  vcf_range = makeGRangesFromDataFrame(
+    filt_var,
+    seqnames.field = "CHROM",
+    start.field = "POS",
+    end.field = "END",
+  )
+  range_list[[i]] = vcf_range 
 }
-id_column = rownames_to_column(info, var = "ID")
-result = inner_join(renamed, id_column, by = "ID")
-cleaned = result %>% select(CHROM, POS, ID, REF, ALT, QUAL, FILTER, PRECISE, SVTYPE, CHR2, END, PE, MAPQ, CT, CIPOS, CIEND, SRMAPQ, INSLEN, HOMLEN, SR, SRQ, CONSENSUS, CE)
-qual = cleaned %>% filter(PRECISE==TRUE) %>% filter(FILTER=='PASS')
 
-# for (i in 1:length(vcf_files)) {
-#   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
-#   df = vcfR2tidy(read.vcfR(vcf_file, verbose = FALSE), verbose = FALSE)$fix
-#   filt_df = df %>% filter(FILTER == "PASS")
-#   vcf_range = makeGRangesFromDataFrame(
-#     filt_df,
-#     seqnames.field = "CHROM",
-#     start.field = "POS",
-#     end.field = "END",
-#     strand.field = "K27ac_Strand"
-#   )
-#   assign(vcf_files[i], filt_df)
-# }
-
-
-
-# # Load gene info from ENSEMBL gtf file
-# gene_path = paste(params$workingDir, params$annDir, params$gene_file, sep="")
-# gene_ann = import_gff_gtf(gene_path, "gtf")
 ```
 
 
 
-```{r formatting and filtering}
-
-
-
+```{r finding overlap}
+overlap_list = list()
+for (i in 1:length(range_list)) {
+  overlap = data.frame(findOverlaps(range_list[[i]], gene_range, maxgap = 0))
+  # The output from findOverlaps needs to be reformatted to include the geneIDs we need to join
+  overlap$ID = df_list[[i]]$ID[overlap$queryHits]
+  overlap$gene_id = gene_df$gene_id[overlap$subjectHits]
+  overlap = overlap %>% dplyr::select(ID, gene_id)
+  joined_vcf  = inner_join(overlap, df_list[[i]], by = "ID")
+  joined_genes =  inner_join(joined_vcf,  gene_df, by = "gene_id")
+  precise_only = joined_genes %>% filter(PRECISE == TRUE) %>% filter(FILTER == "PASS")
+  overlap_list[[i]] = joined_genes
+}
 ```
 
 
