@@ -9,6 +9,7 @@ params:
   annDir: 'data/annotation/'
   gene_ann: 'Bos_taurus.ARS-UCD1.2.103.gtf'
   vcfDir: 'data/vcf/'
+  resultsDir: 'results/gene_annotation/'
 ---
 
 ```{r setup, include=FALSE}
@@ -124,35 +125,24 @@ read_delly_vcf = function(path) {
   return (cleaned)
 }
 
-find_overlap(vcf_range, gene_range, vcf_df, gene_df){
-  overlap = data.frame(findOverlaps(vcf_range, gene_range, maxgap = 0))
-  # The output from findOverlaps needs to be reformatted to include the geneIDs we need to join
-  overlap$ID = df_list[[i]]$ID[overlap$queryHits]
-  overlap$gene_id = gene_df$gene_id[overlap$subjectHits]
-  overlap = overlap %>% dplyr::select(ID, gene_id)
-  joined_vcf  = inner_join(overlap, df_list[[i]], by = "ID")
-  joined_genes =  inner_join(joined_vcf,  gene_df, by = "gene_id")
-  precise_only = joined_genes %>% filter(PRECISE == TRUE) %>% filter(FILTER == "PASS")
-  overlap_list[[i]] = joined_genes
-}
-
 ```
 
 ## Load files
 Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/gtf/bos_taurus/).
 
 ```{r load genes}
-# # Load gene info from ENSEMBL gtf file
-gene_path = paste(params$workingDir, params$annDir, params$gene_ann, sep="")
-gtf.file<-rtracklayer::import(gene_path)
-gene_df = as.data.frame(gtf.file)%>% filter(type == "gene")
+# Load gene info from ENSEMBL gtf file
+gene_path = paste(params$workingDir, params$annDir, params$gene_ann, sep =
+                    "")
+gtf.file <- rtracklayer::import(gene_path)
+gene_df = as.data.frame(gtf.file) %>% filter(type == "gene")
 gene_range = makeGRangesFromDataFrame(
-    gene_df,
-    seqnames.field = "seqnames",
-    start.field = "start",
-    end.field = "end",
-    strand.field = "strand"
-  )
+  gene_df,
+  seqnames.field = "seqnames",
+  start.field = "start",
+  end.field = "end",
+  strand.field = "strand"
+)
 
 ```
 
@@ -167,7 +157,8 @@ for (i in 1:length(vcf_files)) {
   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
   df = read_delly_vcf(vcf_file)
   # Because of the ranges need to filter out the breakpoint
-  filt_var = df %>% filter(ALT == "<DUP>" | ALT == "<DEL>" | ALT == "<INV>" | ALT == "<INS>")
+  filt_var = df %>% filter(ALT == "<DUP>" |
+                             ALT == "<DEL>" | ALT == "<INV>" | ALT == "<INS>")
   filt_var$file = vcf_files[i]
   df_list[[i]] = filt_var
   vcf_range = makeGRangesFromDataFrame(
@@ -176,7 +167,7 @@ for (i in 1:length(vcf_files)) {
     start.field = "POS",
     end.field = "END",
   )
-  range_list[[i]] = vcf_range 
+  range_list[[i]] = vcf_range
 }
 
 ```
@@ -196,6 +187,54 @@ for (i in 1:length(range_list)) {
   precise_only = joined_genes %>% filter(PRECISE == TRUE) %>% filter(FILTER == "PASS")
   overlap_list[[i]] = joined_genes
 }
+```
+
+```{r filtering}
+filtered_list = list()
+for (i in 1:length(range_list)) {
+  filtered_list[[i]] = overlap_list[[i]] %>% filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
+}
+```
+
+```{r write to file}
+# Save all variants with genes to file
+for (i in 1:length(overlap_list)) {
+  results_gene = paste(params$workingDir,
+                       params$resultsDir,
+                       "all_variants/",
+                       "ann_",
+                       vcf_files[[i]],
+                       sep = "")
+  write.table(
+    x = overlap_list[[i]],
+    file = results_gene,
+    quote = F,
+    sep = "\t",
+    row.names = F,
+    col.names = T
+  )
+}
+
+# Save only the PRECISE variants
+for (i in 1:length(overlap_list)) {
+  results_gene = paste(
+    params$workingDir,
+    params$resultsDir,
+    "filtered_variants/",
+    "filt_ann_",
+    vcf_files[[i]],
+    sep = ""
+  )
+  write.table(
+    x = filtered_list[[i]],
+    file = results_gene,
+    quote = F,
+    sep = "\t",
+    row.names = F,
+    col.names = T
+  )
+}
+
 ```
 
 
