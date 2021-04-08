@@ -7,6 +7,7 @@ output: html_document
 params:
   workingDir: '/Users/jj/breedmaps/SVs_identification/'
   annDir: 'data/annotation/'
+  scriptDir: 'scripts/gene_annotation/'
   gene_ann: 'Bos_taurus.ARS-UCD1.2.103.gtf'
   vcfDir: 'data/vcf/'
   resultsDir: 'results/gene_annotation/'
@@ -14,118 +15,16 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#install.packages("vcfR")
+#install.packages("UniprotR")
 
-library(vcfR)
+library('UniprotR')
 library("tidyverse")
 library(GenomicRanges)
 library("rtracklayer")
+source(paste(params$workingDir, params$scriptDir, "functions.R", sep=""))
 
 ```
 
-```{r functions}
-read_delly_vcf = function(path) {
-  vcf = read.table(
-    file = path,
-    quote = "",
-    sep = "\t",
-    header = FALSE,
-    stringsAsFactors = F
-  )
-  # fix = V8, Meta = V9, gt = V10
-  renamed = vcf %>% dplyr::rename(
-    CHROM = V1,
-    POS = V2,
-    ID = V3,
-    REF = V4,
-    ALT = V5,
-    QUAL = V6,
-    FILTER = V7,
-    INFO = V8,
-    FORMAT = V9,
-    GT = V10
-  )
-  tmp.split = data.frame(stringr::str_split_fixed(renamed$INFO, ";", n = Inf))
-  info = data.frame(matrix(
-    data = NA,
-    nrow = dim(tmp.split)[1],
-    ncol = dim(tmp.split)[2] + 1
-  ))
-  rownames(info) = renamed$ID
-  colnames(info) = c(
-    "PRECISE",
-    "IMPRECISE",
-    "SVTYPE",
-    "SVMETHOD",
-    "CHR2",
-    "END",
-    "PE",
-    "MAPQ",
-    "CT",
-    "CIPOS",
-    "CIEND",
-    "SRMAPQ",
-    "INSLEN",
-    "HOMLEN",
-    "SR",
-    "SRQ",
-    "CONSENSUS",
-    "CE"
-  )
-  for (row in 1:dim(info)[1]) {
-    for (col in 1:dim(info)[2]) {
-      if (is.null(tmp.split[row, col])) {
-        
-      }
-      else if (tmp.split[row, col] == "") {
-        
-      }
-      else if (tmp.split[row, col] == "PRECISE") {
-        info[row, "PRECISE"] = TRUE
-        info[row, "IMPRECISE"] = FALSE
-      }
-      else if (tmp.split[row, col] == "IMPRECISE") {
-        info[row, "PRECISE"] = FALSE
-        info[row, "IMPRECISE"] = TRUE
-      }
-      else {
-        split = stringr::str_split_fixed(tmp.split[row, col], "=", n = 2)
-        #info[row, split[1]] = tmp.split[row, col]
-        info[row, split[1]] = split[[2]]
-      }
-    }
-  }
-  id_column = rownames_to_column(info, var = "ID")
-  result = inner_join(renamed, id_column, by = "ID")
-  cleaned = result %>% select(
-    CHROM,
-    POS,
-    ID,
-    REF,
-    ALT,
-    QUAL,
-    FILTER,
-    PRECISE,
-    SVTYPE,
-    CHR2,
-    END,
-    PE,
-    MAPQ,
-    CT,
-    CIPOS,
-    CIEND,
-    SRMAPQ,
-    INSLEN,
-    HOMLEN,
-    SR,
-    SRQ,
-    CONSENSUS,
-    CE
-  )
-  return (cleaned)
-}
-
-```
 
 ## Load files
 Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/gtf/bos_taurus/).
@@ -156,14 +55,15 @@ range_list = list()
 
 for (i in 1:length(vcf_files)) {
   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
+  
+  # Save the file name to be able to use it when writing results files
   name = strsplit(vcf_files, "\\.")[[i]][1]
   vcf_names[[i]] = name
   
   df = read_delly_vcf(vcf_file)
   # Because of the ranges need to filter out the breakpoint
-  filt_var = df %>% filter(ALT == "<DUP>" |
-                             ALT == "<DEL>" | ALT == "<INV>" | ALT == "<INS>")
-  filt_var$file = vcf_files[i]
+  filt_var = df %>% filter(ALT == "<DUP>" | ALT == "<DEL>" |
+                             ALT == "<INV>" | ALT == "<INS>")
   df_list[[i]] = filt_var
   vcf_range = makeGRangesFromDataFrame(
     filt_var,
@@ -177,21 +77,15 @@ for (i in 1:length(vcf_files)) {
 ```
 
 
-
 ```{r finding overlap}
 overlap_list = list()
 for (i in 1:length(range_list)) {
-  overlap = data.frame(findOverlaps(range_list[[i]], gene_range, maxgap = 0))
-  # The output from findOverlaps needs to be reformatted to include the geneIDs we need to join
-  overlap$ID = df_list[[i]]$ID[overlap$queryHits]
-  overlap$gene_id = gene_df$gene_id[overlap$subjectHits]
-  overlap = overlap %>% dplyr::select(ID, gene_id)
-  joined_vcf  = inner_join(overlap, df_list[[i]], by = "ID")
-  joined_genes =  inner_join(joined_vcf,  gene_df, by = "gene_id")
-  precise_only = joined_genes %>% filter(PRECISE == TRUE) %>% filter(FILTER == "PASS")
-  overlap_list[[i]] = joined_genes
+  overlap = findoverlap_dataframe(range_list[[i]], gene_range, df_list[[i]], gene_df)
+  precise_only = overlap %>% filter(PRECISE == TRUE) %>% filter(FILTER == "PASS")
+  overlap_list[[i]] = overlap
 }
 ```
+
 
 ```{r filtering}
 filtered_list = list()
@@ -199,6 +93,7 @@ for (i in 1:length(range_list)) {
   filtered_list[[i]] = overlap_list[[i]] %>% filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
 }
 ```
+
 
 ```{r write to file}
 # Save all variants with genes to file
