@@ -1,0 +1,35 @@
+---
+title: "Gene function and pathway analysis"
+author: "Jenny Jakobsson"
+date: "4/9/2021"
+output: html_document
+
+params:
+  workingDir: '/Users/jj/breedmaps/SVs_identification/'
+  annDir: 'data/annotation/'
+  scriptDir: 'scripts/gene_annotation/'
+  resultsDir: 'results/gene_annotation/filtered_variants/'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library('UniprotR')
+library("tidyverse")
+
+```
+
+```{r}
+path = paste(params$workingDir, params$resultsDir, sep = "")
+acc_files = list.files(path = path, pattern = "UNIPROT_*")
+
+acc = GetAccessionList(paste(path, acc_files[[1]], sep=""))
+acc_conv = ConvertID(acc, ID_from = "ENSEMBL_ID" , ID_to = "ACC")
+acc2 = data.frame(acc = acc_conv[[2]], stringsAsFactors = FALSE)
+for (i in 1:length(acc2)){
+  split_id = split(acc2, ",")
+  print(split_id)
+}
+
+
+```
+
