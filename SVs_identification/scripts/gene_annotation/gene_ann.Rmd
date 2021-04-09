@@ -17,11 +17,12 @@ params:
 knitr::opts_chunk$set(echo = TRUE)
 #install.packages("UniprotR")
 
-library('UniprotR')
 library("tidyverse")
 library(GenomicRanges)
 library("rtracklayer")
 source(paste(params$workingDir, params$scriptDir, "functions.R", sep=""))
+library('UniprotR')
+
 
 ```
 
@@ -34,7 +35,7 @@ Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/g
 gene_path = paste(params$workingDir, params$annDir, params$gene_ann, sep =
                     "")
 gtf.file <- rtracklayer::import(gene_path)
-gene_df = as.data.frame(gtf.file) %>% filter(type == "gene")
+gene_df = as.data.frame(gtf.file) %>% filter(type == "gene") %>% select(seqnames, start, end, width, strand, source, type, gene_id, gene_source, gene_biotype, gene_name)
 gene_range = makeGRangesFromDataFrame(
   gene_df,
   seqnames.field = "seqnames",
@@ -127,6 +128,26 @@ for (i in 1:length(overlap_list)) {
   write.table(
     x = filtered_list[[i]],
     file = results_gene,
+    quote = F,
+    sep = "\t",
+    row.names = F,
+    col.names = T
+  )
+}
+
+for (i in 1:length(overlap_list)) {
+  results_uniprot = paste(
+    params$workingDir,
+    params$resultsDir,
+    "filtered_variants/",
+    "UNIPROT_",
+    vcf_names[[i]],
+    sep = ""
+  )
+  uniprot_genes = data.frame(acc = filtered_list[[i]]$gene_name)
+  write.table(
+    x = uniprot_genes,
+    file = results_uniprot,
     quote = F,
     sep = "\t",
     row.names = F,
