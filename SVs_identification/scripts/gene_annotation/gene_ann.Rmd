@@ -22,8 +22,6 @@ library(GenomicRanges)
 library("rtracklayer")
 source(paste(params$workingDir, params$scriptDir, "functions.R", sep=""))
 library('UniprotR')
-
-
 ```
 
 
@@ -104,6 +102,7 @@ for (i in 1:length(overlap_list)) {
                        "all_variants/",
                        "ann_",
                        vcf_names[[i]],
+                       ".tsv",
                        sep = "")
   write.table(
     x = overlap_list[[i]],
@@ -123,6 +122,7 @@ for (i in 1:length(overlap_list)) {
     "filtered_variants/",
     "filt_ann_",
     vcf_names[[i]],
+    ".tsv",
     sep = ""
   )
   write.table(
@@ -145,7 +145,7 @@ for (i in 1:length(overlap_list)) {
     ".csv",
     sep = ""
   )
-  uniprot_genes = data.frame(acc = filtered_list[[i]]$gene_name)
+  uniprot_genes = data.frame(acc = filtered_list[[i]]$gene_id)
   write.csv(uniprot_genes,results_uniprot, row.names = FALSE)
 }
 
