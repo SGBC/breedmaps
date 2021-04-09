@@ -142,17 +142,11 @@ for (i in 1:length(overlap_list)) {
     "filtered_variants/",
     "UNIPROT_",
     vcf_names[[i]],
+    ".csv",
     sep = ""
   )
   uniprot_genes = data.frame(acc = filtered_list[[i]]$gene_name)
-  write.table(
-    x = uniprot_genes,
-    file = results_uniprot,
-    quote = F,
-    sep = "\t",
-    row.names = F,
-    col.names = T
-  )
+  write.csv(uniprot_genes,results_uniprot, row.names = FALSE)
 }
 
 ```
