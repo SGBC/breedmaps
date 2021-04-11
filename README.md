@@ -38,7 +38,7 @@ To kill a submission/run
 
 JOB-ID can be found using qstat 
 
-All the results can be found on the 
+All the results can be found in the specified OUTPUT folder. 
 
 
 
