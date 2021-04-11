@@ -13,5 +13,5 @@
 echo "Starting the pipeline"
 module load conda 
 . ../../scripts/conda.sh
-module load delly
+conda activate /home/phanindra/env/SVpipeline
 ../../scripts/nextflow run ../../scripts/main.nf
