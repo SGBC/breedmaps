@@ -17,19 +17,19 @@ Before executing the pipeline there are three things that need to be fixed.
 
 - After updating the paths/location of the files accordingly.
 ### To run the pipeline on your local computer
-´./nextflow run main.nf´
+`./nextflow run main.nf`
 ### To resume a run just add "-resume" flag 
-´./nextflow run main.nf -resume´
+`./nextflow run main.nf -resume`
 
 ### To run on the server
 for example these scripts were ran on the planetsmasher server using QSUB job scheduler.
 Details are available in the "run_nf_breedmap.sh" file, change the parameters to your need. 
 And then
-´qsub run_nf_breedmap.sh´
+`qsub run_nf_breedmap.sh`
 To check the status 
-´qstat´
+`qstat`
 To kill a submission/run 
-´qdel "JOB-ID"´
+`qdel "JOB-ID"`
 JOB-ID can be found using qstat 
 
 All the results can be found on the 
