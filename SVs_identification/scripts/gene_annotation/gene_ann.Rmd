@@ -114,10 +114,10 @@ overlap_exon_list = list()
 overlap_rest_list = list()
 
 for (i in 1:length(range_list)) {
-  # overlap_gene = findoverlap_dataframe(range_list[[i]], gene_range, df_list[[i]], ann_df)
-  # overlap_tran = findoverlap_dataframe(range_list[[i]], tran_range, df_list[[i]], ann_df)
-  # overlap_exon = findoverlap_dataframe(range_list[[i]], exon_range, df_list[[i]], ann_df)
-  overlap_rest = findoverlap_dataframe(range_list[[i]], rest_range, df_list[[i]], ann_df)
+  # overlap_gene = findoverlap_dataframe(range_list[[i]], gene_range, df_list[[i]], gene_df)
+  # overlap_tran = findoverlap_dataframe(range_list[[i]], tran_range, df_list[[i]], tran_df)
+  # overlap_exon = findoverlap_dataframe(range_list[[i]], exon_range, df_list[[i]], exon_df)
+  overlap_rest = findoverlap_dataframe(range_list[[i]], rest_range, df_list[[i]], rest_df)
   # overlap_gene_list[[i]] = overlap_gene
   # overlap_tran_list[[i]] = overlap_tran
   # overlap_exon_list[[i]] = overlap_exon
