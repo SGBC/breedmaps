@@ -30,12 +30,43 @@ Gene information downloaded from ENSEMBL(ftp://ftp.ensembl.org/pub/release-102/g
 
 ```{r load genes}
 # Load gene info from ENSEMBL gtf file
-gene_path = paste(params$workingDir, params$annDir, params$gene_ann, sep =
+ann_path = paste(params$workingDir, params$annDir, params$gene_ann, sep =
                     "")
-gtf.file <- rtracklayer::import(gene_path)
-gene_df = as.data.frame(gtf.file) %>% filter(type == "gene") %>% select(seqnames, start, end, width, strand, source, type, gene_id, gene_source, gene_biotype, gene_name)
-gene_range = makeGRangesFromDataFrame(
-  gene_df,
+ann_df = as.data.frame(rtracklayer::import(ann_path))
+# gene_df = ann_df %>% filter(type == "gene")
+# tran_df = ann_df %>% filter(type == "transcript")
+# exon_df = ann_df %>%filter(type=="exon")
+rest_df = ann_df %>% filter(type != "exon") %>% filter( type != "gene") %>% filter(type != "transcript")
+# ann_range = makeGRangesFromDataFrame(
+#   ann_df,
+#   seqnames.field = "seqnames",
+#   start.field = "start",
+#   end.field = "end",
+#   strand.field = "strand"
+# )
+# gene_range = makeGRangesFromDataFrame(
+#   gene_df,
+#   seqnames.field = "seqnames",
+#   start.field = "start",
+#   end.field = "end",
+#   strand.field = "strand"
+# )
+# tran_range = makeGRangesFromDataFrame(
+#   tran_df,
+#   seqnames.field = "seqnames",
+#   start.field = "start",
+#   end.field = "end",
+#   strand.field = "strand"
+# )
+# exon_range = makeGRangesFromDataFrame(
+#   exon_df,
+#   seqnames.field = "seqnames",
+#   start.field = "start",
+#   end.field = "end",
+#   strand.field = "strand"
+# )
+rest_range = makeGRangesFromDataFrame(
+  rest_df,
   seqnames.field = "seqnames",
   start.field = "start",
   end.field = "end",
@@ -63,7 +94,7 @@ for (i in 1:length(vcf_files)) {
   # Because of the ranges need to filter out the breakpoint
   filt_var = df %>% filter(ALT == "<DUP>" | ALT == "<DEL>" |
                              ALT == "<INV>" | ALT == "<INS>")
-  df_list[[i]] = filt_var
+  df_list[[i]] = filt_var  %>% filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
   vcf_range = makeGRangesFromDataFrame(
     filt_var,
     seqnames.field = "CHROM",
@@ -77,76 +108,100 @@ for (i in 1:length(vcf_files)) {
 
 
 ```{r finding overlap}
-overlap_list = list()
+overlap_gene_list = list()
+overlap_tran_list = list()
+overlap_exon_list = list()
+overlap_rest_list = list()
+
 for (i in 1:length(range_list)) {
-  overlap = findoverlap_dataframe(range_list[[i]], gene_range, df_list[[i]], gene_df)
-  precise_only = overlap %>% filter(PRECISE == TRUE) %>% filter(FILTER == "PASS")
-  overlap_list[[i]] = overlap
+  # overlap_gene = findoverlap_dataframe(range_list[[i]], gene_range, df_list[[i]], ann_df)
+  # overlap_tran = findoverlap_dataframe(range_list[[i]], tran_range, df_list[[i]], ann_df)
+  # overlap_exon = findoverlap_dataframe(range_list[[i]], exon_range, df_list[[i]], ann_df)
+  overlap_rest = findoverlap_dataframe(range_list[[i]], rest_range, df_list[[i]], ann_df)
+  # overlap_gene_list[[i]] = overlap_gene
+  # overlap_tran_list[[i]] = overlap_tran
+  # overlap_exon_list[[i]] = overlap_exon
+  overlap_rest_list[[i]] = overlap_rest
 }
 ```
 
-
-```{r filtering}
-filtered_list = list()
-for (i in 1:length(range_list)) {
-  filtered_list[[i]] = overlap_list[[i]] %>% filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
-}
-```
 
 
 ```{r write to file}
-# Save all variants with genes to file
-for (i in 1:length(overlap_list)) {
-  results_gene = paste(params$workingDir,
-                       params$resultsDir,
-                       "all_variants/",
-                       "ann_",
-                       vcf_names[[i]],
-                       ".tsv",
-                       sep = "")
-  write.table(
-    x = overlap_list[[i]],
-    file = results_gene,
-    quote = F,
-    sep = "\t",
-    row.names = F,
-    col.names = T
-  )
-}
 
 # Save only the PRECISE variants
-for (i in 1:length(overlap_list)) {
-  results_gene = paste(
+for (i in 1:length(range_list)) {
+  # filt_results = paste(
+  #   params$workingDir,
+  #   params$resultsDir,
+  #   "filtered_variants/",
+  #   "filt_ann_gene_",
+  #   vcf_names[[i]],
+  #   ".tsv",
+  #   sep = ""
+  # )
+  # write.table(
+  #   x = overlap_gene_list[[i]],
+  #   file = filt_results,
+  #   quote = F,
+  #   sep = "\t",
+  #   row.names = F,
+  #   col.names = T
+  # )
+  
+  # filt_results = paste(
+  #   params$workingDir,
+  #   params$resultsDir,
+  #   "filtered_variants/",
+  #   "filt_ann_exon_",
+  #   vcf_names[[i]],
+  #   ".tsv",
+  #   sep = ""
+  # )
+  # write.table(
+  #   x = overlap_exon_list[[i]],
+  #   file = filt_results,
+  #   quote = F,
+  #   sep = "\t",
+  #   row.names = F,
+  #   col.names = T
+  # )
+  # 
+  # filt_results = paste(
+  #   params$workingDir,
+  #   params$resultsDir,
+  #   "filtered_variants/",
+  #   "filt_ann_transcript_",
+  #   vcf_names[[i]],
+  #   ".tsv",
+  #   sep = ""
+  # )
+  # write.table(
+  #   x = overlap_tran_list[[i]],
+  #   file = filt_results,
+  #   quote = F,
+  #   sep = "\t",
+  #   row.names = F,
+  #   col.names = T
+  # )
+  # 
+  filt_results = paste(
     params$workingDir,
     params$resultsDir,
     "filtered_variants/",
-    "filt_ann_",
+    "filt_ann_rest_",
     vcf_names[[i]],
     ".tsv",
     sep = ""
   )
   write.table(
-    x = filtered_list[[i]],
-    file = results_gene,
+    x = overlap_rest_list[[i]],
+    file = filt_results,
     quote = F,
     sep = "\t",
     row.names = F,
     col.names = T
   )
-}
-
-for (i in 1:length(overlap_list)) {
-  results_uniprot = paste(
-    params$workingDir,
-    params$resultsDir,
-    "filtered_variants/",
-    "UNIPROT_",
-    vcf_names[[i]],
-    ".csv",
-    sep = ""
-  )
-  uniprot_genes = data.frame(acc = filtered_list[[i]]$gene_id)
-  write.csv(uniprot_genes,results_uniprot, row.names = FALSE)
 }
 
 ```
