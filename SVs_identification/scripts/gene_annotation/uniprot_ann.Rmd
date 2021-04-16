@@ -9,6 +9,7 @@ params:
   annDir: 'data/annotation/'
   scriptDir: 'scripts/gene_annotation/'
   resultsDir: 'results/gene_annotation/filtered_variants/'
+  uniprotDir: 'results/gene_annotation/uniprot_ann/'
 ---
 
 ```{r setup, include=FALSE}
@@ -25,8 +26,8 @@ library("UniProt.ws")
 up <- UniProt.ws(taxId=9913)
 up
 cols = columns(up)
-all_col = c(cols[14], cols[15], cols[28:38], cols[43], cols[45:51], cols[56:57], cols[63], cols[66], cols[69], cols[72], cols[86], cols[88], cols[100:102], cols[104:105], cols[115:120])
-functions = c(cols[117], cols[1], cols[43], cols[56])
+all_cols = c(cols[28], cols[31], cols[38], cols[43], cols[45], cols[49], cols[56], cols[63], cols[66], cols[69], cols[72], cols[86], cols[88], cols[102], cols[104:105], cols[117])
+functions = c(cols[117], cols[43], cols[56])
 
 ```
 
@@ -35,29 +36,70 @@ functions = c(cols[117], cols[1], cols[43], cols[56])
 gene_path = paste(params$workingDir, params$resultsDir, sep = "")
 gene_file_names = list.files(path = gene_path, pattern = "filt_ann_gene*")
 gene_list = list()
-for (i in 1:length(gene_file_names)){
+func = list()
+df = data.frame(matrix(as.factor(NA), nrow = 1000, ncol = length(all_cols)))
+colnames(df) <- all_cols
+for (i in 1:length(gene_file_names)) {
   full_path = paste(gene_path,
-                  gene_file_names[[i]],
-                  sep = "")
+                    gene_file_names[[i]],
+                    sep = "")
   gene_file = read.table(
-      file = full_path,
-      quote = "",
-      sep = "\t",
-      header = T,
-      stringsAsFactors = F
-    )
+    file = full_path,
+    quote = "",
+    sep = "\t",
+    header = T,
+    stringsAsFactors = F
+  )
   gene_list[[i]] = gene_file
-  # UniProt recommends max 100 keys per query or else it might fail.
-  func <- UniProt.ws::select(up, keys = gene_file$gene_id[1:100], columns = functions, keytype = "ENSEMBL")
-  x = inner_join(gene_file, func, left_on="gene_id", right_on="ENSEMBL")
+  ordered_by_length = gene_file[order(-gene_file$SV_LENGTH), ]
+  # UniProt recommends max 100 keys per query or else it might fail so for files with more than 100 variants I chose the 100 longest SVs
+  if (dim(ordered_by_length)[1] > 100) {
+    gene_ids = ordered_by_length$gene_id[1:100]
+  }
+  else {
+    gene_ids = ordered_by_length$gene_id
+  }
+  uniprot = UniProt.ws::select(up,
+                               keys = gene_ids,
+                               columns = all_cols,
+                               keytype = "ENSEMBL")
+  uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
+  uniprot$file = 
+  uniprot = uniprot %>% filter(REVIEWED == "reviewed")
+  func[[i]] = uniprot
+   if(i == 1){
+    df = uniprot
+   }
+  else {
+    df = full_join(df, uniprot)
+  }
+  
+  
 }
+
 ```
 
 
 
 
 ```{r}
-rest <- UniProt.ws::select(up, keys = c("F1MMV1"), columns = functions, keytype = "UNIPROTKB")
+for (i in 1:length(gene_file_names)){
+  filt_results = paste(
+      params$workingDir,
+      params$uniprotDir,
+      "uniprot_",
+      gene_file_names[[i]],
+      sep = ""
+    )
+    write.table(
+      x = func[[i]],
+      file = filt_results,
+      quote = F,
+      sep = "\t",
+      row.names = F,
+      col.names = T
+    )
+}
 
 ```
 
