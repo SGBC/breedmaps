@@ -1,0 +1,106 @@
+---
+title: "enseml_SVs"
+author: "Jenny Jakobsson"
+date: "4/19/2021"
+output: html_document
+
+params:
+  workingDir: '/Users/jj/breedmaps/SVs_identification/'
+  functions: 'scripts/gene_annotation/functions.R'
+  annDir: 'data/annotation/'
+  ensembl_svs: 'bos_taurus_structural_variations.gvf'
+  resultsDir: 'results/gene_annotation/uniprot_ann/'
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(GenomicRanges)
+
+source(paste(params$workingDir, params$functions, sep=""))
+```
+
+## ENSEMBL SVs
+Downloaded from http://ftp.ensembl.org/pub/release-103/variation/gvf/bos_taurus/bos_taurus_structural_variations.gvf.gz 19/4-21. Source = DGVa, database of  genomic variants archive(https://www.ebi.ac.uk/dgva/)
+
+```{r }
+path = paste(params$workingDir,
+             params$annDir,
+             params$ensembl_svs,
+             sep = "")
+ensembl_svs = read.table(
+  file = path,
+  quote = "",
+  sep = "\t",
+  header = F,
+  stringsAsFactors = F
+)
+ensembl_svs = ensembl_svs %>% dplyr::rename(
+  CHROM = V1,
+  SOURCE = V2,
+  SV_TYPE = V3,
+  START = V4,
+  END = V5,
+  Empty1 = V6,
+  STRAND = V7,
+  Empty2 = V8,
+  INFO = V9
+)
+ensembl_cleaned = ensembl_svs %>% dplyr::select(CHROM, START, END, STRAND, SOURCE, INFO)
+ensembl_range = makeGRangesFromDataFrame(
+  ensembl_cleaned,
+  seqnames.field = "CHROM",
+  start.field = "START",
+  end.field = "END",
+  strand.field = "STRAND"
+)
+```
+
+
+
+```{r}
+path = paste(params$workingDir,
+             params$resultsDir,
+             sep = "")
+gene_file_names = list.files(path = path, pattern = "uniprot_filt_ann_gene*")
+
+overlap_list = list()
+sv_list = list()
+sv_range_list = list()
+
+for (i in 1:length(gene_file_names)) {
+  full_path = paste(params$workingDir,
+                    params$resultsDir,
+                    gene_file_names[[i]],
+                    sep = "")
+  svs = read.table(
+    file = full_path,
+    quote = "",
+    sep = "\t",
+    header = T,
+    stringsAsFactors = F
+  )
+  sv_list[[i]] = svs %>% dplyr::rename(ID1 = ID)
+  sv_range = makeGRangesFromDataFrame(
+    ensembl_cleaned,
+    seqnames.field = "CHROM",
+    start.field = "START",
+    end.field = "END",
+    strand.field = "STRAND"
+  )
+  sv_range_list[[i]] = sv_range
+  sv_range = sv_range
+  ensembl_cleaned$ID2 = rownames(ensembl_cleaned)
+  overlap = findoverlap_dataframe(sv_range, ensembl_range, svs, ensembl_cleaned)
+  #sv_range = ID1, ensembl = ID2
+  overlap_list[[i]] = overlap %>% dplyr::rename(ID = ID1, gene_id = ID2)
+}
+
+```
+
+```{r}
+
+```
+
+
