@@ -95,7 +95,7 @@ for (i in 1:length(vcf_files)) {
   filt_var = df %>% dplyr::filter(ALT == "<DUP>" | ALT == "<DEL>" |
                              ALT == "<INV>" | ALT == "<INS>")
   filt_var = filt_var  %>% dplyr::filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
-  filt_var_final = filt_var %>% dplyr::mutate(SV_LENGTH = as.numeric(END)-as.numeric(POS))
+  filt_var_final = filt_var %>% dplyr::mutate(SV_LENGTH = as.numeric(END)-as.numeric(POS)) %>% dplyr::rename(ID1 = ID)
   df_list[[i]] = filt_var_final
   vcf_range = makeGRangesFromDataFrame(
     filt_var_final,
@@ -116,10 +116,10 @@ overlap_exon_list = list()
 overlap_rest_list = list()
 
 for (i in 1:length(range_list)) {
-  # overlap_gene = findoverlap_dataframe(range_list[[i]], gene_range, df_list[[i]], gene_df)
-  overlap_tran = findoverlap_dataframe(range_list[[i]], tran_range, df_list[[i]], tran_df)
-  # overlap_exon = findoverlap_dataframe(range_list[[i]], exon_range, df_list[[i]], exon_df)
-  # overlap_rest = findoverlap_dataframe(range_list[[i]], rest_range, df_list[[i]], rest_df)
+  # overlap_gene = findoverlap_dataframe(range_list[[i]], gene_range, df_list[[i]], gene_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
+  overlap_tran = findoverlap_dataframe(range_list[[i]], tran_range, df_list[[i]], tran_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
+  # overlap_exon = findoverlap_dataframe(range_list[[i]], exon_range, df_list[[i]], exon_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
+  # overlap_rest = findoverlap_dataframe(range_list[[i]], rest_range, df_list[[i]], rest_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
   # overlap_gene_list[[i]] = overlap_gene
   overlap_tran_list[[i]] = overlap_tran
   # overlap_exon_list[[i]] = overlap_exon
