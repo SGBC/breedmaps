@@ -14,9 +14,9 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+# BiocManager::install("UniProt.ws")
 library('UniprotR')
 library("tidyverse")
-# BiocManager::install("UniProt.ws")
 library("UniProt.ws")
 
 ```
@@ -27,7 +27,6 @@ up <- UniProt.ws(taxId=9913)
 up
 cols = columns(up)
 all_cols = c(cols[28], cols[31], cols[38], cols[43], cols[45], cols[49], cols[56], cols[63], cols[66], cols[69], cols[72], cols[86], cols[88], cols[102], cols[104:105], cols[117])
-functions = c(cols[117], cols[43], cols[56])
 
 ```
 
@@ -36,9 +35,7 @@ functions = c(cols[117], cols[43], cols[56])
 gene_path = paste(params$workingDir, params$resultsDir, sep = "")
 gene_file_names = list.files(path = gene_path, pattern = "filt_ann_gene*")
 gene_list = list()
-func = list()
-df = data.frame(matrix(as.factor(NA), nrow = 1000, ncol = length(all_cols)))
-colnames(df) <- all_cols
+joined_list = list()
 for (i in 1:length(gene_file_names)) {
   full_path = paste(gene_path,
                     gene_file_names[[i]],
@@ -64,18 +61,11 @@ for (i in 1:length(gene_file_names)) {
                                columns = all_cols,
                                keytype = "ENSEMBL")
   uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
-  uniprot$file = 
   uniprot = uniprot %>% filter(REVIEWED == "reviewed")
-  func[[i]] = uniprot
-   if(i == 1){
-    df = uniprot
-   }
-  else {
-    df = full_join(df, uniprot)
+  renamed = uniprot %>% dplyr::rename(gene_id = ENSEMBL, UNIPROT_ID = ID)
+  joined = inner_join(gene_file, renamed, by="gene_id")
+  joined_list[[i]] = joined
   }
-  
-  
-}
 
 ```
 
@@ -92,7 +82,7 @@ for (i in 1:length(gene_file_names)){
       sep = ""
     )
     write.table(
-      x = func[[i]],
+      x = joined_list[[i]],
       file = filt_results,
       quote = F,
       sep = "\t",
