@@ -37,23 +37,23 @@ ensembl_svs = read.table(
   stringsAsFactors = F
 )
 ensembl_svs = ensembl_svs %>% dplyr::rename(
-  CHROM = V1,
-  SOURCE = V2,
-  SV_TYPE = V3,
-  START = V4,
-  END = V5,
+  ENSEMBL_CHROM = V1,
+  ENSEMBL_SOURCE = V2,
+  ENSEMBL_SV_TYPE = V3,
+  ENSEMBL_START = V4,
+  ENSEMBL_END = V5,
   Empty1 = V6,
-  STRAND = V7,
+  ENSEMBL_STRAND = V7,
   Empty2 = V8,
-  INFO = V9
+  ENSEMBL_INFO = V9
 )
-ensembl_cleaned = ensembl_svs %>% dplyr::select(CHROM, START, END, STRAND, SOURCE, INFO)
+ensembl_cleaned = ensembl_svs %>% dplyr::select(ENSEMBL_CHROM, ENSEMBL_START, ENSEMBL_END, ENSEMBL_STRAND, ENSEMBL_SOURCE, ENSEMBL_INFO)
 ensembl_range = makeGRangesFromDataFrame(
   ensembl_cleaned,
-  seqnames.field = "CHROM",
-  start.field = "START",
-  end.field = "END",
-  strand.field = "STRAND"
+  seqnames.field = "ENSEMBL_CHROM",
+  start.field = "ENSEMBL_START",
+  end.field = "ENSEMBL_END",
+  strand.field = "ENSEMBL_STRAND"
 )
 ```
 
@@ -80,21 +80,20 @@ for (i in 1:length(gene_file_names)) {
     sep = "\t",
     header = T,
     stringsAsFactors = F
-  )
-  sv_list[[i]] = svs %>% dplyr::rename(ID1 = ID)
+  ) %>% dplyr::rename(SV_CHROM = CHROM, SV_START = POS, SV_END = END)
+  sv_list[[i]] = svs
+  svs = svs %>% dplyr::rename(ID1 = ID)
   sv_range = makeGRangesFromDataFrame(
-    ensembl_cleaned,
-    seqnames.field = "CHROM",
-    start.field = "START",
-    end.field = "END",
-    strand.field = "STRAND"
+    svs,
+    seqnames.field = "SV_CHROM",
+    start.field = "SV_START",
+    end.field = "SV_END",
   )
   sv_range_list[[i]] = sv_range
-  sv_range = sv_range
   ensembl_cleaned$ID2 = rownames(ensembl_cleaned)
   overlap = findoverlap_dataframe(sv_range, ensembl_range, svs, ensembl_cleaned)
   #sv_range = ID1, ensembl = ID2
-  overlap_list[[i]] = overlap %>% dplyr::rename(ID = ID1, gene_id = ID2)
+  overlap_list[[i]] = overlap %>% dplyr::rename(SV_ID = ID1) %>% select(-ID2)
 }
 
 ```
