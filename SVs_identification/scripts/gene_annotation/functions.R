@@ -106,10 +106,10 @@ read_delly_vcf = function(path) {
 findoverlap_dataframe = function(var_range, gene_range, var_df, gene_df){
   overlap = suppressWarnings(data.frame(findOverlaps(var_range, gene_range, maxgap = 0)))
   # The output from findOverlaps needs to be reformatted to include the geneIDs and variantIDs we need to join
-  overlap$ID = var_df$ID[overlap$queryHits]
-  overlap$gene_id = gene_df$gene_id[overlap$subjectHits]
-  overlap = overlap %>% dplyr::select(ID, gene_id)
-  joined_vcf  = inner_join(overlap, var_df, by = "ID")
-  joined_genes =  inner_join(joined_vcf,  gene_df, by = "gene_id")
+  overlap$ID1 = var_df$ID1[overlap$queryHits]
+  overlap$ID2 = gene_df$ID2[overlap$subjectHits]
+  overlap = overlap %>% dplyr::select(ID1, ID2)
+  joined_vcf  = inner_join(overlap, var_df, by = "ID1")
+  joined_genes =  inner_join(joined_vcf,  gene_df, by = "ID2")
 }
 

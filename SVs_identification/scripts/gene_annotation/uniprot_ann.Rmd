@@ -9,27 +9,89 @@ params:
   annDir: 'data/annotation/'
   scriptDir: 'scripts/gene_annotation/'
   resultsDir: 'results/gene_annotation/filtered_variants/'
+  uniprotDir: 'results/gene_annotation/uniprot_ann/'
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+# BiocManager::install("UniProt.ws")
 library('UniprotR')
 library("tidyverse")
+library("UniProt.ws")
+
+```
+
+```{r uniprot}
+# TaxID 9913 = Bos taurus
+up <- UniProt.ws(taxId=9913)
+up
+cols = columns(up)
+all_cols = c(cols[28], cols[31], cols[38], cols[43], cols[45], cols[49], cols[56], cols[63], cols[66], cols[69], cols[72], cols[86], cols[88], cols[102], cols[104:105], cols[117])
 
 ```
 
 ```{r}
-path = paste(params$workingDir, params$resultsDir, sep = "")
-acc_files = list.files(path = path, pattern = "UNIPROT_*")
-
-acc = GetAccessionList(paste(path, acc_files[[1]], sep=""))
-acc_conv = ConvertID(acc, ID_from = "ENSEMBL_ID" , ID_to = "ACC")
-acc2 = data.frame(acc = acc_conv[[2]], stringsAsFactors = FALSE)
-for (i in 1:length(acc2)){
-  split_id = split(acc2, ",")
-  print(split_id)
-}
-
+# Load files
+gene_path = paste(params$workingDir, params$resultsDir, sep = "")
+gene_file_names = list.files(path = gene_path, pattern = "filt_ann_gene*")
+gene_list = list()
+joined_list = list()
+for (i in 1:length(gene_file_names)) {
+  full_path = paste(gene_path,
+                    gene_file_names[[i]],
+                    sep = "")
+  gene_file = read.table(
+    file = full_path,
+    quote = "",
+    sep = "\t",
+    header = T,
+    stringsAsFactors = F
+  )
+  gene_list[[i]] = gene_file
+  ordered_by_length = gene_file[order(-gene_file$SV_LENGTH), ]
+  # UniProt recommends max 100 keys per query or else it might fail so for files with more than 100 variants I chose the 100 longest SVs
+  if (dim(ordered_by_length)[1] > 100) {
+    gene_ids = ordered_by_length$gene_id[1:100]
+  }
+  else {
+    gene_ids = ordered_by_length$gene_id
+  }
+  uniprot = UniProt.ws::select(up,
+                               keys = gene_ids,
+                               columns = all_cols,
+                               keytype = "ENSEMBL")
+  uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
+  uniprot = uniprot %>% filter(REVIEWED == "reviewed")
+  renamed = uniprot %>% dplyr::rename(gene_id = ENSEMBL, UNIPROT_ID = ID)
+  joined = inner_join(gene_file, renamed, by="gene_id")
+  joined_list[[i]] = joined
+  }
 
 ```
+
+
+
+
+```{r}
+for (i in 1:length(gene_file_names)){
+  filt_results = paste(
+      params$workingDir,
+      params$uniprotDir,
+      "uniprot_",
+      gene_file_names[[i]],
+      sep = ""
+    )
+    write.table(
+      x = joined_list[[i]],
+      file = filt_results,
+      quote = F,
+      sep = "\t",
+      row.names = F,
+      col.names = T
+    )
+}
+
+```
+
+
 
