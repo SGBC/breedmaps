@@ -74,7 +74,7 @@ read_delly_vcf = function(path) {
   }
   id_column = rownames_to_column(info, var = "ID")
   result = inner_join(renamed, id_column, by = "ID")
-  cleaned = result %>% select(
+  cleaned = result %>% dplyr::select(
     CHROM,
     POS,
     ID,
