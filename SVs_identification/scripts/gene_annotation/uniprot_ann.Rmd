@@ -15,9 +15,9 @@ params:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # BiocManager::install("UniProt.ws")
-library('UniprotR')
-library("tidyverse")
-library("UniProt.ws")
+#library('UniprotR')
+#library("tidyverse")
+#library("UniProt.ws")
 
 ```
 

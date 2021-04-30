@@ -15,8 +15,8 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(dplyr)
-library(GenomicRanges)
+#library(dplyr)
+#library(GenomicRanges)
 
 source(paste(params$workingDir, params$functions, sep=""))
 ```
@@ -67,7 +67,7 @@ path = paste(params$workingDir,
 gene_file_names = list.files(path = path, pattern = "filt_ann_gene*")
 
 overlap_list = list()
-for (i in 1:(length(gene_file_names)/2-0.5)) {
+for (i in 1:(length(gene_file_names))) {
   full_path = paste(params$workingDir,
                     params$resultsDir,
                     gene_file_names[[i]],
@@ -114,57 +114,38 @@ for (i in 1:(length(gene_file_names)/2-0.5)) {
 ```
 
 ```{r}
-for (i in (length(gene_file_names)/2+0.5):(length(gene_file_names))) {
-  full_path = paste(params$workingDir,
-                    params$resultsDir,
-                    gene_file_names[[i]],
-                    sep = "")
-  svs = read.table(
-    file = full_path,
-    quote = "",
-    sep = "\t",
-    header = T,
-    stringsAsFactors = F
-  ) %>% dplyr::rename(SV_CHROM = CHROM,
-                      SV_START = POS,
-                      SV_END = END)
-  svs = svs %>% dplyr::filter(SV_LENGTH < 50000000) %>% dplyr::rename(ID1 = ID)
-  sv_range = makeGRangesFromDataFrame(
-    svs,
-    seqnames.field = "SV_CHROM",
-    start.field = "SV_START",
-    end.field = "SV_END",
-  )
-  ensembl_cleaned$ID2 = rownames(ensembl_cleaned)
-  overlap = findoverlap_dataframe(sv_range, ensembl_range, svs, ensembl_cleaned)
-  #sv_range = ID1, ensembl = ID2
-  overlap_list[[i]] = overlap %>% dplyr::rename(SV_ID = ID1) %>% dplyr::select(-ID2)
-  filt_results = paste(
-    params$workingDir,
-    "results/",
-    "gene_annotation/",
-    "ensembl_ann/",
-    "ensembl_",
-    gene_file_names[[i]],
-    sep = ""
-  )
-  write.table(
-    x = overlap_list[[i]],
-    file = filt_results,
-    quote = F,
-    sep = "\t",
-    row.names = F,
-    col.names = T
-  )
-}
-# for(i in 1:length(overlap_list)){
-# filt_results = paste(
+# for (i in (length(gene_file_names)/2+0.5):(length(gene_file_names))) {
+#   full_path = paste(params$workingDir,
+#                     params$resultsDir,
+#                     gene_file_names[[i]],
+#                     sep = "")
+#   svs = read.table(
+#     file = full_path,
+#     quote = "",
+#     sep = "\t",
+#     header = T,
+#     stringsAsFactors = F
+#   ) %>% dplyr::rename(SV_CHROM = CHROM,
+#                       SV_START = POS,
+#                       SV_END = END)
+#   svs = svs %>% dplyr::filter(SV_LENGTH < 50000000) %>% dplyr::rename(ID1 = ID)
+#   sv_range = makeGRangesFromDataFrame(
+#     svs,
+#     seqnames.field = "SV_CHROM",
+#     start.field = "SV_START",
+#     end.field = "SV_END",
+#   )
+#   ensembl_cleaned$ID2 = rownames(ensembl_cleaned)
+#   overlap = findoverlap_dataframe(sv_range, ensembl_range, svs, ensembl_cleaned)
+#   #sv_range = ID1, ensembl = ID2
+#   overlap_list[[i]] = overlap %>% dplyr::rename(SV_ID = ID1) %>% dplyr::select(-ID2)
+#   filt_results = paste(
 #     params$workingDir,
 #     "results/",
+#     "gene_annotation/",
 #     "ensembl_ann/",
 #     "ensembl_",
 #     gene_file_names[[i]],
-#     ".tsv",
 #     sep = ""
 #   )
 #   write.table(
@@ -176,6 +157,25 @@ for (i in (length(gene_file_names)/2+0.5):(length(gene_file_names))) {
 #     col.names = T
 #   )
 # }
+# # for(i in 1:length(overlap_list)){
+# # filt_results = paste(
+# #     params$workingDir,
+# #     "results/",
+# #     "ensembl_ann/",
+# #     "ensembl_",
+# #     gene_file_names[[i]],
+# #     ".tsv",
+# #     sep = ""
+# #   )
+# #   write.table(
+# #     x = overlap_list[[i]],
+# #     file = filt_results,
+# #     quote = F,
+# #     sep = "\t",
+# #     row.names = F,
+# #     col.names = T
+# #   )
+# # }
 ```
 
 

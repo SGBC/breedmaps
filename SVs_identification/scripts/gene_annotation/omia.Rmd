@@ -19,8 +19,8 @@ The ensembl ID was converted into the NCBI geneID with the tool https://david.nc
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(dplyr)
-library(GenomicRanges)
+#library(dplyr)
+#library(GenomicRanges)
 
 source(paste(params$workingDir, params$functions, sep=""))
 ```
@@ -40,6 +40,7 @@ omia = read.table(
   header = T,
   stringsAsFactors = F
 )
+cattle_omia = omia %>% filter(ncbi_tax_id==9913)
 
 ```
 
