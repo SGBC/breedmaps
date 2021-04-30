@@ -56,6 +56,7 @@ def filter_precise(df):
 def filter_qual(df):
     """Filter on the FILTER coulmn in VCF files. Common for VCF files"""
     # Saves only the variants that passed the vcf filters. LowQual are filtered out
+    # Poor quality and insufficient number of PEs(paired ends) and SRs(split reads).
     return df.loc[df['FILTER'] == 'PASS']
 
 

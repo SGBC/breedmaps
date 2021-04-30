@@ -36,7 +36,6 @@ plt.xticks(fontsize=4, rotation=45, ha='right')
 plt.ylabel('# SVs')
 plt.savefig('count_per_genome.png')
 plt.show()
-
 # Plot the number of filtered variants in each file
 num_var_filt = []
 plt.figure(2)
@@ -54,11 +53,11 @@ plt.show()
 # Plot the number of each type of structural variation
 plt.figure(3)
 # Figure 3 is the raw identified SVs.
-
+counts = [None] * len(vcf_raw)
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
-    counts = functions.count_sv_type(sample)
-    functions.plot_stats(counts, genome_names[i])
+    counts[i] = functions.count_sv_type(sample)
+    functions.plot_stats(counts[i], genome_names[i])
 
 plt.legend(loc='upper center', fontsize='xx-small', ncol=3)
 plt.title('Number of all times each SVs occurs')
@@ -66,18 +65,26 @@ plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("nonfiltered_svs.png")
 
+
+
 # Figure 4 plots the filtered identified SVs
 plt.figure(4)
+counts = [None] * len(vcf_filtered)
 for i in range(len(vcf_filtered)):
     sample = vcf_filtered[i]
-    counts = functions.count_sv_type(sample)
-    functions.plot_stats(counts, genome_names[i])
+    counts[i] = functions.count_sv_type(sample)
+    functions.plot_stats(counts[i], genome_names[i])
 
 plt.legend(loc='upper center', fontsize='xx-small', ncol=3)
 plt.title('Number of all times each filtered SVs occurs')
 plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("filtered_svs.png")
+
+#summary = pd.DataFrame(
+#    {"File": genome_names, "Number of non-filtered variants": num_var_raw, "Number of filtered variants": num_var_filt,
+#     "filt_DEL": counts[:][1], "filt_DUP": counts[:][2], "filt_INV": counts[:][3], "filt_INS": counts[:][4], "filt_TRA": counts[:][5]})
+
 
 plt.figure(5)
 
@@ -102,21 +109,16 @@ plt.savefig("counted_filtered_svs.png")
 
 top_svs = {k: v for (k, v) in count_filt.items() if v > 10}
 df_count = pd.Series(top_svs)
-print(f"There were {len(df_count)} SVs found in 10 genomes or more.")
 top_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in top_svs.keys()}
 df_genomes = pd.Series(top_svs_genomes)
-print("CHR:POS              COUNT   GENOMES")
 merged_top_svs = pd.concat([df_count, df_genomes], axis=1)
-print(merged_top_svs.to_string())
+merged_top_svs.to_csv('top_svs.csv', sep=',')
 
-merged_dict = pd.Series(top_svs_genomes)
-merged_dict.to_csv('top_svs.csv', sep=',')
+all_svs = {k: v for (k, v) in count_filt.items()}
+df_all = pd.Series(all_svs)
+all_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in all_svs.keys()}
+df_all_genomes = pd.Series(all_svs_genomes)
+merged_all_svs = pd.concat([df_all, df_all_genomes], axis=1)
+merged_all_svs.to_csv('all_svs.csv', sep=',')
 
-unique_svs = {k: v for (k, v) in count_filt.items() if v == 1}
-df_unique = pd.Series(unique_svs)
-print(f"There were {len(df_unique)} SVs found in only one genome.")
-unique_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in unique_svs.keys()}
-df_unique_genomes = pd.Series(unique_svs_genomes)
-merged_unique_svs = pd.concat([df_unique, df_unique_genomes], axis=1)
-merged_unique_svs.to_csv('unique_svs.csv', sep=',')
 plt.show()
