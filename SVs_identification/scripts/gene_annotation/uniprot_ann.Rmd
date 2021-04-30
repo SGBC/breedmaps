@@ -5,7 +5,7 @@ date: "4/9/2021"
 output: html_document
 
 params:
-  workingDir: '/Users/jj/breedmaps/SVs_identification/'
+  workingDir: '~/breedmaps/SVs_identification/'
   annDir: 'data/annotation/'
   scriptDir: 'scripts/gene_annotation/'
   resultsDir: 'results/gene_annotation/filtered_variants/'
@@ -21,6 +21,7 @@ library("UniProt.ws")
 
 ```
 
+
 ```{r uniprot}
 # TaxID 9913 = Bos taurus
 up <- UniProt.ws(taxId=9913)
@@ -35,7 +36,9 @@ all_cols = c(cols[28], cols[31], cols[38], cols[43], cols[45], cols[49], cols[56
 gene_path = paste(params$workingDir, params$resultsDir, sep = "")
 gene_file_names = list.files(path = gene_path, pattern = "filt_ann_gene*")
 gene_list = list()
+#joined_df = data.frame(matrix(NA, nrow = 1000, ncol = 1000))
 joined_list = list()
+
 for (i in 1:length(gene_file_names)) {
   full_path = paste(gene_path,
                     gene_file_names[[i]],
@@ -51,24 +54,65 @@ for (i in 1:length(gene_file_names)) {
   ordered_by_length = gene_file[order(-gene_file$SV_LENGTH), ]
   # UniProt recommends max 100 keys per query or else it might fail so for files with more than 100 variants I chose the 100 longest SVs
   if (dim(ordered_by_length)[1] > 100) {
-    gene_ids = ordered_by_length$gene_id[1:100]
+    n_files = as.integer(dim(gene_file)[1] / 100)
+    for (j in 1:n_files) {
+      if (j == 1) {
+        gene_ids = ordered_by_length$gene_id[1:100]
+        uniprot = UniProt.ws::select(up,
+                                     keys = gene_ids,
+                                     columns = all_cols,
+                                     keytype = "ENSEMBL")
+        uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
+        #uniprot = uniprot %>% filter(REVIEWED == "reviewed")
+        renamed = uniprot %>% dplyr::rename(gene_id = ENSEMBL, UNIPROT_ID = ID)
+        final = renamed
+      }
+      else if (j == n_files) {
+        x = (j - 1) * 100 + 1
+        y = dim(ordered_by_length)[1]
+        gene_ids = ordered_by_length$gene_id[x:y]
+        uniprot = UniProt.ws::select(up,
+                                     keys = gene_ids,
+                                     columns = all_cols,
+                                     keytype = "ENSEMBL")
+        uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
+        #uniprot = uniprot %>% filter(REVIEWED == "reviewed")
+        renamed = uniprot %>% dplyr::rename(gene_id = ENSEMBL, UNIPROT_ID = ID)
+        final = full_join(final, renamed)
+      }
+      else{
+        x = (j - 1) * 100 + 1
+        y = j * 100
+        gene_ids = ordered_by_length$gene_id[x:y]
+        uniprot = UniProt.ws::select(up,
+                                     keys = gene_ids,
+                                     columns = all_cols,
+                                     keytype = "ENSEMBL")
+        uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
+        #uniprot = uniprot %>% filter(REVIEWED == "reviewed")
+        renamed = uniprot %>% dplyr::rename(gene_id = ENSEMBL, UNIPROT_ID = ID)
+        final = full_join(final, renamed)
+      }
+      
+    }
   }
   else {
     gene_ids = ordered_by_length$gene_id
+    
+    uniprot = UniProt.ws::select(up,
+                                 keys = gene_ids,
+                                 columns = all_cols,
+                                 keytype = "ENSEMBL")
+    uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
+    #uniprot = uniprot %>% filter(REVIEWED == "reviewed")
+    renamed = uniprot %>% dplyr::rename(gene_id = ENSEMBL, UNIPROT_ID = ID)
+    final = renamed
   }
-  uniprot = UniProt.ws::select(up,
-                               keys = gene_ids,
-                               columns = all_cols,
-                               keytype = "ENSEMBL")
-  uniprot$ENSEMBL = as.factor(uniprot$ENSEMBL)
-  uniprot = uniprot %>% filter(REVIEWED == "reviewed")
-  renamed = uniprot %>% dplyr::rename(gene_id = ENSEMBL, UNIPROT_ID = ID)
-  joined = inner_join(gene_file, renamed, by="gene_id")
+  joined = inner_join(gene_file, final, by = "gene_id")
   joined_list[[i]] = joined
-  }
+}
 
 ```
-
 
 
 

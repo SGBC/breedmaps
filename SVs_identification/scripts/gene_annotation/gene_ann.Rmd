@@ -5,7 +5,7 @@ date: "3/31/2021"
 output: html_document
 
 params:
-  workingDir: '/Users/jj/breedmaps/SVs_identification/'
+  workingDir: '~/breedmaps/SVs_identification/'
   annDir: 'data/annotation/'
   scriptDir: 'scripts/gene_annotation/'
   gene_ann: 'Bos_taurus.ARS-UCD1.2.103.gtf'
@@ -51,6 +51,8 @@ for (i in 1:length(vcf_files)) {
   filt_var = filt_var  %>% dplyr::filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
   filt_var_final = filt_var %>% dplyr::mutate(SV_LENGTH = as.numeric(END) -
                                                 as.numeric(POS)) %>% dplyr::rename(ID1 = ID)
+  # Filtereing out all variants larger than 50 000 000 since it is too computer heavy to add annotation to these variants
+  filt_var_final = filt_var_final %>% dplyr::filter(SV_LENGTH < 50000000)
   df_list[[i]] = filt_var_final
   vcf_range = makeGRangesFromDataFrame(
     filt_var_final,

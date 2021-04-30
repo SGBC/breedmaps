@@ -1,0 +1,98 @@
+---
+title: "OMIA"
+author: "Jenny Jakobsson"
+date: "4/19/2021"
+output: html_document
+
+params:
+  workingDir: '~/breedmaps/SVs_identification/'
+  functions: 'scripts/gene_annotation/functions.R'
+  annDir: 'data/annotation/'
+  omia: 'omia_mut_in_genes.txt'
+  resultsDir: 'results/gene_annotation/filtered_variants/'
+---
+# OMIA annotation
+https://www.omia.org/download/
+https://www.omia.org/curate/causal_mutations/?format=gene_table
+
+The ensembl ID was converted into the NCBI geneID with the tool https://david.ncifcrf.gov/conversion.jsp. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(GenomicRanges)
+
+source(paste(params$workingDir, params$functions, sep=""))
+```
+
+## omia SVs
+Downloaded from http://ftp.ensembl.org/pub/release-103/variation/gvf/bos_taurus/bos_taurus_structural_variations.gvf.gz 19/4-21. Source = DGVa, database of  genomic variants archive (https://www.ebi.ac.uk/dgva/)
+
+```{r }
+path = paste(params$workingDir,
+             params$annDir,
+             params$omia,
+             sep = "")
+omia = read.table(
+  file = path,
+  quote = "",
+  sep = "\t",
+  header = T,
+  stringsAsFactors = F
+)
+
+```
+
+
+
+```{r}
+path = paste(params$workingDir,
+             params$resultsDir,
+             sep = "")
+gene_file_names = list.files(path = path, pattern = "filt_ann_gene*")
+
+overlap_list = list()
+sv_list = list()
+sv_range_list = list()
+
+for (i in 1:length(gene_file_names)) {
+  full_path = paste(params$workingDir,
+                    params$resultsDir,
+                    gene_file_names[[i]],
+                    sep = "")
+  svs = read.table(
+    file = full_path,
+    quote = "",
+    sep = "\t",
+    header = T,
+    stringsAsFactors = F
+  )
+  svs = svs%>% dplyr::rename(SV_CHROM = CHROM, SV_START = POS, SV_END = END, ncbi_gene_id = ENTREZ_GENEID) %>% dplyr::mutate(ncbi_gene_id = as.factor(ncbi_gene_id))
+  overlap = inner_join(svs, omia, by="ncbi_gene_id")
+  overlap_list[[i]] = overlap
+}
+
+```
+
+```{r}
+for(i in 1:length(overlap_list)){
+filt_results = paste(
+    params$workingDir,
+    "results/",
+    "omia_ann/",
+    "omia_",
+    gene_file_names[[i]],
+    ".tsv",
+    sep = ""
+  )
+  write.table(
+    x = overlap_list[[i]],
+    file = filt_results,
+    quote = F,
+    sep = "\t",
+    row.names = F,
+    col.names = T
+  )
+}
+```
+
