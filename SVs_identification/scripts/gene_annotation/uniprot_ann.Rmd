@@ -36,7 +36,6 @@ all_cols = c(cols[28], cols[31], cols[38], cols[43], cols[45], cols[49], cols[56
 gene_path = paste(params$workingDir, params$resultsDir, sep = "")
 gene_file_names = list.files(path = gene_path, pattern = "filt_ann_gene*")
 gene_list = list()
-#joined_df = data.frame(matrix(NA, nrow = 1000, ncol = 1000))
 joined_list = list()
 
 for (i in 1:length(gene_file_names)) {
