@@ -21,12 +21,17 @@ The ensembl ID was converted into the NCBI geneID with the tool https://david.nc
 knitr::opts_chunk$set(echo = TRUE)
 #library(dplyr)
 #library(GenomicRanges)
+library(XML)
 
 source(paste(params$workingDir, params$functions, sep=""))
 ```
 
 ## omia SVs
 Downloaded from http://ftp.ensembl.org/pub/release-103/variation/gvf/bos_taurus/bos_taurus_structural_variations.gvf.gz 19/4-21. Source = DGVa, database of  genomic variants archive (https://www.ebi.ac.uk/dgva/)
+
+```{r}
+xml = xmlParse("/Users/jj/Downloads/omia.xml")
+```
 
 ```{r }
 path = paste(params$workingDir,
@@ -43,7 +48,6 @@ omia = read.table(
 cattle_omia = omia %>% filter(ncbi_tax_id==9913)
 
 ```
-
 
 
 ```{r}
