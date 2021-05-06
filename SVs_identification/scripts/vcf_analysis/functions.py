@@ -73,9 +73,11 @@ def read_survivor_stats(path):
 def get_file_name(path):
     """Takes a path and extracts the file name."""
     # Split the path and extract the final part of the path(which will be the name)
+    # Adjusted to shorten the names of the files starting with RDC
     split = path.split('/')
     split2 = split[-1].split('.')
-    file_name = split2[0]
+    split3 = split2[0].split('_aligned')
+    file_name = split3[0]
     return file_name
 
 

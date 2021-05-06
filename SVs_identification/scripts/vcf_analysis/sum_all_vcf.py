@@ -23,7 +23,7 @@ for i in range(len(vcf_files)):
 # Plot the number of all variants in each file
 genome_names = []
 num_var_raw = []
-plt.figure(1)
+plt.figure(1, figsize=(19.20,10.80))
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
     genome_name = functions.get_file_name(vcf_files[i])
@@ -38,7 +38,7 @@ plt.savefig('count_per_genome.png')
 plt.show()
 # Plot the number of filtered variants in each file
 num_var_filt = []
-plt.figure(2)
+plt.figure(2, figsize=(19.20,10.80))
 for i in range(len(vcf_filtered)):
     sample = vcf_filtered[i]
     num_var_filt.append(len(sample))
@@ -51,7 +51,7 @@ plt.savefig('filt_count_per_genome.png')
 plt.show()
 
 # Plot the number of each type of structural variation
-plt.figure(3)
+plt.figure(3, figsize=(19.20,10.80))
 # Figure 3 is the raw identified SVs.
 counts = [None] * len(vcf_raw)
 for i in range(len(vcf_raw)):
@@ -60,7 +60,7 @@ for i in range(len(vcf_raw)):
     functions.plot_stats(counts[i], genome_names[i])
 
 plt.legend(loc='upper center', fontsize='xx-small', ncol=3)
-plt.title('Number of all times each SVs occurs')
+plt.title('Number of each SV type in all files')
 plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("nonfiltered_svs.png")
@@ -68,7 +68,7 @@ plt.savefig("nonfiltered_svs.png")
 
 
 # Figure 4 plots the filtered identified SVs
-plt.figure(4)
+plt.figure(4, figsize=(19.20,10.80))
 counts = [None] * len(vcf_filtered)
 for i in range(len(vcf_filtered)):
     sample = vcf_filtered[i]
@@ -76,7 +76,7 @@ for i in range(len(vcf_filtered)):
     functions.plot_stats(counts[i], genome_names[i])
 
 plt.legend(loc='upper center', fontsize='xx-small', ncol=3)
-plt.title('Number of all times each filtered SVs occurs')
+plt.title('Number of each SV type in the filtered files')
 plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("filtered_svs.png")
@@ -86,7 +86,7 @@ plt.savefig("filtered_svs.png")
 #     "filt_DEL": counts[:][1], "filt_DUP": counts[:][2], "filt_INV": counts[:][3], "filt_INS": counts[:][4], "filt_TRA": counts[:][5]})
 
 
-plt.figure(5)
+plt.figure(5, figsize=(19.20,10.80))
 
 count_raw, genome_pos_raw = functions.count_svs(vcf_raw, vcf_files)
 sorted_count_raw = sorted(count_raw.items())
@@ -97,7 +97,7 @@ plt.ylabel('Number of times each SV is found')
 plt.title('The number of times each SV has been found in the raw VCF files')
 plt.savefig("counted_nonfiltered_svs.png")
 
-plt.figure(6)
+plt.figure(6, figsize=(19.20,10.80))
 count_filt, genome_pos_filt = functions.count_svs(vcf_filtered, vcf_files)
 sorted_count_filt = sorted(count_filt.items())
 chr_pos_filt, num_filt = zip(*sorted_count_filt)
