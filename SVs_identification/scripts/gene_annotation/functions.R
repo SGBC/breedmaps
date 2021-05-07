@@ -1,7 +1,7 @@
 ####################--------------- FUNCTIONS FOR GENE ANNOTATION OF CATTLE VCFs ---------------####################
 
 # Function to read DELLY vcf files and extract the PRECISE flag. (vcfR was unable to handle the PRECISE/IMPRECISE flag)
-read_delly_vcf = function(path) {
+read_BTA_delly_vcf = function(path) {
   vcf = read.table(
     file = path,
     quote = "",

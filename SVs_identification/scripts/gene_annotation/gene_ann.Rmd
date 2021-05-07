@@ -9,7 +9,7 @@ params:
   annDir: 'data/annotation/'
   scriptDir: 'scripts/gene_annotation/'
   gene_ann: 'Bos_taurus.ARS-UCD1.2.103.gtf'
-  vcfDir: 'data/vcf/'
+  vcfDir: 'results/gene_annotation/filtered_variants/'
   resultsDir: 'results/gene_annotation/'
 ---
 
@@ -30,7 +30,7 @@ This is a power heavy script so it needs to be run in parts. It is divided into:
 ```{r read vcf files}
 # Load VCF file
 vcf_path = paste(params$workingDir, params$vcfDir, sep = "")
-vcf_files = list.files(path = vcf_path, pattern = "RDC*")
+vcf_files = list.files(path = vcf_path, pattern = "precise_*")
 vcf_names = list()
 df_list = list()
 range_list = list()
@@ -40,19 +40,14 @@ for (i in 1:length(vcf_files)) {
   
   # Save the file name to be able to use it when writing results files
   name = strsplit(vcf_files, "\\.")[[i]][1]
+  name = strsplit(name, "\\precise_")[2]
   vcf_names[[i]] = name
-  
-  #df = read_delly_vcf(vcf_file)
-  df = read_RDC_delly_vcf(vcf_file)
   
   # Because of the ranges need to filter out the breakpoint
   filt_var = df %>% dplyr::filter(ALT == "<DUP>" | ALT == "<DEL>" |
-                                    ALT == "<INV>" | ALT == "<INS>")
-  filt_var = filt_var  %>% dplyr::filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
-  filt_var_final = filt_var %>% dplyr::mutate(SV_LENGTH = as.numeric(END) -
-                                                as.numeric(POS)) %>% dplyr::rename(ID1 = ID)
-  # Filtereing out all variants larger than 50 000 000 since it is too computer heavy to add annotation to these variants
-  #filt_var_final = filt_var_final %>% dplyr::filter(SV_LENGTH < 50000000)
+                                    ALT == "<INV>" | ALT == "<INS>") %>% rename(ID1 = ID)
+  # Filtering out all variants larger than 50 000 000 since it is too computer heavy to add annotation to these variants
+  filt_var_final = filt_var %>% dplyr::filter(SV_LENGTH < 50000000)
   df_list[[i]] = filt_var_final
   vcf_range = makeGRangesFromDataFrame(
     filt_var_final,
@@ -151,7 +146,7 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "filtered_variants/",
+    "annotated_variants/",
     "filt_ann_gene_",
     vcf_names[[i]],
     ".tsv",
@@ -169,7 +164,7 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "filtered_variants/",
+    "annotated_variants/",
     "filt_ann_exon_",
     vcf_names[[i]],
     ".tsv",
@@ -187,7 +182,7 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "filtered_variants/",
+    "annotated_variants/",
     "filt_ann_transcript_",
     vcf_names[[i]],
     ".tsv",
@@ -204,7 +199,7 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "filtered_variants/",
+    "annotated_variants/",
     "filt_ann_rest_",
     vcf_names[[i]],
     ".tsv",
