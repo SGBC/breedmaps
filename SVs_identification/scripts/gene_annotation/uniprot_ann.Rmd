@@ -8,7 +8,7 @@ params:
   workingDir: '~/breedmaps/SVs_identification/'
   annDir: 'data/annotation/'
   scriptDir: 'scripts/gene_annotation/'
-  resultsDir: 'results/gene_annotation/filtered_variants/'
+  resultsDir: 'results/gene_annotation/annotated_variants/'
   uniprotDir: 'results/gene_annotation/uniprot_ann/'
 ---
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #library('UniprotR')
 #library("tidyverse")
 #library("UniProt.ws")
-
+#library(dplyr)
 ```
 
 

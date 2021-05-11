@@ -30,7 +30,7 @@ This is a power heavy script so it needs to be run in parts. It is divided into:
 ```{r read vcf files}
 # Load VCF file
 vcf_path = paste(params$workingDir, params$vcfDir, sep = "")
-vcf_files = list.files(path = vcf_path, pattern = "precise_*")
+vcf_files = list.files(path = vcf_path, pattern = "precise_[A-Z]*")
 vcf_names = list()
 df_list = list()
 range_list = list()
@@ -40,12 +40,19 @@ for (i in 1:length(vcf_files)) {
   
   # Save the file name to be able to use it when writing results files
   name = strsplit(vcf_files, "\\.")[[i]][1]
-  name = strsplit(name, "\\precise_")[2]
+  name = strsplit(name, "precise_")[[1]][2]
   vcf_names[[i]] = name
   
+  df = read.table(
+    file = vcf_file,
+    quote = "",
+    sep="\t",
+    header = T,
+    stringsAsFactors = F
+  )
   # Because of the ranges need to filter out the breakpoint
   filt_var = df %>% dplyr::filter(ALT == "<DUP>" | ALT == "<DEL>" |
-                                    ALT == "<INV>" | ALT == "<INS>") %>% rename(ID1 = ID)
+                                    ALT == "<INV>" | ALT == "<INS>") %>% dplyr::rename(ID1 = ID)
   # Filtering out all variants larger than 50 000 000 since it is too computer heavy to add annotation to these variants
   filt_var_final = filt_var %>% dplyr::filter(SV_LENGTH < 50000000)
   df_list[[i]] = filt_var_final

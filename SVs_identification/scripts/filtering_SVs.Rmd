@@ -14,7 +14,7 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library("tidyverse")
+#library("tidyverse")
 source(paste(params$workingDir, params$scriptDir, "functions.R", sep=""))
 
 ```
@@ -109,7 +109,7 @@ filt_bta_results = paste(
   params$workingDir,
   params$resultsDir,
   "filtered_variants/",
-  "precise_all_bta.tsv",
+  "all_bta_precise.tsv",
   sep = ""
 )
 write.table(
@@ -125,7 +125,7 @@ filt_rdc_results = paste(
   params$workingDir,
   params$resultsDir,
   "filtered_variants/",
-  "precise_all_rdc.tsv",
+  "all_rdc_precise.tsv",
   sep = ""
 )
 write.table(

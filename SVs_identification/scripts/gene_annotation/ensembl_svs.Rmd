@@ -47,7 +47,7 @@ ensembl_svs = ensembl_svs %>% dplyr::rename(
   Empty2 = V8,
   ENSEMBL_INFO = V9
 )
-ensembl_cleaned = ensembl_svs %>% dplyr::select(ENSEMBL_CHROM, ENSEMBL_START, ENSEMBL_END, ENSEMBL_STRAND, ENSEMBL_SOURCE, ENSEMBL_INFO) %>% dplyr::distinct(ENSEMBL_CHROM, ENSEMBL_START, ENSEMBL_END)
+ensembl_cleaned = ensembl_svs %>% dplyr::select(ENSEMBL_CHROM, ENSEMBL_START, ENSEMBL_END, ENSEMBL_STRAND, ENSEMBL_SOURCE, ENSEMBL_INFO)
 
 ensembl_range = makeGRangesFromDataFrame(
   ensembl_cleaned,
@@ -64,7 +64,7 @@ ensembl_range = makeGRangesFromDataFrame(
 path = paste(params$workingDir,
              params$resultsDir,
              sep = "")
-gene_file_names = list.files(path = path, pattern = "filt_ann_gene*")
+gene_file_names = list.files(path = path, pattern = "precise_[A-Z]*")
 
 overlap_list = list()
 for (i in 1:(length(gene_file_names))) {
@@ -81,6 +81,7 @@ for (i in 1:(length(gene_file_names))) {
   ) %>% dplyr::rename(SV_CHROM = CHROM,
                       SV_START = POS,
                       SV_END = END)
+  svs = svs %>% dplyr::filter(SVTYPE != "BND")
   svs = svs %>% dplyr::filter(SV_LENGTH < 50000000) %>% dplyr::rename(ID1 = ID)
   sv_range = makeGRangesFromDataFrame(
     svs,
