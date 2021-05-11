@@ -24,11 +24,13 @@ for i in range(len(vcf_files)):
 genome_names = []
 num_var_raw = []
 plt.figure(1, figsize=(19.20,10.80))
+print("Number of variants in each genome")
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
     genome_name = functions.get_file_name(vcf_files[i])
     genome_names.append(genome_name)
     num_var_raw.append(len(sample))
+    print(genome_name, len(sample))
 
 plt.plot(genome_names, num_var_raw, '.')
 plt.title('Number of SVs found in each genome')
@@ -39,9 +41,11 @@ plt.show()
 # Plot the number of filtered variants in each file
 num_var_filt = []
 plt.figure(2, figsize=(19.20,10.80))
+print("Number of filtered variants in each genome")
 for i in range(len(vcf_filtered)):
     sample = vcf_filtered[i]
     num_var_filt.append(len(sample))
+    print(genome_names[i], len(sample))
 
 plt.plot(genome_names, num_var_filt, '.')
 plt.title('Number of filtered SVs found in each genome')
@@ -80,11 +84,6 @@ plt.title('Number of each SV type in the filtered files')
 plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("filtered_svs.png")
-
-#summary = pd.DataFrame(
-#    {"File": genome_names, "Number of non-filtered variants": num_var_raw, "Number of filtered variants": num_var_filt,
-#     "filt_DEL": counts[:][1], "filt_DUP": counts[:][2], "filt_INV": counts[:][3], "filt_INS": counts[:][4], "filt_TRA": counts[:][5]})
-
 
 plt.figure(5, figsize=(19.20,10.80))
 
