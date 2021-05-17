@@ -15,9 +15,8 @@ params:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # BiocManager::install("UniProt.ws")
-#library('UniprotR')
 #library("tidyverse")
-#library("UniProt.ws")
+library("UniProt.ws")
 #library(dplyr)
 ```
 
@@ -37,6 +36,7 @@ gene_path = paste(params$workingDir, params$resultsDir, sep = "")
 gene_file_names = list.files(path = gene_path, pattern = "filt_ann_gene*")
 gene_list = list()
 joined_list = list()
+all_uniprot = data.frame()
 
 for (i in 1:length(gene_file_names)) {
   full_path = paste(gene_path,
@@ -108,7 +108,17 @@ for (i in 1:length(gene_file_names)) {
     final = renamed
   }
   joined = inner_join(gene_file, final, by = "gene_id")
+  joined$CHROM = as.factor(joined$CHROM)
+  joined$CHR2 = as.factor(joined$CHR2)
+  joined$gene_chrom = as.factor(joined$gene_chrom)
+  joined$QUAL = as.factor(joined$QUAL)
   joined_list[[i]] = joined
+  if (i == 1){
+    all_uniprot = joined
+  }
+  else {
+    all_uniprot = full_join(all_uniprot, joined)
+  }
 }
 
 ```
@@ -133,6 +143,19 @@ for (i in 1:length(gene_file_names)){
       col.names = T
     )
 }
+
+uniprot_all = paste(params$workingDir,
+                     params$uniprotDir,
+                     "all_uniprot_ann",
+                     sep = "")
+write.table(
+  x = all_uniprot,
+  file = uniprot_all,
+  quote = F,
+  sep = "\t",
+  row.names = F,
+  col.names = T
+)
 
 ```
 
