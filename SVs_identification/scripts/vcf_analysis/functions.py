@@ -126,11 +126,16 @@ def count_svs(vcf_list, vcf_files):
             # Combine the chromosome and the start position to be able compare positions
             chrom = vcf_list[i].iloc[row]['CHROM']
             pos = vcf_list[i].iloc[row]['POS'].astype(str)
-            chrom_pos = chrom + ':' + pos
-            if chrom_pos in counts.keys():
-                counts[chrom_pos] += 1
-                genomes_pos[chrom_pos] += ';' + genome
+            sv_id = vcf_list[i].iloc[row]['ID']
+            info = vcf_list[i].iloc[row]['INFO']
+            info_split = info.split(';')
+            end = info_split[3].split('=')[1]
+            chrom_pos_end = chrom + ':' + pos + ':' + end
+
+            if chrom_pos_end in counts.keys():
+                counts[chrom_pos_end] += 1
+                genomes_pos[chrom_pos_end] += ';' + genome + "(" + sv_id + ")"
             else:
-                counts[chrom_pos] = 1
-                genomes_pos[chrom_pos] = genome
+                counts[chrom_pos_end] = 1
+                genomes_pos[chrom_pos_end] = genome + "(" + sv_id + ")"
     return counts, genomes_pos
