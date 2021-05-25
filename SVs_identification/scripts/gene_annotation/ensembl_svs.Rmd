@@ -15,8 +15,8 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#library(dplyr)
-#library(GenomicRanges)
+library(dplyr)
+library(GenomicRanges)
 
 source(paste(params$workingDir, params$functions, sep=""))
 ```

@@ -1,39 +1,47 @@
 # ADDING GENE ANNOTATION FROM ENSEMBL
 
-if(!require("tidyverse")){
+if (!require("tidyverse")) {
   install.packages("tidyverse")
 }
 
 if (!require("BiocManager")) {
   install.packages("BiocManager")
+  BiocManager::install()
+  library(BiocManager)
 }
-if(!require("GenomicRanges")){
+if (!require("GenomicRanges")) {
   BiocManager::install("GenomicRanges")
 }
-if(!require("rtracklayer")){
-  BiocManager::install("rtracklayer")
-}
-if(!require("optparse")){
+
+if (!require("optparse")) {
   install.packages("optparse")
 }
 library(optparse)
 library(tidyverse)
 library(GenomicRanges)
-library(rtracklayer)
 
 
 # Create inputs from the command line and save the options
-options <- list( 
-  make_option(c("-b", "--workingDir"), help="Base directory", default="~/breedmaps/SVs_identification/"),
-  make_option(c("-a", "--annDir"), help="Annotation directory", default="data/annotation/"),
-  make_option(c("-n", "--gene_ann"), help="Annotation gtf file from ENSEMBL", default="Bos_taurus.ARS-UCD1.2.103.gtf"),
-  make_option(c("-s", "--scriptDir"), help="script directory", default ="scripts/gene_annotation/"),
-  make_option(c("-s", "--dataDir"), help="Data directory for the filtered variants", default ="results/gene_annotation/filtered_variants/"),
-  make_option(c("-r", "--resultsDir"), help="Result directory", default="results/gene_annotation/"),
-  make_option(c("-f", "--functions"), help="Function file name",default="functions.R") )
+options <- list(
+  make_option(c("-b", "--workingDir"), help = "Base directory", default =
+                "~/breedmaps/SVs_identification/"),
+  make_option(c("-a", "--annDir"), help = "Annotation directory", default =
+                "data/annotation/"),
+  make_option(c("-n", "--gene_ann"), help = "Annotation gtf file from ENSEMBL", default =
+                "Bos_taurus.ARS-UCD1.2.103.gtf"),
+  make_option(c("-s", "--scriptDir"), help = "script directory", default =
+                "scripts/gene_annotation/"),
+  make_option(c("-d", "--dataDir"), help = "Data directory for the filtered variants", default =
+                "results/gene_annotation/filtered_variants/"),
+  make_option(c("-r", "--resultsDir"), help = "Result directory", default =
+                "results/gene_annotation/"),
+  make_option(c("-f", "--functions"), help = "Function file name", default =
+                "functions.R")
+)
 
-params <- parse_args(OptionParser(option_list=options))
-source(paste(params$workingDir, params$scriptDir, params$functions, sep=""))
+params <- parse_args(OptionParser(option_list = options))
+source(paste(params$workingDir, params$scriptDir, params$functions, sep =
+               ""))
 
 ########################################
 ########################################
@@ -44,7 +52,6 @@ vcf_files = list.files(path = vcf_path, pattern = "precise_[A-Z]*")
 vcf_names = list()
 df_list = list()
 range_list = list()
-
 for (i in 1:length(vcf_files)) {
   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
   
@@ -56,13 +63,14 @@ for (i in 1:length(vcf_files)) {
   df = read.table(
     file = vcf_file,
     quote = "",
-    sep="\t",
+    sep = "\t",
     header = T,
     stringsAsFactors = F
   )
   # Because of the ranges need to filter out the breakpoint
   filt_var = df %>% dplyr::filter(ALT == "<DUP>" | ALT == "<DEL>" |
-                                    ALT == "<INV>" | ALT == "<INS>") %>% dplyr::rename(ID1 = ID)
+                                    ALT == "<INV>" |
+                                    ALT == "<INS>") %>% dplyr::rename(ID1 = ID)
   # Filtering out all variants larger than 50 000 000 since it is too computer heavy to add annotation to these variants
   filt_var_final = filt_var %>% dplyr::filter(SV_LENGTH < 50000000)
   df_list[[i]] = filt_var_final
@@ -81,8 +89,9 @@ for (i in 1:length(vcf_files)) {
 # Load gene info from ENSEMBL gtf file
 ann_path = paste(params$workingDir, params$annDir, params$gene_ann, sep =
                    "")
-ann_df = as.data.frame(rtracklayer::import(ann_path))
-ann_df = ann_df %>% dplyr::rename(gene_chrom = seqnames, gene_start = start, gene_end = end, gene_strand = strand, gene_width = width, gene_type = type) %>% dplyr::select(-source)
+ann_df = load_gvf(ann_path)
+
+
 ########################################
 ########################################
 ########################################
@@ -229,5 +238,3 @@ for (i in 1:length(range_list)) {
     col.names = T
   )
 }
-
-
