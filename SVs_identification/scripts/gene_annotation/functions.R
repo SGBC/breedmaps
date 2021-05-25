@@ -1,7 +1,7 @@
 ####################--------------- FUNCTIONS FOR GENE ANNOTATION OF CATTLE VCFs ---------------####################
 
 # Function to read DELLY vcf files and extract the PRECISE flag. (vcfR was unable to handle the PRECISE/IMPRECISE flag)
-read_BTA_delly_vcf = function(path) {
+read_old_delly_vcf = function(path) {
   vcf = read.table(
     file = path,
     quote = "",
@@ -103,7 +103,7 @@ read_BTA_delly_vcf = function(path) {
 }
 
 
-read_RDC_delly_vcf = function(path) {
+read_new_delly_vcf = function(path) {
   vcf = read.table(
     file = path,
     quote = "",
@@ -234,5 +234,50 @@ findoverlap_dataframe = function(var_range, gene_range, var_df, gene_df){
   overlap = overlap %>% dplyr::select(ID1, ID2)
   joined_vcf  = inner_join(overlap, var_df, by = "ID1")
   joined_genes =  inner_join(joined_vcf,  gene_df, by = "ID2")
+}
+
+get_column_from_gtf = function(column, name) {
+  info <- strsplit(column, "; ")
+  info <- gsub("\"", "", unlist(info))
+  if (!is.null(unlist(strsplit(info[grep(name, info)], " ")))) {
+    return(unlist(strsplit(info[grep(name, info)], " "))[2])
+  } else{
+    return(NA)
+  }
+}
+
+
+load_gvf = function(ann_path) {
+  ann_df = read.table(
+    file = ann_path,
+    quote = "",
+    sep = "\t",
+    header = F,
+    stringsAsFactors = F
+  ) %>% dplyr::rename(
+    gene_chrom = V1,
+    source = V2,
+    gene_type = V3,
+    gene_start = V4,
+    gene_end = V5,
+    score = V6,
+    gene_strand = V7,
+    phase = V8,
+  )
+  
+  ann_df = ann_df %>% dplyr::mutate(
+    gene_id = get_column_from_gtf(ann_df$V9, "gene_id"),
+    gene_version = get_column_from_gtf(ann_df$V9, "gene_version"),
+    transcript_id = get_column_from_gtf(ann_df$V9, "transcript_id"),
+    transcript_version = get_column_from_gtf(ann_df$V9, "transcript_version"),
+    exon_number = get_column_from_gtf(ann_df$V9, "exon_number"),
+    gene_name = get_column_from_gtf(ann_df$V9, "gene_name"),
+    gene_source = get_column_from_gtf(ann_df$V9, "gene_source"),
+    gene_biotype = get_column_from_gtf(ann_df$V9, "gene_biotype"),
+    transcript_source = get_column_from_gtf(ann_df$V9, "transcript_source"),
+    transcript_biotype = get_column_from_gtf(ann_df$V9, "transcript_biotype"),
+    protein_id = get_column_from_gtf(ann_df$V9, "protein_id"),
+    protein_version = get_column_from_gtf(ann_df$V9, "protein_version")
+  )
 }
 
