@@ -38,7 +38,7 @@ options <- list(
   make_option(c("-d", "--dataDir"), help = "Data directory for the filtered variants", default =
                 "results/gene_annotation/filtered_variants/"),
   make_option(c("-r", "--resultsDir"), help = "Result directory", default =
-                "results/gene_annotation/annotated_variants"),
+                "results/gene_annotation/annotated_variants/"),
   make_option(c("-f", "--functions"), help = "Function file name", default =
                 "functions.R")
 )
@@ -179,6 +179,7 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
+    "filt_ann_gene_",
     vcf_names[[i]],
     ".tsv",
     sep = ""
@@ -195,6 +196,7 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
+    "filt_ann_exon_",
     vcf_names[[i]],
     ".tsv",
     sep = ""
