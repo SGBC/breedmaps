@@ -12,6 +12,9 @@ if (!require("BiocManager")) {
 if (!require("GenomicRanges")) {
   BiocManager::install("GenomicRanges")
 }
+if (!require("rtracklayer")) {
+  BiocManager::install("rtracklayer")
+}
 
 if (!require("optparse")) {
   install.packages("optparse")
@@ -19,22 +22,23 @@ if (!require("optparse")) {
 library(optparse)
 library(tidyverse)
 library(GenomicRanges)
+library(rtracklayer)
 
 
 # Create inputs from the command line and save the options
 options <- list(
-  make_option(c("-b", "--workingDir"), help = "Base directory", default =
+  make_option(c("-w", "--workingDir"), help = "Base directory", default =
                 "~/breedmaps/SVs_identification/"),
   make_option(c("-a", "--annDir"), help = "Annotation directory", default =
                 "data/annotation/"),
-  make_option(c("-n", "--gene_ann"), help = "Annotation gtf file from ENSEMBL", default =
+  make_option(c("-n", "--annFile"), help = "Annotation gtf file from ENSEMBL", default =
                 "Bos_taurus.ARS-UCD1.2.103.gtf"),
-  make_option(c("-s", "--scriptDir"), help = "script directory", default =
+  make_option(c("-s", "--scriptDir"), help = "Script directory", default =
                 "scripts/gene_annotation/"),
   make_option(c("-d", "--dataDir"), help = "Data directory for the filtered variants", default =
                 "results/gene_annotation/filtered_variants/"),
   make_option(c("-r", "--resultsDir"), help = "Result directory", default =
-                "results/gene_annotation/"),
+                "results/gene_annotation/annotated_variants"),
   make_option(c("-f", "--functions"), help = "Function file name", default =
                 "functions.R")
 )
@@ -67,15 +71,11 @@ for (i in 1:length(vcf_files)) {
     header = T,
     stringsAsFactors = F
   )
-  # Because of the ranges need to filter out the breakpoint
-  filt_var = df %>% dplyr::filter(ALT == "<DUP>" | ALT == "<DEL>" |
-                                    ALT == "<INV>" |
-                                    ALT == "<INS>") %>% dplyr::rename(ID1 = ID)
-  # Filtering out all variants larger than 50 000 000 since it is too computer heavy to add annotation to these variants
-  filt_var_final = filt_var %>% dplyr::filter(SV_LENGTH < 50000000)
-  df_list[[i]] = filt_var_final
+  filt_var = df %>% dplyr::rename(ID1 = ID)
+
+  df_list[[i]] = filt_var
   vcf_range = makeGRangesFromDataFrame(
-    filt_var_final,
+    filt_var,
     seqnames.field = "CHROM",
     start.field = "POS",
     end.field = "END",
@@ -87,9 +87,18 @@ for (i in 1:length(vcf_files)) {
 ########################################
 ########################################
 # Load gene info from ENSEMBL gtf file
-ann_path = paste(params$workingDir, params$annDir, params$gene_ann, sep =
+ann_path = paste(params$workingDir, params$annDir, params$annFile, sep =
                    "")
-ann_df = load_gvf(ann_path)
+#ann_df = load_gvf(ann_path)
+ann_df = as.data.frame(rtracklayer::import(ann_path))
+ann_df = ann_df %>% dplyr::rename(
+  gene_chrom = seqnames,
+  gene_start = start,
+  gene_end = end,
+  gene_width = width,
+  gene_strand = strand,
+  gene_type = type
+)
 
 
 ########################################
@@ -170,8 +179,6 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "annotated_variants/",
-    "filt_ann_gene_",
     vcf_names[[i]],
     ".tsv",
     sep = ""
@@ -188,8 +195,6 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "annotated_variants/",
-    "filt_ann_exon_",
     vcf_names[[i]],
     ".tsv",
     sep = ""
@@ -206,7 +211,6 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "annotated_variants/",
     "filt_ann_transcript_",
     vcf_names[[i]],
     ".tsv",
@@ -223,7 +227,6 @@ for (i in 1:length(range_list)) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "annotated_variants/",
     "filt_ann_rest_",
     vcf_names[[i]],
     ".tsv",
