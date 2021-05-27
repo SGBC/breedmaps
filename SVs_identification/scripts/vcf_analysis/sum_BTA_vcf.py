@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Read in all vcf files in your directory
-vcf_files = glob.glob("/Users/jj/breedmaps/SVs_identification/data/vcf/new_version/BTA*")
+vcf_files = glob.glob("/Users/jj/breedmaps/SVs_identification/data/vcf/BTA*")
 vcf_filtered = [None] * len(vcf_files)
 vcf_raw = [None] * len(vcf_files)
 
