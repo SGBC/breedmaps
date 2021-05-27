@@ -27,20 +27,18 @@ library(rtracklayer)
 
 # Create inputs from the command line and save the options
 options <- list(
-  make_option(c("-b", "--workingDir"), help = "Base directory", default =
+  make_option(c("-w", "--workingDir"), help = "Base directory", default =
                 "~/breedmaps/SVs_identification/"),
   make_option(c("-a", "--annDir"), help = "Annotation directory", default =
                 "data/annotation/"),
-  make_option(c("-n", "--svsDir"), help = "SVs gff file from ENSEMBL", default =
-                "Bos_taurus.ARS-UCD1.2.103.gtf"),
-  make_option(c("-e", "--evaFile"), help = "EVA gff file", default =
-                "data/eva/remapped/x-special/remapped_estd223_Boussaha_et_al_2015.2015-11-02.Bos_taurus_UMD_3.1.Submitted.gff"),
+  make_option(c("-e", "--datasetPath"), help = "Dataset full path", default =
+                "~/breedmaps/SVs_identification/data/annotation/bos_taurus_structural_variations.gvf"),
   make_option(c("-s", "--scriptDir"), help = "script directory", default =
                 "scripts/gene_annotation/"),
   make_option(c("-d", "--dataDir"), help = "Data directory for the filtered variants", default =
                 "results/gene_annotation/filtered_variants/"),
   make_option(c("-r", "--resultsDir"), help = "Result directory", default =
-                "results/gene_annotation/ensembl_ann/"),
+                "results/gene_annotation/datasets/"),
   make_option(c("-f", "--functions"), help = "Function file name", default =
                 "functions.R")
 )
@@ -54,12 +52,12 @@ source(paste(params$workingDir, params$scriptDir, params$functions, sep =
 ######################################################################
 ######################################################################
 
-dataset_path = paste(params$workingDir,
-                     params$evaFile,
-                     sep = "")
 
-dataset = as.data.frame(rtracklayer::import(dataset_path))
-dataset_renamed = dataset %>% dplyr::rename(
+dataset_file_name = stringr::str_split_fixed(params$datasetPath, "/", n = Inf)
+name = dataset_file_name[length(dataset_file_name)]
+
+dataset = as.data.frame(rtracklayer::import(params$datasetPath))
+dataset_cleaned = dataset %>% dplyr::rename(
   DATASET_CHROM = seqnames,
   DATASET_SOURCE = source,
   DATASET_SV_TYPE = type,
@@ -71,7 +69,7 @@ dataset_renamed = dataset %>% dplyr::rename(
 )
 
 dataset_range = makeGRangesFromDataFrame(
-  dataset_renamed,
+  dataset_cleaned,
   seqnames.field = "DATASET_CHROM",
   start.field = "DATASET_START",
   end.field = "DATASET_END",
@@ -83,12 +81,12 @@ dataset_range = makeGRangesFromDataFrame(
 ######################################################################
 
 data_path = paste(params$workingDir,
-                  params$resultsDir,
+                  params$dataDir,
                   sep = "")
 data_file_names = list.files(path = data_path, pattern = "precise_[A-Z]*")
 
 overlap_list = list()
-for (i in 1:(length(gene_file_names))) {
+for (i in 1:(length(data_file_names))) {
   full_path = paste(params$workingDir,
                     params$dataDir,
                     data_file_names[[i]],
@@ -99,11 +97,12 @@ for (i in 1:(length(gene_file_names))) {
     sep = "\t",
     header = T,
     stringsAsFactors = F
+  ) %>% dplyr::rename(
+    SV_CHROM = CHROM,
+    SV_START = POS,
+    SV_END = END,
+    ID1 = ID
   )
-  %>% dplyr::rename(SV_CHROM = CHROM,
-                    SV_START = POS,
-                    SV_END = END)
-  svs = svs %>% dplyr::filter(SV_LENGTH < 50000000) %>% dplyr::rename(ID1 = ID)
   sv_range = makeGRangesFromDataFrame(
     svs,
     seqnames.field = "SV_CHROM",
@@ -117,9 +116,9 @@ for (i in 1:(length(gene_file_names))) {
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "dataset/",
-    "dataset_",
-    gene_file_names[[i]],
+    name,
+    "_joined_with_",
+    data_file_names[[i]],
     sep = ""
   )
   write.table(
@@ -131,3 +130,4 @@ for (i in 1:(length(gene_file_names))) {
     col.names = T
   )
 }
+
