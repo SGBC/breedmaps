@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Rscript ~/breedmaps/SVs_identification/scripts/gene_annotation/filtering_SVs.R
+#Rscript ~/breedmaps/SVs_identification/scripts/gene_annotation/filtering_SVs.R
 
 # Add flag to specify if the files in a different directory than the default
 #  -w, --workingDir	Base directory		default="~/breedmaps/SVs_identification/"
@@ -11,7 +11,7 @@ Rscript ~/breedmaps/SVs_identification/scripts/gene_annotation/filtering_SVs.R
 #  -f, --functions	Function file name	default="functions.R"
 
 
-Rscript ~/breedmaps/SVs_identification/scripts/gene_annotation/gene_ann.R
+#Rscript ~/breedmaps/SVs_identification/scripts/gene_annotation/gene_ann.R
 
 # Add flag to specify if the files in a different directory than the default
 #  -w, --workingDir	Base directory			default="~/breedmaps/SVs_identification/"
