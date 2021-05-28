@@ -38,7 +38,7 @@ plt.title('Number of SVs found in each genome [#SVs]')
 plt.xticks(fontsize=4, rotation=45, ha='right')
 plt.ylabel('# SVs')
 plt.savefig('BTA_count_per_genome.png')
-plt.show()
+
 # Plot the number of filtered variants in each file
 num_var_filt = []
 plt.figure(2, figsize=(19.20,10.80))
@@ -53,7 +53,6 @@ plt.title('Number of filtered SVs found in each genome')
 plt.xticks(fontsize=4, rotation=45, ha='right')
 plt.ylabel('# SVs')
 plt.savefig('BTA_filt_count_per_genome.png')
-plt.show()
 
 # Plot the number of each type of structural variation
 plt.figure(3, figsize=(19.20,10.80))
@@ -124,5 +123,3 @@ all_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in all_svs.ke
 df_all_genomes = pd.Series(all_svs_genomes)
 merged_all_svs = pd.concat([df_all, df_all_genomes], axis=1)
 merged_all_svs.to_csv('BTA_all_svs.csv', sep=',')
-
-plt.show()

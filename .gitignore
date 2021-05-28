@@ -1,1 +1,9 @@
 SVs_identification/data/
+SVs_identification/.vscode
+.DS_Store
+.RData
+.RHistory
+SVs_identification/scripts/vcf_analysis/.idea
+SVs_identification/scripts/vcf_analysis/venv
+SVs_identification/scripts/vcf_analysis/__pycache__
+
