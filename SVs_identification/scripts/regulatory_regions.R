@@ -65,8 +65,13 @@ dataset = read.table(
   header = F,
   stringsAsFactors = F
 )
-dataset_renamed = dataset %>% dplyr::rename(DATASET_CHROM=V1, DATASET_START=V2, DATASET_END=V3, BIOLOGICAL_NAME=V4)
-dataset_cleaned = dataset_renamed %>% dplyr::mutate(DATASET_CHROM = stringr::str_split_fixed(dataset_renamed$DATASET_CHROM, "chr", n = 2)[,2])
+dataset_renamed = dataset %>% dplyr::rename(
+  DATASET_CHROM = V1,
+  DATASET_START = V2,
+  DATASET_END = V3,
+  BIOLOGICAL_NAME = V4
+)
+dataset_cleaned = dataset_renamed %>% dplyr::mutate(DATASET_CHROM = stringr::str_split_fixed(dataset_renamed$DATASET_CHROM, "chr", n = 2)[, 2])
 dataset_range = makeGRangesFromDataFrame(
   dataset_cleaned,
   seqnames.field = "DATASET_CHROM",
@@ -80,12 +85,11 @@ dataset_range = makeGRangesFromDataFrame(
 ######################################################################
 
 path = paste(params$workingDir,
-                  params$dataDir,
-                  sep = "")
+             params$dataDir,
+             sep = "")
 file_names = list.files(path = path, pattern = "precise_[A-Z]*")
 
-overlap_list = list()
-all_dfs= data.frame()
+all_dfs = data.frame()
 for (i in 1:(length(file_names))) {
   full_path = paste(params$workingDir,
                     params$dataDir,
@@ -111,8 +115,7 @@ for (i in 1:(length(file_names))) {
   overlap = findoverlap_dataframe(sv_range, dataset_range, svs, dataset_cleaned)
   #sv_range = ID1, dataset = ID2
   overlap_cleaned = overlap %>% dplyr::rename(SV_ID = ID1) %>% dplyr::select(-ID2) %>% unique()
-  overlap_list[[i]] = overlap_cleaned
-  if (i==1){
+  if (i == 1) {
     overlap_cleaned$File = file_names[i]
     all_dfs = overlap_cleaned
   }
@@ -120,44 +123,28 @@ for (i in 1:(length(file_names))) {
     overlap_cleaned$File = file_names[i]
     all_dfs = full_join(all_dfs, overlap_cleaned)
   }
-  
-}
-
-# Write to file
-for (i in 1:(length(file_names))) {
   filt_results = paste(params$workingDir,
                        params$resultsDir,
                        "regl_",
                        file_names[[i]],
                        sep = "")
   write.table(
-    x = overlap_list[[i]],
+    x = overlap_cleaned,
     file = filt_results,
     quote = F,
     sep = "\t",
     row.names = F,
     col.names = T
   )
+  
 }
-all_results = paste(params$workingDir,
-                     params$resultsDir,
-                     "all_regl_variants",
-                     ".tsv",
-                     sep = "")
-write.table(
-  x = all_results,
-  file = all_dfs,
-  quote = F,
-  sep = "\t",
-  row.names = F,
-  col.names = T
-)
+
+
 
 print("Count for each chromatin state in all the data")
-all_counts = all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME)%>%count()
+all_counts = all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME) %>% count()
 print(all_counts)
 
 print("Count for each chromatin state in each file")
-counts = all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME, File)%>%count()
+counts = all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME, File) %>% count()
 print(counts)
-

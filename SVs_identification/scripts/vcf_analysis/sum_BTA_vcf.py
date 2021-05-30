@@ -4,20 +4,24 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Read in all vcf files in your directory
-vcf_files = glob.glob("/Users/jj/breedmaps/SVs_identification/data/vcf/BTA*")
-vcf_filtered = [None] * len(vcf_files)
-vcf_raw = [None] * len(vcf_files)
+vcf_files_raw = glob.glob("/Users/jj/breedmaps/SVs_identification/data/vcf/BTA*_L*")
+vcf_files_filt = glob.glob("/Users/jj/breedmaps/SVs_identification/results/filtered_variants/precise_BTA*_L*")
+vcf_filtered = [None] * len(vcf_files_filt)
+vcf_raw = [None] * len(vcf_files_raw)
 
 # # # -------- Load the files -------- # # #
 # Read in all files and save both raw and filtered.
-for i in range(len(vcf_files)):
-    file = functions.read_delly_vcf(vcf_files[i])
+for i in range(len(vcf_files_raw)):
+    file = functions.read_delly_vcf(vcf_files_raw[i])
     vcf_raw[i] = file
-    # Filtered by the FILTER column(FITLER == PASS) and PRECISE flag
-    filtered = functions.filter_qual(file)
-    precise = functions.filter_precise(filtered)
-    vcf_filtered[i] = precise
 
+for i in range(len(vcf_files_filt)):
+    precise = pd.read_csv(
+        vcf_files_filt[i],
+        sep='\t',
+        dtype=str
+    )
+    vcf_filtered[i] = precise
 
 # # # -------- Plot -------- # # #
 # Plot the number of all variants in each file
@@ -28,7 +32,7 @@ print("Number of variants in each genome [#SVs]")
 
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
-    genome_name = functions.get_file_name(vcf_files[i])
+    genome_name = functions.get_file_name(vcf_files_raw[i])
     genome_names.append(genome_name)
     num_var_raw.append(len(sample))
     print(genome_name, len(sample))
@@ -90,8 +94,7 @@ plt.ylabel('# SVs')
 plt.savefig("BTA_filtered_svs.png")
 
 plt.figure(5, figsize=(19.20,10.80))
-
-count_raw, genome_pos_raw = functions.count_svs(vcf_raw, vcf_files)
+count_raw, genome_pos_raw = functions.count_svs(vcf_raw, vcf_files_raw)
 sorted_count_raw = sorted(count_raw.items())
 chr_pos_raw, num_raw = zip(*sorted_count_raw)
 plt.plot(num_raw)
@@ -101,7 +104,7 @@ plt.title('The number of times each SV has been found in the raw VCF files')
 plt.savefig("BTA_counted_nonfiltered_svs.png")
 
 plt.figure(6, figsize=(19.20,10.80))
-count_filt, genome_pos_filt = functions.count_svs(vcf_filtered, vcf_files)
+count_filt, genome_pos_filt = functions.count_svs(vcf_filtered, vcf_files_filt)
 sorted_count_filt = sorted(count_filt.items())
 chr_pos_filt, num_filt = zip(*sorted_count_filt)
 plt.plot(num_filt)
@@ -123,3 +126,6 @@ all_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in all_svs.ke
 df_all_genomes = pd.Series(all_svs_genomes)
 merged_all_svs = pd.concat([df_all, df_all_genomes], axis=1)
 merged_all_svs.to_csv('BTA_all_svs.csv', sep=',')
+
+# Uncomment this line to output the plots instead of just saving them
+#plt.show()

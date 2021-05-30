@@ -32,7 +32,7 @@ options <- list(
   make_option(c("-a", "--annDir"), help = "Annotation directory", default =
                 "data/annotation/"),
   make_option(c("-e", "--datasetPath"), help = "Dataset full path", default =
-                "/Users/jj/breedmaps/SVs_identification/data/eva/remapped/remapped_estd223_Boussaha_et_al_2015.2015-11-02.Bos_taurus_UMD_3.1.Submitted.gff"),
+                "~/breedmaps/SVs_identification/data/eva/remapped/remapped_nstd119_Menzi_et_al_2016.2017-04-24.Bos_taurus_UMD_3.1.1.Submitted.gff"),
   make_option(c("-s", "--scriptDir"), help = "script directory", default =
                 "scripts/"),
   make_option(c("-d", "--dataDir"), help = "Data directory for the filtered variants", default =
@@ -63,10 +63,10 @@ dataset_cleaned = dataset %>% dplyr::rename(
   DATASET_SV_TYPE = type,
   DATASET_START = start,
   DATASET_END = end,
-  DATSET_STRAND = strand,
+  DATASET_STRAND = strand,
   DATASET_SV_LENGTH = width
 )
-data_unique = dataset_cleaned %>% dplyr::select(DATASET_CHROM, DATASET_START, DATASET_END, DATASET_STRAND, DATASET_SV_TYPE) %>% unique()
+dataset_unique = dataset_cleaned %>% dplyr::select(DATASET_CHROM, DATASET_START, DATASET_END, DATASET_STRAND, DATASET_SV_TYPE) %>% unique()
 
 dataset_range = makeGRangesFromDataFrame(
   dataset_unique,
@@ -142,6 +142,6 @@ for (i in 2:length(data_file_names)){
   print(paste("Variants overlapping the same regions: ", dim(overlap_list[[i]])[1],sep=""))
   all_count = all_count + dim(overlap_list[[i]])[1]
 }
-print(paste("Total amount of variants overlapping the same regions for this file: ", all_count, sep=""))
+print(paste("Total amount of variants overlapping the same regions for this dataset: ", all_count, sep=""))
 
 

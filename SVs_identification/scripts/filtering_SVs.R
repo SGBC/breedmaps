@@ -42,9 +42,9 @@ source(paste(params$workingDir, params$scriptDir, params$functions, sep =
 vcf_path = paste(params$workingDir, params$vcfDir, sep = "")
 vcf_files = list.files(path = vcf_path, pattern = "*.vcf")
 vcf_names = list()
-df_list = list()
 
 for (i in 1:length(vcf_files)) {
+  # Paste together the entire file path
   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
   
   # Save the file name to be able to use it when writing results files
@@ -56,15 +56,8 @@ for (i in 1:length(vcf_files)) {
   
   # Filter out the IMPRECISE and LowQual SVs
   filt_var = df %>% dplyr::filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
-  df_list[[i]] = filt_var
-}
-
-################################################################################
-################################################################################
-################################################################################
-
-# Write to files. One output per input file
-for (i in 1:length(df_list)) {
+  
+  # Write results to files
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
@@ -75,7 +68,7 @@ for (i in 1:length(df_list)) {
     sep = ""
   )
   write.table(
-    x = df_list[[i]],
+    x = filt_var,
     file = filt_results,
     quote = F,
     sep = "\t",

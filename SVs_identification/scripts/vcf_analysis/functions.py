@@ -10,13 +10,15 @@ def read_delly_vcf(path):
         lines = [l for l in f if not l.startswith('##')]
     df = pd.read_csv(
         io.StringIO(''.join(lines)),
-        dtype={'#CHROM': str, 'POS': int, 'ID': str, 'REF': str, 'ALT': str,
+        dtype={'#CHROM': str, 'POS': str, 'ID': str, 'REF': str, 'ALT': str,
                'QUAL': str, 'FILTER': str, 'INFO': str},
         sep='\t'
     ).rename(columns={'#CHROM': 'CHROM'})
     # Save the PRECISE/IMPRECISE flag as an additional column
     df[['PRECISE', 'EXTRA']] = df['INFO'].str.split(';', 1, expand=True)
-    df = df.drop(['EXTRA'], axis=1)
+    df[['1', '2', 'END_full', '3']] = df['EXTRA'].str.split(';', 3, expand=True)
+    df[['4', 'END']] = df['END_full'].str.split('=', 1, expand=True)
+    df = df.drop(['EXTRA', '1', '2', '3', '4', 'END_full'], axis=1)
     return df
 
 
@@ -124,11 +126,9 @@ def count_svs(vcf_list, vcf_files):
         for row in range(len(vcf_list[i])):
             # Combine the chromosome and the start position to be able compare positions
             chrom = vcf_list[i].iloc[row]['CHROM']
-            pos = vcf_list[i].iloc[row]['POS'].astype(str)
+            pos = vcf_list[i].iloc[row]['POS']
+            end = vcf_list[i].iloc[row]['END']
             sv_id = vcf_list[i].iloc[row]['ID']
-            info = vcf_list[i].iloc[row]['INFO']
-            info_split = info.split(';')
-            end = info_split[3].split('=')[1]
             chrom_pos_end = chrom + ':' + pos + ':' + end
 
             if chrom_pos_end in counts.keys():
