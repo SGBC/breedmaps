@@ -1,27 +1,23 @@
-library(dplyr)
+library(tidyverse)
 library(VennDiagram)
 library(RColorBrewer)
 
 # Read single lane files
 # Read combined files
-path = "~/breedmaps/SVs_identification/results/filtered_variants/"
+path = "~/breedmaps/SVs_identification/data/vcf/"
 resultsDir = "~/breedmaps/SVs_identification/results/venn/"
+
+source("~/breedmaps/SVs_identification/scripts/functions.R")
 
 # The BTA individuals are named BTA125 -> BTA133
 for (i in 25:33) {
   bta = list.files(path = path,
-                   pattern = paste("precise_BTA1*", i, "_", sep = ""))
+                   pattern = paste("BTA1*", i, "_", sep = ""))
   lane1_path = bta[1]
   lane2_path = bta[2]
   lane3_path = bta[3]
   lane4_path = bta[4]
-  lane1_df = read.table(
-    file = paste(path, lane1_path, sep = ""),
-    quote = "",
-    sep = "\t",
-    header = T,
-    stringsAsFactors = F
-  )
+  lane1_df = read_new_delly_vcf(paste(path, lane1_path, sep = ""))
   lane1_cleaned = lane1_df %>% dplyr::mutate(Location = paste(
     as.factor(CHROM),
     ":",
@@ -30,13 +26,8 @@ for (i in 25:33) {
     as.factor(END) ,
     sep = ""
   )) %>% dplyr::select(Location, ID)
-  lane2_df = read.table(
-    file = paste(path, lane2_path, sep = ""),
-    quote = "",
-    sep = "\t",
-    header = T,
-    stringsAsFactors = F
-  )
+  
+  lane2_df = read_new_delly_vcf(paste(path, lane2_path, sep = ""))
   lane2_cleaned = lane2_df %>% dplyr::mutate(Location = paste(
     as.factor(CHROM),
     ":",
@@ -45,13 +36,8 @@ for (i in 25:33) {
     as.factor(END) ,
     sep = ""
   )) %>% dplyr::select(Location, ID)
-  lane3_df = read.table(
-    file = paste(path, lane3_path, sep = ""),
-    quote = "",
-    sep = "\t",
-    header = T,
-    stringsAsFactors = F
-  )
+  
+  lane3_df = read_new_delly_vcf(paste(path, lane3_path, sep = ""))
   lane3_cleaned = lane3_df %>% dplyr::mutate(Location = paste(
     as.factor(CHROM),
     ":",
@@ -60,13 +46,8 @@ for (i in 25:33) {
     as.factor(END) ,
     sep = ""
   )) %>% dplyr::select(Location, ID)
-  lane4_df = read.table(
-    file = paste(path, lane4_path, sep = ""),
-    quote = "",
-    sep = "\t",
-    header = T,
-    stringsAsFactors = F
-  )
+  
+  lane4_df = read_new_delly_vcf(paste(path, lane4_path, sep = ""))
   lane4_cleaned = lane4_df %>% dplyr::mutate(Location = paste(
     as.factor(CHROM),
     ":",
