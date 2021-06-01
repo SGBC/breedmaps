@@ -2,10 +2,12 @@ import functions
 import glob
 import matplotlib.pyplot as plt
 import pandas as pd
+from os.path import expanduser
 
 # Read in all vcf files in your directory
-vcf_files_raw = glob.glob("/Users/jj/breedmaps/SVs_identification/data/vcf/RDC*")
-vcf_files_filt = glob.glob("/Users/jj/breedmaps/SVs_identification/results/filtered_variants/precise_RDC*")
+home_path = expanduser("~")
+vcf_files_raw = glob.glob(home_path + "/breedmaps/SVs_identification/data/vcf/RDC*")
+vcf_files_filt = glob.glob(home_path + "/breedmaps/SVs_identification/results/filtered_variants/precise_RDC*")
 vcf_filtered = [None] * len(vcf_files_filt)
 vcf_raw = [None] * len(vcf_files_raw)
 
@@ -75,7 +77,6 @@ plt.title('Number of each SV type in all files')
 plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("RDC_nonfiltered_svs.png")
-
 
 
 # Figure 4 plots the filtered identified SVs

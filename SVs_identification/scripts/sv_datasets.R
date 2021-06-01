@@ -131,17 +131,14 @@ for (i in 1:(length(data_file_names))) {
   )
 }
 print(paste("#### Dataset: " , name, " ####",sep=""))
-print(paste("Variants in the data set: ", dim(dataset_cleaned)[1], sep=""))
 
-print(paste("--File: " , data_file_names[1]," --", sep=""))
-print(paste("Variants overlapping the same regions: ", dim(overlap_list[[1]])[1],sep=""))
-all_count = dim(overlap_list[[1]])[1]
+print("FILE           # OVERLAPPING VARIANTS")
+#all_count = dim(overlap_list[[1]])[1]
 
-for (i in 2:length(data_file_names)){
-  print(paste("--- File: " , data_file_names[i], sep=""))
-  print(paste("Variants overlapping the same regions: ", dim(overlap_list[[i]])[1],sep=""))
-  all_count = all_count + dim(overlap_list[[i]])[1]
+for (i in 1:length(data_file_names)){
+  print(paste(data_file_names[i],"           ", dim(overlap_list[[i]])[1],sep=""))
+  #all_count = all_count + dim(overlap_list[[i]])[1]
 }
-print(paste("Total amount of variants overlapping the same regions for this dataset: ", all_count, sep=""))
+#print(paste("Total variants overlapping for dataset: ", all_count, sep=""))
 
 
