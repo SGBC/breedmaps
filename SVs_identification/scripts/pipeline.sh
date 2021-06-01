@@ -65,6 +65,7 @@ python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_RDC.py
 
 gzip ~/breedmaps/SVs_identification/results/filtered_variants/*.tsv
 gzip ~/breedmaps/SVs_identification/results/annotated_variants/*.tsv
-gzip ~/breedmaps/SVs_identification/results/annotated_variants/*.tsv
+gzip ~/breedmaps/SVs_identification/results/regulatory_variants/*.tsv
+gzip ~/breedmaps/SVs_identification/results/datasets/*.tsv
 
 

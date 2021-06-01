@@ -114,6 +114,7 @@ vcf_files = list.files(path = vcf_path, pattern = "precise_[A-Z]*")
 vcf_names = list()
 df_list = list()
 range_list = list()
+print("##### ENSEMBL ANNOTATION #####")
 for (i in 1:length(vcf_files)) {
   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
   
@@ -137,13 +138,20 @@ for (i in 1:length(vcf_files)) {
     end.field = "END",
   )
   
-  overlap_gene = findoverlap_dataframe(vcf_range, gene_range, filt_var, gene_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
-  
-  overlap_tran = findoverlap_dataframe(vcf_range, tran_range, filt_var, tran_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
-  
-  overlap_exon = findoverlap_dataframe(vcf_range, exon_range, filt_var, exon_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
-  
-  overlap_rest = findoverlap_dataframe(vcf_range, rest_range, filt_var, rest_df) %>% dplyr::rename(ID = ID1, gene_id = ID2)
+  overlap_gene = findoverlap_dataframe(vcf_range, gene_range, filt_var, gene_df) %>%
+    dplyr::rename(ID = ID1, gene_id = ID2)
+  overlap_tran = findoverlap_dataframe(vcf_range, tran_range, filt_var, tran_df) %>%
+    dplyr::rename(ID = ID1, gene_id = ID2)
+  overlap_exon = findoverlap_dataframe(vcf_range, exon_range, filt_var, exon_df) %>%
+    dplyr::rename(ID = ID1, gene_id = ID2)
+  overlap_rest = findoverlap_dataframe(vcf_range, rest_range, filt_var, rest_df) %>%
+    dplyr::rename(ID = ID1, gene_id = ID2)
+  print(paste("FILE: ", name ,sep=""))
+  print("GENE_BIOTYPE COUNT")
+  print(as.data.frame(overlap_gene %>% group_by(gene_type)%>%count()))
+  print(as.data.frame(overlap_tran %>% group_by(gene_type)%>%count()))
+  print(as.data.frame(overlap_exon %>% group_by(gene_type)%>%count()))
+  print(as.data.frame(overlap_rest %>% group_by(gene_type)%>%count()))
   
   filt_results = paste(params$workingDir,
                        params$resultsDir,

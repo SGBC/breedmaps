@@ -1,0 +1,1936 @@
+[1] "##### ENSEMBL ANNOTATION #####"
+[1] "FILE: BTA125_S1_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 605
+   gene_type    n
+1 transcript 2843
+  gene_type      n
+1      exon 589060
+        gene_type      n
+1             CDS 672131
+2     start_codon  39070
+3      stop_codon  39471
+4  five_prime_utr  38200
+5 three_prime_utr  24020
+6  Selenocysteine     10
+[1] "FILE: BTA125_S1_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 328
+   gene_type    n
+1 transcript 1650
+  gene_type       n
+1      exon 2143543
+        gene_type       n
+1             CDS 2215001
+2     start_codon   34149
+3      stop_codon   36388
+4  five_prime_utr   23533
+5 three_prime_utr    9043
+[1] "FILE: BTA125_S1_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 38
+   gene_type   n
+1 transcript 418
+  gene_type    n
+1      exon 1514
+        gene_type    n
+1             CDS 1986
+2     start_codon  206
+3      stop_codon  220
+4  five_prime_utr   74
+5 three_prime_utr  134
+[1] "FILE: BTA125_S1_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 169
+   gene_type   n
+1 transcript 615
+  gene_type      n
+1      exon 114625
+        gene_type      n
+1             CDS 127984
+2     start_codon   6019
+3      stop_codon   6105
+4  five_prime_utr   7794
+5 three_prime_utr   4419
+[1] "FILE: BTA126_S2_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 56
+   gene_type   n
+1 transcript 386
+  gene_type    n
+1      exon 1070
+        gene_type    n
+1             CDS 1260
+2     start_codon   63
+3      stop_codon   63
+4  five_prime_utr    5
+5 three_prime_utr   41
+[1] "FILE: BTA126_S2_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 132
+   gene_type   n
+1 transcript 836
+  gene_type     n
+1      exon 75967
+        gene_type     n
+1             CDS 85519
+2     start_codon  4025
+3      stop_codon  4275
+4  five_prime_utr  2847
+5 three_prime_utr  2201
+[1] "FILE: BTA126_S2_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 54
+   gene_type   n
+1 transcript 421
+  gene_type    n
+1      exon 1385
+        gene_type    n
+1             CDS 1626
+2     start_codon   89
+3      stop_codon  103
+4  five_prime_utr   24
+5 three_prime_utr   49
+[1] "FILE: BTA126_S2_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 43
+   gene_type   n
+1 transcript 271
+  gene_type    n
+1      exon 2414
+        gene_type    n
+1             CDS 2735
+2     start_codon  158
+3      stop_codon  172
+4  five_prime_utr   19
+5 three_prime_utr   55
+[1] "FILE: BTA127_S3_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 649
+   gene_type    n
+1 transcript 3148
+  gene_type      n
+1      exon 579864
+        gene_type      n
+1             CDS 666143
+2     start_codon  40622
+3      stop_codon  41106
+4  five_prime_utr  41605
+5 three_prime_utr  26119
+6  Selenocysteine     10
+[1] "FILE: BTA127_S3_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 41
+   gene_type   n
+1 transcript 388
+  gene_type   n
+1      exon 599
+        gene_type   n
+1             CDS 780
+2     start_codon  44
+3      stop_codon  44
+4  five_prime_utr  10
+5 three_prime_utr  40
+[1] "FILE: BTA127_S3_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 28
+   gene_type   n
+1 transcript 125
+  gene_type     n
+1      exon 18840
+        gene_type     n
+1             CDS 20232
+2     start_codon   408
+3      stop_codon   408
+4  five_prime_utr   392
+5 three_prime_utr   408
+[1] "FILE: BTA127_S3_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 152
+   gene_type   n
+1 transcript 922
+  gene_type      n
+1      exon 249958
+        gene_type      n
+1             CDS 279036
+2     start_codon  12022
+3      stop_codon  12231
+4  five_prime_utr  12679
+5 three_prime_utr   9372
+[1] "FILE: BTA128_S4_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 90
+   gene_type   n
+1 transcript 561
+  gene_type     n
+1      exon 14987
+        gene_type     n
+1             CDS 18303
+2     start_codon  1667
+3      stop_codon  1742
+4  five_prime_utr  1863
+5 three_prime_utr  1824
+[1] "FILE: BTA128_S4_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 48
+   gene_type   n
+1 transcript 401
+  gene_type   n
+1      exon 678
+        gene_type    n
+1             CDS 1030
+2     start_codon  122
+3      stop_codon  103
+4  five_prime_utr   54
+5 three_prime_utr   67
+[1] "FILE: BTA128_S4_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 50
+   gene_type   n
+1 transcript 403
+  gene_type   n
+1      exon 699
+        gene_type   n
+1             CDS 885
+2     start_codon  70
+3      stop_codon  70
+4  five_prime_utr   9
+5 three_prime_utr  53
+[1] "FILE: BTA128_S4_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 54
+   gene_type   n
+1 transcript 395
+  gene_type   n
+1      exon 938
+        gene_type    n
+1             CDS 1066
+2     start_codon   75
+3      stop_codon   78
+4  five_prime_utr   34
+5 three_prime_utr   52
+[1] "FILE: BTA129_S5_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 30
+   gene_type   n
+1 transcript 258
+  gene_type   n
+1      exon 708
+        gene_type   n
+1             CDS 908
+2     start_codon  56
+3      stop_codon  60
+4  five_prime_utr  16
+5 three_prime_utr  48
+[1] "FILE: BTA129_S5_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 50
+   gene_type   n
+1 transcript 424
+  gene_type     n
+1      exon 21610
+        gene_type     n
+1             CDS 23786
+2     start_codon  1007
+3      stop_codon  1032
+4  five_prime_utr  1037
+5 three_prime_utr   249
+[1] "FILE: BTA129_S5_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 23
+   gene_type   n
+1 transcript 198
+  gene_type   n
+1      exon 733
+        gene_type   n
+1             CDS 920
+2     start_codon  49
+3      stop_codon  52
+4  five_prime_utr  10
+5 three_prime_utr  47
+[1] "FILE: BTA129_S5_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 38
+   gene_type   n
+1 transcript 407
+  gene_type    n
+1      exon 1161
+        gene_type    n
+1             CDS 1223
+2     start_codon  109
+3      stop_codon  109
+4  five_prime_utr  193
+5 three_prime_utr   60
+[1] "FILE: BTA130_S6_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 625
+   gene_type    n
+1 transcript 2882
+  gene_type      n
+1      exon 694866
+        gene_type      n
+1             CDS 773799
+2     start_codon  36253
+3      stop_codon  38376
+4  five_prime_utr  37111
+5 three_prime_utr  19747
+[1] "FILE: BTA130_S6_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 676
+   gene_type    n
+1 transcript 3201
+  gene_type      n
+1      exon 580972
+        gene_type      n
+1             CDS 667388
+2     start_codon  40814
+3      stop_codon  41299
+4  five_prime_utr  41776
+5 three_prime_utr  26274
+6  Selenocysteine     10
+[1] "FILE: BTA130_S6_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 515
+   gene_type    n
+1 transcript 2459
+  gene_type      n
+1      exon 701651
+        gene_type      n
+1             CDS 764292
+2     start_codon  28279
+3      stop_codon  32002
+4  five_prime_utr  30321
+5 three_prime_utr  14922
+6  Selenocysteine     15
+[1] "FILE: BTA130_S6_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 58
+   gene_type   n
+1 transcript 538
+  gene_type    n
+1      exon 1040
+        gene_type    n
+1             CDS 1509
+2     start_codon  212
+3      stop_codon  212
+4  five_prime_utr  107
+5 three_prime_utr  182
+[1] "FILE: BTA131_S7_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 48
+   gene_type   n
+1 transcript 325
+  gene_type   n
+1      exon 666
+        gene_type   n
+1             CDS 858
+2     start_codon  56
+3      stop_codon  49
+4  five_prime_utr  13
+5 three_prime_utr  46
+[1] "FILE: BTA131_S7_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 53
+   gene_type   n
+1 transcript 636
+  gene_type   n
+1      exon 671
+        gene_type    n
+1             CDS 1025
+2     start_codon  123
+3      stop_codon  112
+4  five_prime_utr   47
+5 three_prime_utr   62
+[1] "FILE: BTA131_S7_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 349
+   gene_type    n
+1 transcript 1563
+  gene_type      n
+1      exon 552734
+        gene_type      n
+1             CDS 603845
+2     start_codon  21807
+3      stop_codon  24765
+4  five_prime_utr  17600
+5 three_prime_utr  12889
+6  Selenocysteine     10
+[1] "FILE: BTA131_S7_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 316
+   gene_type    n
+1 transcript 1152
+  gene_type      n
+1      exon 185626
+        gene_type      n
+1             CDS 209041
+2     start_codon  11749
+3      stop_codon  12023
+4  five_prime_utr  14329
+5 three_prime_utr   9514
+[1] "FILE: BTA132_S8_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 24
+   gene_type   n
+1 transcript 126
+  gene_type   n
+1      exon 559
+        gene_type   n
+1             CDS 747
+2     start_codon  39
+3      stop_codon  39
+4 three_prime_utr  36
+[1] "FILE: BTA132_S8_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 33
+   gene_type   n
+1 transcript 244
+  gene_type   n
+1      exon 560
+        gene_type   n
+1             CDS 752
+2     start_codon  44
+3      stop_codon  44
+4  five_prime_utr   5
+5 three_prime_utr  41
+[1] "FILE: BTA132_S8_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 29
+   gene_type   n
+1 transcript 253
+  gene_type   n
+1      exon 655
+        gene_type   n
+1             CDS 842
+2     start_codon  45
+3      stop_codon  42
+4  five_prime_utr   9
+5 three_prime_utr  42
+[1] "FILE: BTA132_S8_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 32
+   gene_type   n
+1 transcript 216
+  gene_type   n
+1      exon 853
+        gene_type    n
+1             CDS 1044
+2     start_codon   54
+3      stop_codon   54
+4  five_prime_utr   16
+5 three_prime_utr   48
+[1] "FILE: BTA133_S9_L001_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 36
+   gene_type   n
+1 transcript 274
+  gene_type   n
+1      exon 841
+        gene_type    n
+1             CDS 1069
+2     start_codon   63
+3      stop_codon   86
+4  five_prime_utr   10
+5 three_prime_utr   53
+[1] "FILE: BTA133_S9_L002_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 336
+   gene_type    n
+1 transcript 1200
+  gene_type      n
+1      exon 212857
+        gene_type      n
+1             CDS 242555
+2     start_codon  14420
+3      stop_codon  15020
+4  five_prime_utr  15592
+5 three_prime_utr   7907
+6  Selenocysteine     10
+[1] "FILE: BTA133_S9_L003_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 33
+   gene_type   n
+1 transcript 194
+  gene_type   n
+1      exon 642
+        gene_type   n
+1             CDS 829
+2     start_codon  47
+3      stop_codon  47
+4  five_prime_utr   4
+5 three_prime_utr  40
+[1] "FILE: BTA133_S9_L004_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type  n
+1      gene 48
+   gene_type   n
+1 transcript 373
+  gene_type   n
+1      exon 678
+        gene_type   n
+1             CDS 890
+2     start_codon  52
+3      stop_codon  54
+4  five_prime_utr   9
+5 three_prime_utr  45
+[1] "FILE: RDCSWEM000000074941_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type    n
+1      gene 2564
+   gene_type     n
+1 transcript 14721
+  gene_type       n
+1      exon 1898082
+        gene_type       n
+1             CDS 2112110
+2     start_codon   98598
+3      stop_codon  106394
+4  five_prime_utr   99980
+5 three_prime_utr   64612
+6  Selenocysteine      20
+[1] "FILE: RDCSWEM000000076351_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type    n
+1      gene 2748
+   gene_type     n
+1 transcript 13488
+  gene_type       n
+1      exon 1647077
+        gene_type       n
+1             CDS 1879807
+2     start_codon  110479
+3      stop_codon  113038
+4  five_prime_utr  123744
+5 three_prime_utr   74685
+6  Selenocysteine      42
+[1] "FILE: RDCSWEM000000085409_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type    n
+1      gene 4638
+   gene_type     n
+1 transcript 21643
+  gene_type       n
+1      exon 4399516
+        gene_type       n
+1             CDS 4839463
+2     start_codon  201609
+3      stop_codon  218797
+4  five_prime_utr  208666
+5 three_prime_utr  122533
+6  Selenocysteine      42
+[1] "FILE: RDCSWEM000000086626_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type    n
+1      gene 2983
+   gene_type     n
+1 transcript 15847
+  gene_type       n
+1      exon 3788127
+        gene_type       n
+1             CDS 4093303
+2     start_codon  145529
+3      stop_codon  151310
+4  five_prime_utr  140096
+5 three_prime_utr   79785
+6  Selenocysteine      42
+[1] "FILE: RDCSWEM000000086688_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type    n
+1      gene 2450
+   gene_type     n
+1 transcript 11988
+  gene_type       n
+1      exon 1924197
+        gene_type       n
+1             CDS 2163178
+2     start_codon  109790
+3      stop_codon  115241
+4  five_prime_utr  110196
+5 three_prime_utr   70416
+6  Selenocysteine      22
+[1] "FILE: RDCSWEM000000091678_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type   n
+1      gene 906
+   gene_type    n
+1 transcript 6444
+  gene_type      n
+1      exon 470251
+        gene_type      n
+1             CDS 508968
+2     start_codon  18096
+3      stop_codon  20198
+4  five_prime_utr  19650
+5 three_prime_utr  10934
+[1] "FILE: RDCSWEM000000093082_R_SV"
+[1] "GENE_BIOTYPE COUNT"
+  gene_type    n
+1      gene 2009
+   gene_type     n
+1 transcript 10748
+  gene_type       n
+1      exon 1829036
+        gene_type       n
+1             CDS 1956466
+2     start_codon   57617
+3      stop_codon   68420
+4  five_prime_utr   60463
+5 three_prime_utr   34809
+6  Selenocysteine      15
+   BIOLOGICAL_NAME     n
+1           1 TssA 10663
+2          10 ATAC 23470
+3    11 ReprWkCTCF 21453
+4       12 BivFlnk  6181
+5        13 ReprPC 24845
+6      14 ReprPCWk 42919
+7         15 Quies 87571
+8       2 TssAFlnk 10933
+9         3 TxFlnk  8916
+10          4 EnhA 30008
+11      5 EnhAATAC 22621
+12         6 EnhWk  6894
+13       7 EnhPois 75888
+14   8 EnhPoisATAC 39394
+15 9 EnhWkCTCFATAC 17288
+    BIOLOGICAL_NAME                                 File     n
+1            1 TssA      precise_BTA125_S1_L001_R_SV.tsv   341
+2            1 TssA      precise_BTA125_S1_L002_R_SV.tsv   160
+3            1 TssA      precise_BTA125_S1_L003_R_SV.tsv     5
+4            1 TssA      precise_BTA125_S1_L004_R_SV.tsv   102
+5            1 TssA      precise_BTA126_S2_L001_R_SV.tsv     6
+6            1 TssA      precise_BTA126_S2_L002_R_SV.tsv    45
+7            1 TssA      precise_BTA126_S2_L003_R_SV.tsv    12
+8            1 TssA      precise_BTA126_S2_L004_R_SV.tsv     9
+9            1 TssA      precise_BTA127_S3_L001_R_SV.tsv   386
+10           1 TssA      precise_BTA127_S3_L002_R_SV.tsv     7
+11           1 TssA      precise_BTA127_S3_L003_R_SV.tsv     9
+12           1 TssA      precise_BTA127_S3_L004_R_SV.tsv    69
+13           1 TssA      precise_BTA128_S4_L001_R_SV.tsv    30
+14           1 TssA      precise_BTA128_S4_L002_R_SV.tsv     7
+15           1 TssA      precise_BTA128_S4_L003_R_SV.tsv    10
+16           1 TssA      precise_BTA128_S4_L004_R_SV.tsv    10
+17           1 TssA      precise_BTA129_S5_L001_R_SV.tsv    11
+18           1 TssA      precise_BTA129_S5_L002_R_SV.tsv    24
+19           1 TssA      precise_BTA129_S5_L003_R_SV.tsv     5
+20           1 TssA      precise_BTA129_S5_L004_R_SV.tsv     5
+21           1 TssA      precise_BTA130_S6_L001_R_SV.tsv   300
+22           1 TssA      precise_BTA130_S6_L002_R_SV.tsv   402
+23           1 TssA      precise_BTA130_S6_L003_R_SV.tsv   322
+24           1 TssA      precise_BTA130_S6_L004_R_SV.tsv     6
+25           1 TssA      precise_BTA131_S7_L001_R_SV.tsv     5
+26           1 TssA      precise_BTA131_S7_L002_R_SV.tsv     7
+27           1 TssA      precise_BTA131_S7_L003_R_SV.tsv   189
+28           1 TssA      precise_BTA131_S7_L004_R_SV.tsv   145
+29           1 TssA      precise_BTA132_S8_L001_R_SV.tsv     6
+30           1 TssA      precise_BTA132_S8_L002_R_SV.tsv     8
+31           1 TssA      precise_BTA132_S8_L003_R_SV.tsv     5
+32           1 TssA      precise_BTA132_S8_L004_R_SV.tsv     6
+33           1 TssA      precise_BTA133_S9_L001_R_SV.tsv    14
+34           1 TssA      precise_BTA133_S9_L002_R_SV.tsv   180
+35           1 TssA      precise_BTA133_S9_L003_R_SV.tsv     5
+36           1 TssA      precise_BTA133_S9_L004_R_SV.tsv     5
+37           1 TssA precise_RDCSWEM000000074941_R_SV.tsv   976
+38           1 TssA precise_RDCSWEM000000076351_R_SV.tsv  1204
+39           1 TssA precise_RDCSWEM000000085409_R_SV.tsv  2125
+40           1 TssA precise_RDCSWEM000000086626_R_SV.tsv  1337
+41           1 TssA precise_RDCSWEM000000086688_R_SV.tsv  1300
+42           1 TssA precise_RDCSWEM000000091678_R_SV.tsv   217
+43           1 TssA precise_RDCSWEM000000093082_R_SV.tsv   646
+44          10 ATAC      precise_BTA125_S1_L001_R_SV.tsv   780
+45          10 ATAC      precise_BTA125_S1_L002_R_SV.tsv   483
+46          10 ATAC      precise_BTA125_S1_L003_R_SV.tsv    67
+47          10 ATAC      precise_BTA125_S1_L004_R_SV.tsv   237
+48          10 ATAC      precise_BTA126_S2_L001_R_SV.tsv    68
+49          10 ATAC      precise_BTA126_S2_L002_R_SV.tsv   157
+50          10 ATAC      precise_BTA126_S2_L003_R_SV.tsv    72
+51          10 ATAC      precise_BTA126_S2_L004_R_SV.tsv    68
+52          10 ATAC      precise_BTA127_S3_L001_R_SV.tsv   767
+53          10 ATAC      precise_BTA127_S3_L002_R_SV.tsv    67
+54          10 ATAC      precise_BTA127_S3_L003_R_SV.tsv    66
+55          10 ATAC      precise_BTA127_S3_L004_R_SV.tsv   225
+56          10 ATAC      precise_BTA128_S4_L001_R_SV.tsv   120
+57          10 ATAC      precise_BTA128_S4_L002_R_SV.tsv    69
+58          10 ATAC      precise_BTA128_S4_L003_R_SV.tsv    66
+59          10 ATAC      precise_BTA128_S4_L004_R_SV.tsv    65
+60          10 ATAC      precise_BTA129_S5_L001_R_SV.tsv    68
+61          10 ATAC      precise_BTA129_S5_L002_R_SV.tsv    86
+62          10 ATAC      precise_BTA129_S5_L003_R_SV.tsv    66
+63          10 ATAC      precise_BTA129_S5_L004_R_SV.tsv    66
+64          10 ATAC      precise_BTA130_S6_L001_R_SV.tsv  1016
+65          10 ATAC      precise_BTA130_S6_L002_R_SV.tsv   781
+66          10 ATAC      precise_BTA130_S6_L003_R_SV.tsv   652
+67          10 ATAC      precise_BTA130_S6_L004_R_SV.tsv    67
+68          10 ATAC      precise_BTA131_S7_L001_R_SV.tsv    68
+69          10 ATAC      precise_BTA131_S7_L002_R_SV.tsv    68
+70          10 ATAC      precise_BTA131_S7_L003_R_SV.tsv   581
+71          10 ATAC      precise_BTA131_S7_L004_R_SV.tsv   335
+72          10 ATAC      precise_BTA132_S8_L001_R_SV.tsv    63
+73          10 ATAC      precise_BTA132_S8_L002_R_SV.tsv    67
+74          10 ATAC      precise_BTA132_S8_L003_R_SV.tsv    66
+75          10 ATAC      precise_BTA132_S8_L004_R_SV.tsv    65
+76          10 ATAC      precise_BTA133_S9_L001_R_SV.tsv    69
+77          10 ATAC      precise_BTA133_S9_L002_R_SV.tsv   421
+78          10 ATAC      precise_BTA133_S9_L003_R_SV.tsv    64
+79          10 ATAC      precise_BTA133_S9_L004_R_SV.tsv    66
+80          10 ATAC precise_RDCSWEM000000074941_R_SV.tsv  2289
+81          10 ATAC precise_RDCSWEM000000076351_R_SV.tsv  2327
+82          10 ATAC precise_RDCSWEM000000085409_R_SV.tsv  4257
+83          10 ATAC precise_RDCSWEM000000086626_R_SV.tsv  2627
+84          10 ATAC precise_RDCSWEM000000086688_R_SV.tsv  1795
+85          10 ATAC precise_RDCSWEM000000091678_R_SV.tsv   615
+86          10 ATAC precise_RDCSWEM000000093082_R_SV.tsv  1448
+87    11 ReprWkCTCF      precise_BTA125_S1_L001_R_SV.tsv   658
+88    11 ReprWkCTCF      precise_BTA125_S1_L002_R_SV.tsv   355
+89    11 ReprWkCTCF      precise_BTA125_S1_L003_R_SV.tsv    30
+90    11 ReprWkCTCF      precise_BTA125_S1_L004_R_SV.tsv   218
+91    11 ReprWkCTCF      precise_BTA126_S2_L001_R_SV.tsv    27
+92    11 ReprWkCTCF      precise_BTA126_S2_L002_R_SV.tsv   151
+93    11 ReprWkCTCF      precise_BTA126_S2_L003_R_SV.tsv    26
+94    11 ReprWkCTCF      precise_BTA126_S2_L004_R_SV.tsv    26
+95    11 ReprWkCTCF      precise_BTA127_S3_L001_R_SV.tsv   660
+96    11 ReprWkCTCF      precise_BTA127_S3_L002_R_SV.tsv    27
+97    11 ReprWkCTCF      precise_BTA127_S3_L003_R_SV.tsv    28
+98    11 ReprWkCTCF      precise_BTA127_S3_L004_R_SV.tsv   176
+99    11 ReprWkCTCF      precise_BTA128_S4_L001_R_SV.tsv   115
+100   11 ReprWkCTCF      precise_BTA128_S4_L002_R_SV.tsv    28
+101   11 ReprWkCTCF      precise_BTA128_S4_L003_R_SV.tsv    27
+102   11 ReprWkCTCF      precise_BTA128_S4_L004_R_SV.tsv    28
+103   11 ReprWkCTCF      precise_BTA129_S5_L001_R_SV.tsv    27
+104   11 ReprWkCTCF      precise_BTA129_S5_L002_R_SV.tsv    47
+105   11 ReprWkCTCF      precise_BTA129_S5_L003_R_SV.tsv    28
+106   11 ReprWkCTCF      precise_BTA129_S5_L004_R_SV.tsv    29
+107   11 ReprWkCTCF      precise_BTA130_S6_L001_R_SV.tsv   825
+108   11 ReprWkCTCF      precise_BTA130_S6_L002_R_SV.tsv   673
+109   11 ReprWkCTCF      precise_BTA130_S6_L003_R_SV.tsv   619
+110   11 ReprWkCTCF      precise_BTA130_S6_L004_R_SV.tsv    31
+111   11 ReprWkCTCF      precise_BTA131_S7_L001_R_SV.tsv    29
+112   11 ReprWkCTCF      precise_BTA131_S7_L002_R_SV.tsv    29
+113   11 ReprWkCTCF      precise_BTA131_S7_L003_R_SV.tsv   467
+114   11 ReprWkCTCF      precise_BTA131_S7_L004_R_SV.tsv   400
+115   11 ReprWkCTCF      precise_BTA132_S8_L001_R_SV.tsv    25
+116   11 ReprWkCTCF      precise_BTA132_S8_L002_R_SV.tsv    25
+117   11 ReprWkCTCF      precise_BTA132_S8_L003_R_SV.tsv    25
+118   11 ReprWkCTCF      precise_BTA132_S8_L004_R_SV.tsv    26
+119   11 ReprWkCTCF      precise_BTA133_S9_L001_R_SV.tsv    29
+120   11 ReprWkCTCF      precise_BTA133_S9_L002_R_SV.tsv   397
+121   11 ReprWkCTCF      precise_BTA133_S9_L003_R_SV.tsv    26
+122   11 ReprWkCTCF      precise_BTA133_S9_L004_R_SV.tsv    26
+123   11 ReprWkCTCF precise_RDCSWEM000000074941_R_SV.tsv  2149
+124   11 ReprWkCTCF precise_RDCSWEM000000076351_R_SV.tsv  2275
+125   11 ReprWkCTCF precise_RDCSWEM000000085409_R_SV.tsv  4262
+126   11 ReprWkCTCF precise_RDCSWEM000000086626_R_SV.tsv  2339
+127   11 ReprWkCTCF precise_RDCSWEM000000086688_R_SV.tsv  2034
+128   11 ReprWkCTCF precise_RDCSWEM000000091678_R_SV.tsv   592
+129   11 ReprWkCTCF precise_RDCSWEM000000093082_R_SV.tsv  1439
+130      12 BivFlnk      precise_BTA125_S1_L001_R_SV.tsv   189
+131      12 BivFlnk      precise_BTA125_S1_L002_R_SV.tsv    88
+132      12 BivFlnk      precise_BTA125_S1_L003_R_SV.tsv     6
+133      12 BivFlnk      precise_BTA125_S1_L004_R_SV.tsv    94
+134      12 BivFlnk      precise_BTA126_S2_L001_R_SV.tsv     6
+135      12 BivFlnk      precise_BTA126_S2_L002_R_SV.tsv    44
+136      12 BivFlnk      precise_BTA126_S2_L003_R_SV.tsv     6
+137      12 BivFlnk      precise_BTA126_S2_L004_R_SV.tsv     7
+138      12 BivFlnk      precise_BTA127_S3_L001_R_SV.tsv   194
+139      12 BivFlnk      precise_BTA127_S3_L002_R_SV.tsv     5
+140      12 BivFlnk      precise_BTA127_S3_L003_R_SV.tsv     7
+141      12 BivFlnk      precise_BTA127_S3_L004_R_SV.tsv    40
+142      12 BivFlnk      precise_BTA128_S4_L001_R_SV.tsv    26
+143      12 BivFlnk      precise_BTA128_S4_L002_R_SV.tsv     6
+144      12 BivFlnk      precise_BTA128_S4_L003_R_SV.tsv     5
+145      12 BivFlnk      precise_BTA128_S4_L004_R_SV.tsv     5
+146      12 BivFlnk      precise_BTA129_S5_L001_R_SV.tsv     6
+147      12 BivFlnk      precise_BTA129_S5_L002_R_SV.tsv    21
+148      12 BivFlnk      precise_BTA129_S5_L003_R_SV.tsv     6
+149      12 BivFlnk      precise_BTA129_S5_L004_R_SV.tsv     5
+150      12 BivFlnk      precise_BTA130_S6_L001_R_SV.tsv   188
+151      12 BivFlnk      precise_BTA130_S6_L002_R_SV.tsv   198
+152      12 BivFlnk      precise_BTA130_S6_L003_R_SV.tsv   182
+153      12 BivFlnk      precise_BTA130_S6_L004_R_SV.tsv     6
+154      12 BivFlnk      precise_BTA131_S7_L001_R_SV.tsv     5
+155      12 BivFlnk      precise_BTA131_S7_L002_R_SV.tsv     6
+156      12 BivFlnk      precise_BTA131_S7_L003_R_SV.tsv   126
+157      12 BivFlnk      precise_BTA131_S7_L004_R_SV.tsv   143
+158      12 BivFlnk      precise_BTA132_S8_L001_R_SV.tsv     5
+159      12 BivFlnk      precise_BTA132_S8_L002_R_SV.tsv     6
+160      12 BivFlnk      precise_BTA132_S8_L003_R_SV.tsv     5
+161      12 BivFlnk      precise_BTA132_S8_L004_R_SV.tsv     5
+162      12 BivFlnk      precise_BTA133_S9_L001_R_SV.tsv    17
+163      12 BivFlnk      precise_BTA133_S9_L002_R_SV.tsv   111
+164      12 BivFlnk      precise_BTA133_S9_L003_R_SV.tsv     7
+165      12 BivFlnk      precise_BTA133_S9_L004_R_SV.tsv     5
+166      12 BivFlnk precise_RDCSWEM000000074941_R_SV.tsv   603
+167      12 BivFlnk precise_RDCSWEM000000076351_R_SV.tsv   727
+168      12 BivFlnk precise_RDCSWEM000000085409_R_SV.tsv  1066
+169      12 BivFlnk precise_RDCSWEM000000086626_R_SV.tsv   762
+170      12 BivFlnk precise_RDCSWEM000000086688_R_SV.tsv   731
+171      12 BivFlnk precise_RDCSWEM000000091678_R_SV.tsv   152
+172      12 BivFlnk precise_RDCSWEM000000093082_R_SV.tsv   359
+173       13 ReprPC      precise_BTA125_S1_L001_R_SV.tsv   706
+174       13 ReprPC      precise_BTA125_S1_L002_R_SV.tsv   298
+175       13 ReprPC      precise_BTA125_S1_L003_R_SV.tsv    26
+176       13 ReprPC      precise_BTA125_S1_L004_R_SV.tsv   511
+177       13 ReprPC      precise_BTA126_S2_L001_R_SV.tsv    28
+178       13 ReprPC      precise_BTA126_S2_L002_R_SV.tsv   247
+179       13 ReprPC      precise_BTA126_S2_L003_R_SV.tsv    28
+180       13 ReprPC      precise_BTA126_S2_L004_R_SV.tsv    28
+181       13 ReprPC      precise_BTA127_S3_L001_R_SV.tsv   693
+182       13 ReprPC      precise_BTA127_S3_L002_R_SV.tsv    26
+183       13 ReprPC      precise_BTA127_S3_L003_R_SV.tsv    26
+184       13 ReprPC      precise_BTA127_S3_L004_R_SV.tsv   172
+185       13 ReprPC      precise_BTA128_S4_L001_R_SV.tsv   149
+186       13 ReprPC      precise_BTA128_S4_L002_R_SV.tsv    31
+187       13 ReprPC      precise_BTA128_S4_L003_R_SV.tsv    29
+188       13 ReprPC      precise_BTA128_S4_L004_R_SV.tsv    32
+189       13 ReprPC      precise_BTA129_S5_L001_R_SV.tsv    32
+190       13 ReprPC      precise_BTA129_S5_L002_R_SV.tsv    39
+191       13 ReprPC      precise_BTA129_S5_L003_R_SV.tsv    28
+192       13 ReprPC      precise_BTA129_S5_L004_R_SV.tsv    27
+193       13 ReprPC      precise_BTA130_S6_L001_R_SV.tsv   792
+194       13 ReprPC      precise_BTA130_S6_L002_R_SV.tsv   717
+195       13 ReprPC      precise_BTA130_S6_L003_R_SV.tsv   897
+196       13 ReprPC      precise_BTA130_S6_L004_R_SV.tsv    27
+197       13 ReprPC      precise_BTA131_S7_L001_R_SV.tsv    25
+198       13 ReprPC      precise_BTA131_S7_L002_R_SV.tsv    24
+199       13 ReprPC      precise_BTA131_S7_L003_R_SV.tsv   463
+200       13 ReprPC      precise_BTA131_S7_L004_R_SV.tsv   509
+201       13 ReprPC      precise_BTA132_S8_L001_R_SV.tsv    25
+202       13 ReprPC      precise_BTA132_S8_L002_R_SV.tsv    25
+203       13 ReprPC      precise_BTA132_S8_L003_R_SV.tsv    27
+204       13 ReprPC      precise_BTA132_S8_L004_R_SV.tsv    25
+205       13 ReprPC      precise_BTA133_S9_L001_R_SV.tsv    42
+206       13 ReprPC      precise_BTA133_S9_L002_R_SV.tsv   493
+207       13 ReprPC      precise_BTA133_S9_L003_R_SV.tsv    28
+208       13 ReprPC      precise_BTA133_S9_L004_R_SV.tsv    32
+209       13 ReprPC precise_RDCSWEM000000074941_R_SV.tsv  2282
+210       13 ReprPC precise_RDCSWEM000000076351_R_SV.tsv  2696
+211       13 ReprPC precise_RDCSWEM000000085409_R_SV.tsv  4639
+212       13 ReprPC precise_RDCSWEM000000086626_R_SV.tsv  2825
+213       13 ReprPC precise_RDCSWEM000000086688_R_SV.tsv  2662
+214       13 ReprPC precise_RDCSWEM000000091678_R_SV.tsv   663
+215       13 ReprPC precise_RDCSWEM000000093082_R_SV.tsv  1771
+216     14 ReprPCWk      precise_BTA125_S1_L001_R_SV.tsv  1220
+217     14 ReprPCWk      precise_BTA125_S1_L002_R_SV.tsv   628
+218     14 ReprPCWk      precise_BTA125_S1_L003_R_SV.tsv    54
+219     14 ReprPCWk      precise_BTA125_S1_L004_R_SV.tsv   698
+220     14 ReprPCWk      precise_BTA126_S2_L001_R_SV.tsv    60
+221     14 ReprPCWk      precise_BTA126_S2_L002_R_SV.tsv   399
+222     14 ReprPCWk      precise_BTA126_S2_L003_R_SV.tsv    63
+223     14 ReprPCWk      precise_BTA126_S2_L004_R_SV.tsv    62
+224     14 ReprPCWk      precise_BTA127_S3_L001_R_SV.tsv  1224
+225     14 ReprPCWk      precise_BTA127_S3_L002_R_SV.tsv    56
+226     14 ReprPCWk      precise_BTA127_S3_L003_R_SV.tsv    50
+227     14 ReprPCWk      precise_BTA127_S3_L004_R_SV.tsv   330
+228     14 ReprPCWk      precise_BTA128_S4_L001_R_SV.tsv   251
+229     14 ReprPCWk      precise_BTA128_S4_L002_R_SV.tsv    61
+230     14 ReprPCWk      precise_BTA128_S4_L003_R_SV.tsv    61
+231     14 ReprPCWk      precise_BTA128_S4_L004_R_SV.tsv    65
+232     14 ReprPCWk      precise_BTA129_S5_L001_R_SV.tsv    52
+233     14 ReprPCWk      precise_BTA129_S5_L002_R_SV.tsv    77
+234     14 ReprPCWk      precise_BTA129_S5_L003_R_SV.tsv    55
+235     14 ReprPCWk      precise_BTA129_S5_L004_R_SV.tsv    58
+236     14 ReprPCWk      precise_BTA130_S6_L001_R_SV.tsv  1523
+237     14 ReprPCWk      precise_BTA130_S6_L002_R_SV.tsv  1261
+238     14 ReprPCWk      precise_BTA130_S6_L003_R_SV.tsv  1388
+239     14 ReprPCWk      precise_BTA130_S6_L004_R_SV.tsv    56
+240     14 ReprPCWk      precise_BTA131_S7_L001_R_SV.tsv    62
+241     14 ReprPCWk      precise_BTA131_S7_L002_R_SV.tsv    57
+242     14 ReprPCWk      precise_BTA131_S7_L003_R_SV.tsv   851
+243     14 ReprPCWk      precise_BTA131_S7_L004_R_SV.tsv   743
+244     14 ReprPCWk      precise_BTA132_S8_L001_R_SV.tsv    49
+245     14 ReprPCWk      precise_BTA132_S8_L002_R_SV.tsv    48
+246     14 ReprPCWk      precise_BTA132_S8_L003_R_SV.tsv    51
+247     14 ReprPCWk      precise_BTA132_S8_L004_R_SV.tsv    49
+248     14 ReprPCWk      precise_BTA133_S9_L001_R_SV.tsv    56
+249     14 ReprPCWk      precise_BTA133_S9_L002_R_SV.tsv   825
+250     14 ReprPCWk      precise_BTA133_S9_L003_R_SV.tsv    44
+251     14 ReprPCWk      precise_BTA133_S9_L004_R_SV.tsv    55
+252     14 ReprPCWk precise_RDCSWEM000000074941_R_SV.tsv  4131
+253     14 ReprPCWk precise_RDCSWEM000000076351_R_SV.tsv  4580
+254     14 ReprPCWk precise_RDCSWEM000000085409_R_SV.tsv  8074
+255     14 ReprPCWk precise_RDCSWEM000000086626_R_SV.tsv  4855
+256     14 ReprPCWk precise_RDCSWEM000000086688_R_SV.tsv  4182
+257     14 ReprPCWk precise_RDCSWEM000000091678_R_SV.tsv  1323
+258     14 ReprPCWk precise_RDCSWEM000000093082_R_SV.tsv  3132
+259        15 Quies      precise_BTA125_S1_L001_R_SV.tsv  2787
+260        15 Quies      precise_BTA125_S1_L002_R_SV.tsv  1625
+261        15 Quies      precise_BTA125_S1_L003_R_SV.tsv   151
+262        15 Quies      precise_BTA125_S1_L004_R_SV.tsv   735
+263        15 Quies      precise_BTA126_S2_L001_R_SV.tsv   175
+264        15 Quies      precise_BTA126_S2_L002_R_SV.tsv   521
+265        15 Quies      precise_BTA126_S2_L003_R_SV.tsv   188
+266        15 Quies      precise_BTA126_S2_L004_R_SV.tsv   161
+267        15 Quies      precise_BTA127_S3_L001_R_SV.tsv  2779
+268        15 Quies      precise_BTA127_S3_L002_R_SV.tsv   152
+269        15 Quies      precise_BTA127_S3_L003_R_SV.tsv   118
+270        15 Quies      precise_BTA127_S3_L004_R_SV.tsv   647
+271        15 Quies      precise_BTA128_S4_L001_R_SV.tsv   334
+272        15 Quies      precise_BTA128_S4_L002_R_SV.tsv   195
+273        15 Quies      precise_BTA128_S4_L003_R_SV.tsv   157
+274        15 Quies      precise_BTA128_S4_L004_R_SV.tsv   178
+275        15 Quies      precise_BTA129_S5_L001_R_SV.tsv   133
+276        15 Quies      precise_BTA129_S5_L002_R_SV.tsv   183
+277        15 Quies      precise_BTA129_S5_L003_R_SV.tsv   116
+278        15 Quies      precise_BTA129_S5_L004_R_SV.tsv   119
+279        15 Quies      precise_BTA130_S6_L001_R_SV.tsv  3266
+280        15 Quies      precise_BTA130_S6_L002_R_SV.tsv  2863
+281        15 Quies      precise_BTA130_S6_L003_R_SV.tsv  2072
+282        15 Quies      precise_BTA130_S6_L004_R_SV.tsv   186
+283        15 Quies      precise_BTA131_S7_L001_R_SV.tsv   164
+284        15 Quies      precise_BTA131_S7_L002_R_SV.tsv   173
+285        15 Quies      precise_BTA131_S7_L003_R_SV.tsv  1687
+286        15 Quies      precise_BTA131_S7_L004_R_SV.tsv  1113
+287        15 Quies      precise_BTA132_S8_L001_R_SV.tsv   113
+288        15 Quies      precise_BTA132_S8_L002_R_SV.tsv   123
+289        15 Quies      precise_BTA132_S8_L003_R_SV.tsv   116
+290        15 Quies      precise_BTA132_S8_L004_R_SV.tsv   130
+291        15 Quies      precise_BTA133_S9_L001_R_SV.tsv   144
+292        15 Quies      precise_BTA133_S9_L002_R_SV.tsv  1204
+293        15 Quies      precise_BTA133_S9_L003_R_SV.tsv   139
+294        15 Quies      precise_BTA133_S9_L004_R_SV.tsv   149
+295        15 Quies precise_RDCSWEM000000074941_R_SV.tsv  9506
+296        15 Quies precise_RDCSWEM000000076351_R_SV.tsv  9312
+297        15 Quies precise_RDCSWEM000000085409_R_SV.tsv 16105
+298        15 Quies precise_RDCSWEM000000086626_R_SV.tsv 10720
+299        15 Quies precise_RDCSWEM000000086688_R_SV.tsv  7354
+300        15 Quies precise_RDCSWEM000000091678_R_SV.tsv  3167
+301        15 Quies precise_RDCSWEM000000093082_R_SV.tsv  6311
+302      2 TssAFlnk      precise_BTA125_S1_L001_R_SV.tsv   373
+303      2 TssAFlnk      precise_BTA125_S1_L002_R_SV.tsv   168
+304      2 TssAFlnk      precise_BTA125_S1_L003_R_SV.tsv     3
+305      2 TssAFlnk      precise_BTA125_S1_L004_R_SV.tsv   122
+306      2 TssAFlnk      precise_BTA126_S2_L001_R_SV.tsv     2
+307      2 TssAFlnk      precise_BTA126_S2_L002_R_SV.tsv    42
+308      2 TssAFlnk      precise_BTA126_S2_L003_R_SV.tsv    10
+309      2 TssAFlnk      precise_BTA126_S2_L004_R_SV.tsv     7
+310      2 TssAFlnk      precise_BTA127_S3_L001_R_SV.tsv   421
+311      2 TssAFlnk      precise_BTA127_S3_L002_R_SV.tsv     5
+312      2 TssAFlnk      precise_BTA127_S3_L003_R_SV.tsv     6
+313      2 TssAFlnk      precise_BTA127_S3_L004_R_SV.tsv    76
+314      2 TssAFlnk      precise_BTA128_S4_L001_R_SV.tsv    28
+315      2 TssAFlnk      precise_BTA128_S4_L002_R_SV.tsv     6
+316      2 TssAFlnk      precise_BTA128_S4_L003_R_SV.tsv     7
+317      2 TssAFlnk      precise_BTA128_S4_L004_R_SV.tsv     6
+318      2 TssAFlnk      precise_BTA129_S5_L001_R_SV.tsv     7
+319      2 TssAFlnk      precise_BTA129_S5_L002_R_SV.tsv     8
+320      2 TssAFlnk      precise_BTA129_S5_L003_R_SV.tsv     5
+321      2 TssAFlnk      precise_BTA129_S5_L004_R_SV.tsv     2
+322      2 TssAFlnk      precise_BTA130_S6_L001_R_SV.tsv   362
+323      2 TssAFlnk      precise_BTA130_S6_L002_R_SV.tsv   445
+324      2 TssAFlnk      precise_BTA130_S6_L003_R_SV.tsv   322
+325      2 TssAFlnk      precise_BTA130_S6_L004_R_SV.tsv     4
+326      2 TssAFlnk      precise_BTA131_S7_L001_R_SV.tsv     3
+327      2 TssAFlnk      precise_BTA131_S7_L002_R_SV.tsv     4
+328      2 TssAFlnk      precise_BTA131_S7_L003_R_SV.tsv   166
+329      2 TssAFlnk      precise_BTA131_S7_L004_R_SV.tsv   128
+330      2 TssAFlnk      precise_BTA132_S8_L001_R_SV.tsv     2
+331      2 TssAFlnk      precise_BTA132_S8_L002_R_SV.tsv     7
+332      2 TssAFlnk      precise_BTA132_S8_L003_R_SV.tsv     2
+333      2 TssAFlnk      precise_BTA132_S8_L004_R_SV.tsv     2
+334      2 TssAFlnk      precise_BTA133_S9_L001_R_SV.tsv     8
+335      2 TssAFlnk      precise_BTA133_S9_L002_R_SV.tsv   139
+336      2 TssAFlnk      precise_BTA133_S9_L003_R_SV.tsv     2
+337      2 TssAFlnk      precise_BTA133_S9_L004_R_SV.tsv     2
+338      2 TssAFlnk precise_RDCSWEM000000074941_R_SV.tsv  1012
+339      2 TssAFlnk precise_RDCSWEM000000076351_R_SV.tsv  1166
+340      2 TssAFlnk precise_RDCSWEM000000085409_R_SV.tsv  2299
+341      2 TssAFlnk precise_RDCSWEM000000086626_R_SV.tsv  1412
+342      2 TssAFlnk precise_RDCSWEM000000086688_R_SV.tsv  1232
+343      2 TssAFlnk precise_RDCSWEM000000091678_R_SV.tsv   231
+344      2 TssAFlnk precise_RDCSWEM000000093082_R_SV.tsv   679
+345        3 TxFlnk      precise_BTA125_S1_L001_R_SV.tsv   259
+346        3 TxFlnk      precise_BTA125_S1_L002_R_SV.tsv   106
+347        3 TxFlnk      precise_BTA125_S1_L003_R_SV.tsv     2
+348        3 TxFlnk      precise_BTA125_S1_L004_R_SV.tsv    87
+349        3 TxFlnk      precise_BTA126_S2_L002_R_SV.tsv    33
+350        3 TxFlnk      precise_BTA126_S2_L003_R_SV.tsv     5
+351        3 TxFlnk      precise_BTA126_S2_L004_R_SV.tsv     3
+352        3 TxFlnk      precise_BTA127_S3_L001_R_SV.tsv   307
+353        3 TxFlnk      precise_BTA127_S3_L002_R_SV.tsv     3
+354        3 TxFlnk      precise_BTA127_S3_L003_R_SV.tsv     1
+355        3 TxFlnk      precise_BTA127_S3_L004_R_SV.tsv    64
+356        3 TxFlnk      precise_BTA128_S4_L001_R_SV.tsv    12
+357        3 TxFlnk      precise_BTA128_S4_L002_R_SV.tsv     3
+358        3 TxFlnk      precise_BTA128_S4_L003_R_SV.tsv     3
+359        3 TxFlnk      precise_BTA128_S4_L004_R_SV.tsv     5
+360        3 TxFlnk      precise_BTA129_S5_L001_R_SV.tsv     3
+361        3 TxFlnk      precise_BTA129_S5_L002_R_SV.tsv    16
+362        3 TxFlnk      precise_BTA130_S6_L001_R_SV.tsv   240
+363        3 TxFlnk      precise_BTA130_S6_L002_R_SV.tsv   318
+364        3 TxFlnk      precise_BTA130_S6_L003_R_SV.tsv   296
+365        3 TxFlnk      precise_BTA131_S7_L001_R_SV.tsv     1
+366        3 TxFlnk      precise_BTA131_S7_L002_R_SV.tsv     1
+367        3 TxFlnk      precise_BTA131_S7_L003_R_SV.tsv   159
+368        3 TxFlnk      precise_BTA131_S7_L004_R_SV.tsv   128
+369        3 TxFlnk      precise_BTA132_S8_L001_R_SV.tsv     1
+370        3 TxFlnk      precise_BTA132_S8_L002_R_SV.tsv     2
+371        3 TxFlnk      precise_BTA133_S9_L001_R_SV.tsv     9
+372        3 TxFlnk      precise_BTA133_S9_L002_R_SV.tsv   152
+373        3 TxFlnk      precise_BTA133_S9_L003_R_SV.tsv     1
+374        3 TxFlnk precise_RDCSWEM000000074941_R_SV.tsv   798
+375        3 TxFlnk precise_RDCSWEM000000076351_R_SV.tsv  1051
+376        3 TxFlnk precise_RDCSWEM000000085409_R_SV.tsv  1822
+377        3 TxFlnk precise_RDCSWEM000000086626_R_SV.tsv  1097
+378        3 TxFlnk precise_RDCSWEM000000086688_R_SV.tsv  1193
+379        3 TxFlnk precise_RDCSWEM000000091678_R_SV.tsv   181
+380        3 TxFlnk precise_RDCSWEM000000093082_R_SV.tsv   554
+381          4 EnhA      precise_BTA125_S1_L001_R_SV.tsv  1063
+382          4 EnhA      precise_BTA125_S1_L002_R_SV.tsv   528
+383          4 EnhA      precise_BTA125_S1_L003_R_SV.tsv     1
+384          4 EnhA      precise_BTA125_S1_L004_R_SV.tsv   280
+385          4 EnhA      precise_BTA126_S2_L002_R_SV.tsv   108
+386          4 EnhA      precise_BTA126_S2_L003_R_SV.tsv     5
+387          4 EnhA      precise_BTA126_S2_L004_R_SV.tsv     5
+388          4 EnhA      precise_BTA127_S3_L001_R_SV.tsv  1097
+389          4 EnhA      precise_BTA127_S3_L002_R_SV.tsv     1
+390          4 EnhA      precise_BTA127_S3_L004_R_SV.tsv   219
+391          4 EnhA      precise_BTA128_S4_L001_R_SV.tsv   103
+392          4 EnhA      precise_BTA128_S4_L002_R_SV.tsv     1
+393          4 EnhA      precise_BTA128_S4_L004_R_SV.tsv     4
+394          4 EnhA      precise_BTA129_S5_L001_R_SV.tsv     1
+395          4 EnhA      precise_BTA129_S5_L002_R_SV.tsv    53
+396          4 EnhA      precise_BTA129_S5_L003_R_SV.tsv     3
+397          4 EnhA      precise_BTA130_S6_L001_R_SV.tsv   856
+398          4 EnhA      precise_BTA130_S6_L002_R_SV.tsv  1103
+399          4 EnhA      precise_BTA130_S6_L003_R_SV.tsv  1005
+400          4 EnhA      precise_BTA130_S6_L004_R_SV.tsv     4
+401          4 EnhA      precise_BTA131_S7_L001_R_SV.tsv     1
+402          4 EnhA      precise_BTA131_S7_L002_R_SV.tsv     1
+403          4 EnhA      precise_BTA131_S7_L003_R_SV.tsv   762
+404          4 EnhA      precise_BTA131_S7_L004_R_SV.tsv   528
+405          4 EnhA      precise_BTA132_S8_L002_R_SV.tsv     1
+406          4 EnhA      precise_BTA132_S8_L003_R_SV.tsv     4
+407          4 EnhA      precise_BTA133_S9_L001_R_SV.tsv     4
+408          4 EnhA      precise_BTA133_S9_L002_R_SV.tsv   662
+409          4 EnhA      precise_BTA133_S9_L003_R_SV.tsv     1
+410          4 EnhA      precise_BTA133_S9_L004_R_SV.tsv     2
+411          4 EnhA precise_RDCSWEM000000074941_R_SV.tsv  3273
+412          4 EnhA precise_RDCSWEM000000076351_R_SV.tsv  3467
+413          4 EnhA precise_RDCSWEM000000085409_R_SV.tsv  5684
+414          4 EnhA precise_RDCSWEM000000086626_R_SV.tsv  3714
+415          4 EnhA precise_RDCSWEM000000086688_R_SV.tsv  2916
+416          4 EnhA precise_RDCSWEM000000091678_R_SV.tsv   665
+417          4 EnhA precise_RDCSWEM000000093082_R_SV.tsv  1883
+418      5 EnhAATAC      precise_BTA125_S1_L001_R_SV.tsv   811
+419      5 EnhAATAC      precise_BTA125_S1_L002_R_SV.tsv   384
+420      5 EnhAATAC      precise_BTA125_S1_L003_R_SV.tsv     1
+421      5 EnhAATAC      precise_BTA125_S1_L004_R_SV.tsv   197
+422      5 EnhAATAC      precise_BTA126_S2_L001_R_SV.tsv     2
+423      5 EnhAATAC      precise_BTA126_S2_L002_R_SV.tsv    74
+424      5 EnhAATAC      precise_BTA126_S2_L003_R_SV.tsv     4
+425      5 EnhAATAC      precise_BTA126_S2_L004_R_SV.tsv     5
+426      5 EnhAATAC      precise_BTA127_S3_L001_R_SV.tsv   837
+427      5 EnhAATAC      precise_BTA127_S3_L004_R_SV.tsv   152
+428      5 EnhAATAC      precise_BTA128_S4_L001_R_SV.tsv    74
+429      5 EnhAATAC      precise_BTA128_S4_L002_R_SV.tsv     2
+430      5 EnhAATAC      precise_BTA128_S4_L004_R_SV.tsv     3
+431      5 EnhAATAC      precise_BTA129_S5_L002_R_SV.tsv    43
+432      5 EnhAATAC      precise_BTA129_S5_L003_R_SV.tsv     3
+433      5 EnhAATAC      precise_BTA129_S5_L004_R_SV.tsv     1
+434      5 EnhAATAC      precise_BTA130_S6_L001_R_SV.tsv   659
+435      5 EnhAATAC      precise_BTA130_S6_L002_R_SV.tsv   843
+436      5 EnhAATAC      precise_BTA130_S6_L003_R_SV.tsv   761
+437      5 EnhAATAC      precise_BTA130_S6_L004_R_SV.tsv     3
+438      5 EnhAATAC      precise_BTA131_S7_L001_R_SV.tsv     1
+439      5 EnhAATAC      precise_BTA131_S7_L002_R_SV.tsv     1
+440      5 EnhAATAC      precise_BTA131_S7_L003_R_SV.tsv   587
+441      5 EnhAATAC      precise_BTA131_S7_L004_R_SV.tsv   418
+442      5 EnhAATAC      precise_BTA132_S8_L003_R_SV.tsv     2
+443      5 EnhAATAC      precise_BTA133_S9_L001_R_SV.tsv     4
+444      5 EnhAATAC      precise_BTA133_S9_L002_R_SV.tsv   517
+445      5 EnhAATAC      precise_BTA133_S9_L003_R_SV.tsv     3
+446      5 EnhAATAC precise_RDCSWEM000000074941_R_SV.tsv  2490
+447      5 EnhAATAC precise_RDCSWEM000000076351_R_SV.tsv  2668
+448      5 EnhAATAC precise_RDCSWEM000000085409_R_SV.tsv  4187
+449      5 EnhAATAC precise_RDCSWEM000000086626_R_SV.tsv  2796
+450      5 EnhAATAC precise_RDCSWEM000000086688_R_SV.tsv  2228
+451      5 EnhAATAC precise_RDCSWEM000000091678_R_SV.tsv   462
+452      5 EnhAATAC precise_RDCSWEM000000093082_R_SV.tsv  1398
+453         6 EnhWk      precise_BTA125_S1_L001_R_SV.tsv   216
+454         6 EnhWk      precise_BTA125_S1_L002_R_SV.tsv   101
+455         6 EnhWk      precise_BTA125_S1_L003_R_SV.tsv     2
+456         6 EnhWk      precise_BTA125_S1_L004_R_SV.tsv    77
+457         6 EnhWk      precise_BTA126_S2_L001_R_SV.tsv     3
+458         6 EnhWk      precise_BTA126_S2_L002_R_SV.tsv    17
+459         6 EnhWk      precise_BTA126_S2_L003_R_SV.tsv     2
+460         6 EnhWk      precise_BTA126_S2_L004_R_SV.tsv     2
+461         6 EnhWk      precise_BTA127_S3_L001_R_SV.tsv   227
+462         6 EnhWk      precise_BTA127_S3_L002_R_SV.tsv     1
+463         6 EnhWk      precise_BTA127_S3_L003_R_SV.tsv     1
+464         6 EnhWk      precise_BTA127_S3_L004_R_SV.tsv    55
+465         6 EnhWk      precise_BTA128_S4_L001_R_SV.tsv    21
+466         6 EnhWk      precise_BTA128_S4_L002_R_SV.tsv     3
+467         6 EnhWk      precise_BTA128_S4_L004_R_SV.tsv     1
+468         6 EnhWk      precise_BTA129_S5_L001_R_SV.tsv     1
+469         6 EnhWk      precise_BTA129_S5_L002_R_SV.tsv    15
+470         6 EnhWk      precise_BTA129_S5_L003_R_SV.tsv     1
+471         6 EnhWk      precise_BTA129_S5_L004_R_SV.tsv     2
+472         6 EnhWk      precise_BTA130_S6_L001_R_SV.tsv   237
+473         6 EnhWk      precise_BTA130_S6_L002_R_SV.tsv   234
+474         6 EnhWk      precise_BTA130_S6_L003_R_SV.tsv   222
+475         6 EnhWk      precise_BTA130_S6_L004_R_SV.tsv     3
+476         6 EnhWk      precise_BTA131_S7_L001_R_SV.tsv     1
+477         6 EnhWk      precise_BTA131_S7_L002_R_SV.tsv     3
+478         6 EnhWk      precise_BTA131_S7_L003_R_SV.tsv   180
+479         6 EnhWk      precise_BTA131_S7_L004_R_SV.tsv   120
+480         6 EnhWk      precise_BTA132_S8_L002_R_SV.tsv     2
+481         6 EnhWk      precise_BTA132_S8_L003_R_SV.tsv     1
+482         6 EnhWk      precise_BTA133_S9_L001_R_SV.tsv     1
+483         6 EnhWk      precise_BTA133_S9_L002_R_SV.tsv   144
+484         6 EnhWk      precise_BTA133_S9_L003_R_SV.tsv     2
+485         6 EnhWk      precise_BTA133_S9_L004_R_SV.tsv     3
+486         6 EnhWk precise_RDCSWEM000000074941_R_SV.tsv   714
+487         6 EnhWk precise_RDCSWEM000000076351_R_SV.tsv   783
+488         6 EnhWk precise_RDCSWEM000000085409_R_SV.tsv  1404
+489         6 EnhWk precise_RDCSWEM000000086626_R_SV.tsv   801
+490         6 EnhWk precise_RDCSWEM000000086688_R_SV.tsv   706
+491         6 EnhWk precise_RDCSWEM000000091678_R_SV.tsv   139
+492         6 EnhWk precise_RDCSWEM000000093082_R_SV.tsv   446
+493       7 EnhPois      precise_BTA125_S1_L001_R_SV.tsv  2904
+494       7 EnhPois      precise_BTA125_S1_L002_R_SV.tsv  1462
+495       7 EnhPois      precise_BTA125_S1_L003_R_SV.tsv     4
+496       7 EnhPois      precise_BTA125_S1_L004_R_SV.tsv   736
+497       7 EnhPois      precise_BTA126_S2_L001_R_SV.tsv     5
+498       7 EnhPois      precise_BTA126_S2_L002_R_SV.tsv   410
+499       7 EnhPois      precise_BTA126_S2_L003_R_SV.tsv    24
+500       7 EnhPois      precise_BTA126_S2_L004_R_SV.tsv    17
+501       7 EnhPois      precise_BTA127_S3_L001_R_SV.tsv  2880
+502       7 EnhPois      precise_BTA127_S3_L002_R_SV.tsv    15
+503       7 EnhPois      precise_BTA127_S3_L003_R_SV.tsv     5
+504       7 EnhPois      precise_BTA127_S3_L004_R_SV.tsv   548
+505       7 EnhPois      precise_BTA128_S4_L001_R_SV.tsv   221
+506       7 EnhPois      precise_BTA128_S4_L002_R_SV.tsv    21
+507       7 EnhPois      precise_BTA128_S4_L003_R_SV.tsv     9
+508       7 EnhPois      precise_BTA128_S4_L004_R_SV.tsv    18
+509       7 EnhPois      precise_BTA129_S5_L001_R_SV.tsv    16
+510       7 EnhPois      precise_BTA129_S5_L002_R_SV.tsv    73
+511       7 EnhPois      precise_BTA129_S5_L003_R_SV.tsv     8
+512       7 EnhPois      precise_BTA129_S5_L004_R_SV.tsv     4
+513       7 EnhPois      precise_BTA130_S6_L001_R_SV.tsv  2720
+514       7 EnhPois      precise_BTA130_S6_L002_R_SV.tsv  2914
+515       7 EnhPois      precise_BTA130_S6_L003_R_SV.tsv  2264
+516       7 EnhPois      precise_BTA130_S6_L004_R_SV.tsv     5
+517       7 EnhPois      precise_BTA131_S7_L001_R_SV.tsv    10
+518       7 EnhPois      precise_BTA131_S7_L002_R_SV.tsv    17
+519       7 EnhPois      precise_BTA131_S7_L003_R_SV.tsv  1669
+520       7 EnhPois      precise_BTA131_S7_L004_R_SV.tsv  1174
+521       7 EnhPois      precise_BTA132_S8_L001_R_SV.tsv     4
+522       7 EnhPois      precise_BTA132_S8_L002_R_SV.tsv    11
+523       7 EnhPois      precise_BTA132_S8_L003_R_SV.tsv     4
+524       7 EnhPois      precise_BTA132_S8_L004_R_SV.tsv     6
+525       7 EnhPois      precise_BTA133_S9_L001_R_SV.tsv    14
+526       7 EnhPois      precise_BTA133_S9_L002_R_SV.tsv  1389
+527       7 EnhPois      precise_BTA133_S9_L003_R_SV.tsv     6
+528       7 EnhPois      precise_BTA133_S9_L004_R_SV.tsv     9
+529       7 EnhPois precise_RDCSWEM000000074941_R_SV.tsv  8207
+530       7 EnhPois precise_RDCSWEM000000076351_R_SV.tsv  8656
+531       7 EnhPois precise_RDCSWEM000000085409_R_SV.tsv 14245
+532       7 EnhPois precise_RDCSWEM000000086626_R_SV.tsv  9765
+533       7 EnhPois precise_RDCSWEM000000086688_R_SV.tsv  7007
+534       7 EnhPois precise_RDCSWEM000000091678_R_SV.tsv  1736
+535       7 EnhPois precise_RDCSWEM000000093082_R_SV.tsv  4676
+536   8 EnhPoisATAC      precise_BTA125_S1_L001_R_SV.tsv  1519
+537   8 EnhPoisATAC      precise_BTA125_S1_L002_R_SV.tsv   779
+538   8 EnhPoisATAC      precise_BTA125_S1_L003_R_SV.tsv     2
+539   8 EnhPoisATAC      precise_BTA125_S1_L004_R_SV.tsv   374
+540   8 EnhPoisATAC      precise_BTA126_S2_L001_R_SV.tsv     3
+541   8 EnhPoisATAC      precise_BTA126_S2_L002_R_SV.tsv   222
+542   8 EnhPoisATAC      precise_BTA126_S2_L003_R_SV.tsv    12
+543   8 EnhPoisATAC      precise_BTA126_S2_L004_R_SV.tsv     9
+544   8 EnhPoisATAC      precise_BTA127_S3_L001_R_SV.tsv  1485
+545   8 EnhPoisATAC      precise_BTA127_S3_L002_R_SV.tsv     7
+546   8 EnhPoisATAC      precise_BTA127_S3_L003_R_SV.tsv     2
+547   8 EnhPoisATAC      precise_BTA127_S3_L004_R_SV.tsv   283
+548   8 EnhPoisATAC      precise_BTA128_S4_L001_R_SV.tsv   106
+549   8 EnhPoisATAC      precise_BTA128_S4_L002_R_SV.tsv    11
+550   8 EnhPoisATAC      precise_BTA128_S4_L003_R_SV.tsv     5
+551   8 EnhPoisATAC      precise_BTA128_S4_L004_R_SV.tsv     7
+552   8 EnhPoisATAC      precise_BTA129_S5_L001_R_SV.tsv     9
+553   8 EnhPoisATAC      precise_BTA129_S5_L002_R_SV.tsv    42
+554   8 EnhPoisATAC      precise_BTA129_S5_L003_R_SV.tsv     4
+555   8 EnhPoisATAC      precise_BTA129_S5_L004_R_SV.tsv     1
+556   8 EnhPoisATAC      precise_BTA130_S6_L001_R_SV.tsv  1448
+557   8 EnhPoisATAC      precise_BTA130_S6_L002_R_SV.tsv  1497
+558   8 EnhPoisATAC      precise_BTA130_S6_L003_R_SV.tsv  1170
+559   8 EnhPoisATAC      precise_BTA130_S6_L004_R_SV.tsv     5
+560   8 EnhPoisATAC      precise_BTA131_S7_L001_R_SV.tsv     2
+561   8 EnhPoisATAC      precise_BTA131_S7_L002_R_SV.tsv     4
+562   8 EnhPoisATAC      precise_BTA131_S7_L003_R_SV.tsv   873
+563   8 EnhPoisATAC      precise_BTA131_S7_L004_R_SV.tsv   632
+564   8 EnhPoisATAC      precise_BTA132_S8_L001_R_SV.tsv     2
+565   8 EnhPoisATAC      precise_BTA132_S8_L002_R_SV.tsv     5
+566   8 EnhPoisATAC      precise_BTA132_S8_L003_R_SV.tsv     5
+567   8 EnhPoisATAC      precise_BTA132_S8_L004_R_SV.tsv     5
+568   8 EnhPoisATAC      precise_BTA133_S9_L001_R_SV.tsv     6
+569   8 EnhPoisATAC      precise_BTA133_S9_L002_R_SV.tsv   736
+570   8 EnhPoisATAC      precise_BTA133_S9_L003_R_SV.tsv     4
+571   8 EnhPoisATAC      precise_BTA133_S9_L004_R_SV.tsv     5
+572   8 EnhPoisATAC precise_RDCSWEM000000074941_R_SV.tsv  4296
+573   8 EnhPoisATAC precise_RDCSWEM000000076351_R_SV.tsv  4534
+574   8 EnhPoisATAC precise_RDCSWEM000000085409_R_SV.tsv  7310
+575   8 EnhPoisATAC precise_RDCSWEM000000086626_R_SV.tsv  5071
+576   8 EnhPoisATAC precise_RDCSWEM000000086688_R_SV.tsv  3620
+577   8 EnhPoisATAC precise_RDCSWEM000000091678_R_SV.tsv   921
+578   8 EnhPoisATAC precise_RDCSWEM000000093082_R_SV.tsv  2361
+579 9 EnhWkCTCFATAC      precise_BTA125_S1_L001_R_SV.tsv   555
+580 9 EnhWkCTCFATAC      precise_BTA125_S1_L002_R_SV.tsv   275
+581 9 EnhWkCTCFATAC      precise_BTA125_S1_L003_R_SV.tsv    27
+582 9 EnhWkCTCFATAC      precise_BTA125_S1_L004_R_SV.tsv   176
+583 9 EnhWkCTCFATAC      precise_BTA126_S2_L001_R_SV.tsv    24
+584 9 EnhWkCTCFATAC      precise_BTA126_S2_L002_R_SV.tsv   117
+585 9 EnhWkCTCFATAC      precise_BTA126_S2_L003_R_SV.tsv    25
+586 9 EnhWkCTCFATAC      precise_BTA126_S2_L004_R_SV.tsv    25
+587 9 EnhWkCTCFATAC      precise_BTA127_S3_L001_R_SV.tsv   558
+588 9 EnhWkCTCFATAC      precise_BTA127_S3_L002_R_SV.tsv    25
+589 9 EnhWkCTCFATAC      precise_BTA127_S3_L003_R_SV.tsv    26
+590 9 EnhWkCTCFATAC      precise_BTA127_S3_L004_R_SV.tsv   141
+591 9 EnhWkCTCFATAC      precise_BTA128_S4_L001_R_SV.tsv    82
+592 9 EnhWkCTCFATAC      precise_BTA128_S4_L002_R_SV.tsv    26
+593 9 EnhWkCTCFATAC      precise_BTA128_S4_L003_R_SV.tsv    24
+594 9 EnhWkCTCFATAC      precise_BTA128_S4_L004_R_SV.tsv    26
+595 9 EnhWkCTCFATAC      precise_BTA129_S5_L001_R_SV.tsv    27
+596 9 EnhWkCTCFATAC      precise_BTA129_S5_L002_R_SV.tsv    44
+597 9 EnhWkCTCFATAC      precise_BTA129_S5_L003_R_SV.tsv    28
+598 9 EnhWkCTCFATAC      precise_BTA129_S5_L004_R_SV.tsv    25
+599 9 EnhWkCTCFATAC      precise_BTA130_S6_L001_R_SV.tsv   630
+600 9 EnhWkCTCFATAC      precise_BTA130_S6_L002_R_SV.tsv   566
+601 9 EnhWkCTCFATAC      precise_BTA130_S6_L003_R_SV.tsv   505
+602 9 EnhWkCTCFATAC      precise_BTA130_S6_L004_R_SV.tsv    29
+603 9 EnhWkCTCFATAC      precise_BTA131_S7_L001_R_SV.tsv    26
+604 9 EnhWkCTCFATAC      precise_BTA131_S7_L002_R_SV.tsv    27
+605 9 EnhWkCTCFATAC      precise_BTA131_S7_L003_R_SV.tsv   380
+606 9 EnhWkCTCFATAC      precise_BTA131_S7_L004_R_SV.tsv   303
+607 9 EnhWkCTCFATAC      precise_BTA132_S8_L001_R_SV.tsv    25
+608 9 EnhWkCTCFATAC      precise_BTA132_S8_L002_R_SV.tsv    24
+609 9 EnhWkCTCFATAC      precise_BTA132_S8_L003_R_SV.tsv    24
+610 9 EnhWkCTCFATAC      precise_BTA132_S8_L004_R_SV.tsv    24
+611 9 EnhWkCTCFATAC      precise_BTA133_S9_L001_R_SV.tsv    29
+612 9 EnhWkCTCFATAC      precise_BTA133_S9_L002_R_SV.tsv   331
+613 9 EnhWkCTCFATAC      precise_BTA133_S9_L003_R_SV.tsv    24
+614 9 EnhWkCTCFATAC      precise_BTA133_S9_L004_R_SV.tsv    24
+615 9 EnhWkCTCFATAC precise_RDCSWEM000000074941_R_SV.tsv  1709
+616 9 EnhWkCTCFATAC precise_RDCSWEM000000076351_R_SV.tsv  1843
+617 9 EnhWkCTCFATAC precise_RDCSWEM000000085409_R_SV.tsv  3347
+618 9 EnhWkCTCFATAC precise_RDCSWEM000000086626_R_SV.tsv  1922
+619 9 EnhWkCTCFATAC precise_RDCSWEM000000086688_R_SV.tsv  1687
+620 9 EnhWkCTCFATAC precise_RDCSWEM000000091678_R_SV.tsv   435
+621 9 EnhWkCTCFATAC precise_RDCSWEM000000093082_R_SV.tsv  1118
+[1] "#### Dataset: bos_taurus_structural_variations.gvf ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           1944"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           1648"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           1168"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           1282"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           1490"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           1448"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           1398"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           1335"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           1877"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           891"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           642"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           1003"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           1238"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           1378"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           1131"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           1177"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           798"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           896"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           595"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           630"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           2235"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           2458"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           1943"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           1284"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           1148"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           1366"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           1721"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           1213"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           603"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           845"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           662"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           704"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           911"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           1231"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           814"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           1269"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           23107"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           19113"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           27026"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           21155"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           15806"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           15312"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           22869"
+[1] "#### Dataset: remapped_estd223_Boussaha_et_al_2015.2015-11-02.Bos_taurus_UMD_3.1.Submitted.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           404"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           444"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           409"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           313"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           479"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           532"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           256"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           369"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           448"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           249"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           77"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           193"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           343"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           406"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           209"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           247"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           113"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           148"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           63"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           305"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           561"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           394"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           536"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           253"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           502"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           266"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           271"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           221"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           153"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           99"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           81"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           225"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           267"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           158"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           130"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           223"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           3740"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           2880"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           4281"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           3997"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           2716"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           2246"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           3350"
+[1] "#### Dataset: remapped_estd234_Mesbah-Uddin_et_al_2017.2018-06-01.Bos_taurus_UMD_3.1.Submitted.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           468"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           294"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           32"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           144"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           32"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           50"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           26"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           18"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           454"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           38"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           24"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           102"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           78"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           38"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           38"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           54"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           24"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           42"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           8"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           28"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           516"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           484"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           330"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           38"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           36"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           32"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           312"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           142"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           24"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           16"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           14"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           14"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           22"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           122"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           18"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           32"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           1850"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           1396"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           2292"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           2146"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           1102"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           794"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           1378"
+[1] "#### Dataset: remapped_nstd119_Menzi_et_al_2016.2017-04-24.Bos_taurus_UMD_3.1.1.Submitted.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           0"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           0"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           0"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           0"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           0"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           0"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           0"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           0"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           0"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           0"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           0"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           0"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           0"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           0"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           0"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           0"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           0"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           0"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           0"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           0"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           0"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           0"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           1"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           0"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           0"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           0"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           0"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           0"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           0"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           0"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           0"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           0"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           0"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           0"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           0"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           0"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           0"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           0"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           1"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           0"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           0"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           0"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           1"
+[1] "#### Dataset: remapped_nstd131_Keel_et_al_2016.2017-02-15.Bos_taurus_UMD_3.1.1.Remapped.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           263"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           130"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           141"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           98"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           67"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           46"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           48"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           35"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           217"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           13"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           23"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           51"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           53"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           78"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           40"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           45"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           27"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           45"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           28"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           30"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           144"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           246"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           116"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           76"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           104"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           58"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           74"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           132"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           19"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           6"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           46"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           48"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           74"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           41"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           18"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           41"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           1746"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           1266"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           3613"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           1697"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           1391"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           1007"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           1327"
+[1] "#### Dataset: remapped_nstd135_Karimi_et_al_2016.2017-02-08.Bos_taurus_UMD_3.1.1.Remapped.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           18"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           17"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           12"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           10"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           10"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           17"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           11"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           11"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           21"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           9"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           4"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           10"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           5"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           15"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           21"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           3"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           3"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           11"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           4"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           1"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           19"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           23"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           32"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           18"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           5"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           4"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           16"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           11"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           6"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           9"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           2"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           0"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           14"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           41"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           3"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           22"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           215"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           220"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           225"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           228"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           153"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           116"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           226"
+[1] "#### Dataset: remapped_nstd56_Liu_et_al_2010.2016-07-08.Bos_taurus_UMD_3.1.1.Remapped.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           58"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           24"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           54"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           29"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           48"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           28"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           16"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           24"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           57"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           22"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           10"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           25"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           26"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           78"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           46"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           19"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           8"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           17"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           13"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           13"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           34"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           78"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           61"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           46"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           19"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           26"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           47"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           14"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           18"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           18"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           37"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           27"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           30"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           30"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           6"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           43"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           466"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           406"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           484"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           524"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           300"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           242"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           374"
+[1] "#### Dataset: remapped_nstd60_Hou_et_al_2011.2016-07-08.Bos_taurus_UMD_3.1.1.Remapped.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           101"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           78"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           69"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           74"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           106"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           57"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           39"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           76"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           100"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           56"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           50"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           70"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           77"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           142"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           77"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           45"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           55"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           36"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           27"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           45"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           127"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           135"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           120"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           88"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           36"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           42"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           87"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           85"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           37"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           31"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           56"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           51"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           75"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           105"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           38"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           102"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           1099"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           910"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           1156"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           1278"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           725"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           769"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           1096"
+[1] "#### Dataset: remapped_nstd61_Hou_et_al_2011b.2016-07-11.Bos_taurus_UMD_3.1.1.Remapped.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           65"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           47"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           32"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           28"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           25"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           25"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           10"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           42"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           69"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           39"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           30"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           15"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           30"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           59"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           31"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           22"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           24"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           22"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           17"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           12"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           80"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           68"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           33"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           16"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           14"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           18"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           45"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           23"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           9"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           4"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           26"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           10"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           16"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           49"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           14"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           22"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           484"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           459"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           566"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           542"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           333"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           286"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           419"
+[1] "#### Dataset: remapped_nstd69_Bickhart_et_al_2012.2016-07-05.Bos_taurus_UMD_3.1.1.Remapped.gff ####"
+[1] "FILE           # OVERLAPPING VARIANTS"
+[1] "precise_BTA125_S1_L001_R_SV.tsv           129"
+[1] "precise_BTA125_S1_L002_R_SV.tsv           51"
+[1] "precise_BTA125_S1_L003_R_SV.tsv           31"
+[1] "precise_BTA125_S1_L004_R_SV.tsv           63"
+[1] "precise_BTA126_S2_L001_R_SV.tsv           25"
+[1] "precise_BTA126_S2_L002_R_SV.tsv           40"
+[1] "precise_BTA126_S2_L003_R_SV.tsv           23"
+[1] "precise_BTA126_S2_L004_R_SV.tsv           29"
+[1] "precise_BTA127_S3_L001_R_SV.tsv           117"
+[1] "precise_BTA127_S3_L002_R_SV.tsv           62"
+[1] "precise_BTA127_S3_L003_R_SV.tsv           18"
+[1] "precise_BTA127_S3_L004_R_SV.tsv           41"
+[1] "precise_BTA128_S4_L001_R_SV.tsv           27"
+[1] "precise_BTA128_S4_L002_R_SV.tsv           67"
+[1] "precise_BTA128_S4_L003_R_SV.tsv           32"
+[1] "precise_BTA128_S4_L004_R_SV.tsv           23"
+[1] "precise_BTA129_S5_L001_R_SV.tsv           19"
+[1] "precise_BTA129_S5_L002_R_SV.tsv           13"
+[1] "precise_BTA129_S5_L003_R_SV.tsv           3"
+[1] "precise_BTA129_S5_L004_R_SV.tsv           8"
+[1] "precise_BTA130_S6_L001_R_SV.tsv           91"
+[1] "precise_BTA130_S6_L002_R_SV.tsv           136"
+[1] "precise_BTA130_S6_L003_R_SV.tsv           78"
+[1] "precise_BTA130_S6_L004_R_SV.tsv           47"
+[1] "precise_BTA131_S7_L001_R_SV.tsv           23"
+[1] "precise_BTA131_S7_L002_R_SV.tsv           26"
+[1] "precise_BTA131_S7_L003_R_SV.tsv           62"
+[1] "precise_BTA131_S7_L004_R_SV.tsv           31"
+[1] "precise_BTA132_S8_L001_R_SV.tsv           25"
+[1] "precise_BTA132_S8_L002_R_SV.tsv           22"
+[1] "precise_BTA132_S8_L003_R_SV.tsv           23"
+[1] "precise_BTA132_S8_L004_R_SV.tsv           24"
+[1] "precise_BTA133_S9_L001_R_SV.tsv           32"
+[1] "precise_BTA133_S9_L002_R_SV.tsv           67"
+[1] "precise_BTA133_S9_L003_R_SV.tsv           28"
+[1] "precise_BTA133_S9_L004_R_SV.tsv           49"
+[1] "precise_RDCSWEM000000074941_R_SV.tsv           516"
+[1] "precise_RDCSWEM000000076351_R_SV.tsv           517"
+[1] "precise_RDCSWEM000000085409_R_SV.tsv           903"
+[1] "precise_RDCSWEM000000086626_R_SV.tsv           657"
+[1] "precise_RDCSWEM000000086688_R_SV.tsv           431"
+[1] "precise_RDCSWEM000000091678_R_SV.tsv           242"
+[1] "precise_RDCSWEM000000093082_R_SV.tsv           516"
+[1] "FILE             #SVs HIGH IMPACT"
+[1] "VEP_BTA125.txt             905"
+[1] "VEP_RDC74941.txt             4"
+[1] "VEP_RDC76351.txt             8"
+[1] "VEP_RDC85409.txt             13"
+[1] "VEP_RDC86626.txt             7"
+[1] "VEP_RDC86688.txt             5"
+[1] "VEP_RDC91678.txt             6"
+[1] "VEP_RDC91804.txt             16"
+[1] "VEP_RDC93082.txt             7"
+Number of variants in each genome [#SVs]
+BTA131_S7_L001_R_SV 1645
+BTA130_S6_L002_R_SV 1845
+BTA130_S6_L003_R_SV 1677
+BTA125_S1_L004_R_SV 1594
+BTA126_S2_L001_R_SV 1758
+BTA128_S4_L003_R_SV 1638
+BTA128_S4_L002_R_SV 1844
+BTA133_S9_L004_R_SV 1434
+BTA127_S3_L002_R_SV 1461
+BTA127_S3_L003_R_SV 1362
+BTA129_S5_L001_R_SV 1412
+BTA132_S8_L001_R_SV 1296
+BTA128_S4_L004_R_SV 1729
+BTA127_S3_L004_R_SV 1363
+BTA133_S9_L002_R_SV 1504
+BTA133_S9_L003_R_SV 1414
+BTA130_S6_L004_R_SV 1614
+BTA125_S1_L002_R_SV 1649
+BTA125_S1_L003_R_SV 1540
+BTA127_S3_L001_R_SV 1464
+BTA129_S5_L002_R_SV 1370
+BTA129_S5_L003_R_SV 1256
+BTA132_S8_L004_R_SV 1241
+BTA126_S2_L003_R_SV 1703
+BTA126_S2_L002_R_SV 1829
+BTA128_S4_L001_R_SV 1705
+BTA130_S6_L001_R_SV 1706
+BTA131_S7_L003_R_SV 1523
+BTA131_S7_L002_R_SV 1748
+BTA125_S1_L001_R_SV 1614
+BTA131_S7_L004_R_SV 1615
+BTA133_S9_L001_R_SV 1537
+BTA129_S5_L004_R_SV 1321
+BTA126_S2_L004_R_SV 1652
+BTA132_S8_L003_R_SV 1212
+BTA132_S8_L002_R_SV 1318
+Number of filtered variants in each genome
+BTA131_S7_L001_R_SV 198
+BTA130_S6_L002_R_SV 175
+BTA130_S6_L003_R_SV 134
+BTA125_S1_L004_R_SV 160
+BTA126_S2_L001_R_SV 117
+BTA128_S4_L003_R_SV 136
+BTA128_S4_L002_R_SV 136
+BTA133_S9_L004_R_SV 101
+BTA127_S3_L002_R_SV 153
+BTA127_S3_L003_R_SV 196
+BTA129_S5_L001_R_SV 177
+BTA132_S8_L001_R_SV 116
+BTA128_S4_L004_R_SV 135
+BTA127_S3_L004_R_SV 120
+BTA133_S9_L002_R_SV 177
+BTA133_S9_L003_R_SV 89
+BTA130_S6_L004_R_SV 175
+BTA125_S1_L002_R_SV 139
+BTA125_S1_L003_R_SV 136
+BTA127_S3_L001_R_SV 164
+BTA129_S5_L002_R_SV 104
+BTA129_S5_L003_R_SV 178
+BTA132_S8_L004_R_SV 184
+BTA126_S2_L003_R_SV 114
+BTA126_S2_L002_R_SV 90
+BTA128_S4_L001_R_SV 132
+BTA130_S6_L001_R_SV 142
+BTA131_S7_L003_R_SV 162
+BTA131_S7_L002_R_SV 186
+BTA125_S1_L001_R_SV 143
+BTA131_S7_L004_R_SV 137
+BTA133_S9_L001_R_SV 153
+BTA129_S5_L004_R_SV 96
+BTA126_S2_L004_R_SV 95
+BTA132_S8_L003_R_SV 104
+BTA132_S8_L002_R_SV 129
+The counts of SV types in raw files['DEL', 'DUP', 'INV', 'INS', 'TRA']
+BTA131_S7_L001_R_SV [878, 130, 183, 18, 436]
+BTA130_S6_L002_R_SV [987, 177, 198, 16, 467]
+BTA130_S6_L003_R_SV [890, 135, 185, 18, 449]
+BTA125_S1_L004_R_SV [827, 161, 199, 12, 395]
+BTA126_S2_L001_R_SV [945, 153, 188, 14, 458]
+BTA128_S4_L003_R_SV [875, 122, 178, 15, 448]
+BTA128_S4_L002_R_SV [981, 162, 217, 23, 461]
+BTA133_S9_L004_R_SV [755, 118, 146, 8, 407]
+BTA127_S3_L002_R_SV [801, 123, 142, 12, 383]
+BTA127_S3_L003_R_SV [698, 134, 147, 6, 377]
+BTA129_S5_L001_R_SV [746, 115, 144, 8, 399]
+BTA132_S8_L001_R_SV [693, 119, 120, 5, 359]
+BTA128_S4_L004_R_SV [930, 167, 193, 11, 428]
+BTA127_S3_L004_R_SV [724, 107, 145, 14, 373]
+BTA133_S9_L002_R_SV [782, 131, 150, 12, 429]
+BTA133_S9_L003_R_SV [740, 137, 143, 9, 385]
+BTA130_S6_L004_R_SV [841, 137, 178, 15, 443]
+BTA125_S1_L002_R_SV [871, 148, 172, 12, 446]
+BTA125_S1_L003_R_SV [786, 144, 171, 12, 427]
+BTA127_S3_L001_R_SV [781, 122, 158, 9, 394]
+BTA129_S5_L002_R_SV [706, 136, 153, 9, 366]
+BTA129_S5_L003_R_SV [632, 123, 140, 6, 355]
+BTA132_S8_L004_R_SV [661, 89, 129, 10, 352]
+BTA126_S2_L003_R_SV [922, 156, 187, 15, 423]
+BTA126_S2_L002_R_SV [986, 153, 210, 15, 465]
+BTA128_S4_L001_R_SV [908, 143, 200, 17, 437]
+BTA130_S6_L001_R_SV [908, 142, 171, 9, 476]
+BTA131_S7_L003_R_SV [811, 127, 163, 14, 408]
+BTA131_S7_L002_R_SV [944, 155, 190, 17, 442]
+BTA125_S1_L001_R_SV [831, 152, 192, 13, 426]
+BTA131_S7_L004_R_SV [859, 152, 169, 14, 421]
+BTA133_S9_L001_R_SV [802, 130, 172, 10, 423]
+BTA129_S5_L004_R_SV [672, 117, 149, 13, 370]
+BTA126_S2_L004_R_SV [864, 157, 185, 18, 428]
+BTA132_S8_L003_R_SV [639, 111, 117, 5, 340]
+BTA132_S8_L002_R_SV [686, 122, 145, 7, 358]
+The counts of SV types in filtered files ['DEL', 'DUP', 'INV', 'INS', 'TRA']
+BTA131_S7_L001_R_SV [157, 3, 7, 15, 16]
+BTA130_S6_L002_R_SV [139, 4, 2, 18, 12]
+BTA130_S6_L003_R_SV [104, 2, 4, 11, 13]
+BTA125_S1_L004_R_SV [125, 2, 2, 18, 13]
+BTA126_S2_L001_R_SV [94, 1, 2, 8, 12]
+BTA128_S4_L003_R_SV [113, 4, 1, 8, 10]
+BTA128_S4_L002_R_SV [106, 2, 3, 12, 13]
+BTA133_S9_L004_R_SV [79, 3, 0, 5, 14]
+BTA127_S3_L002_R_SV [123, 4, 2, 15, 9]
+BTA127_S3_L003_R_SV [151, 4, 3, 23, 15]
+BTA129_S5_L001_R_SV [147, 2, 2, 14, 12]
+BTA132_S8_L001_R_SV [87, 4, 1, 14, 10]
+BTA128_S4_L004_R_SV [101, 1, 5, 11, 17]
+BTA127_S3_L004_R_SV [93, 4, 1, 9, 13]
+BTA133_S9_L002_R_SV [148, 4, 3, 10, 12]
+BTA133_S9_L003_R_SV [75, 1, 1, 4, 8]
+BTA130_S6_L004_R_SV [135, 2, 7, 15, 16]
+BTA125_S1_L002_R_SV [108, 4, 5, 11, 11]
+BTA125_S1_L003_R_SV [109, 2, 2, 12, 11]
+BTA127_S3_L001_R_SV [130, 2, 1, 17, 14]
+BTA129_S5_L002_R_SV [82, 3, 1, 10, 8]
+BTA129_S5_L003_R_SV [144, 3, 4, 14, 13]
+BTA132_S8_L004_R_SV [154, 1, 4, 15, 10]
+BTA126_S2_L003_R_SV [91, 4, 3, 8, 8]
+BTA126_S2_L002_R_SV [71, 2, 0, 5, 12]
+BTA128_S4_L001_R_SV [109, 3, 2, 9, 9]
+BTA130_S6_L001_R_SV [109, 4, 2, 14, 13]
+BTA131_S7_L003_R_SV [126, 3, 3, 17, 13]
+BTA131_S7_L002_R_SV [152, 2, 6, 9, 17]
+BTA125_S1_L001_R_SV [110, 4, 2, 14, 13]
+BTA131_S7_L004_R_SV [111, 2, 1, 13, 10]
+BTA133_S9_L001_R_SV [116, 2, 4, 18, 13]
+BTA129_S5_L004_R_SV [80, 1, 0, 5, 10]
+BTA126_S2_L004_R_SV [76, 1, 2, 7, 9]
+BTA132_S8_L003_R_SV [77, 5, 2, 13, 7]
+BTA132_S8_L002_R_SV [100, 3, 3, 10, 13]
+Number of variants in each genome [#SVs]
+RDCSWEM000000091678_R_SV 6886
+RDCSWEM000000076351_R_SV 7447
+RDCSWEM000000086688_R_SV 6597
+RDCSWEM000000074941_R_SV 8347
+RDCSWEM000000093082_R_SV 8604
+RDCSWEM000000085409_R_SV 8874
+RDCSWEM000000086626_R_SV 7867
+Number of filtered variants in each genome
+RDCSWEM000000091678_R_SV 2180
+RDCSWEM000000076351_R_SV 1787
+RDCSWEM000000086688_R_SV 1882
+RDCSWEM000000074941_R_SV 2318
+RDCSWEM000000093082_R_SV 2730
+RDCSWEM000000085409_R_SV 2861
+RDCSWEM000000086626_R_SV 2599
+The counts of SV types in raw files['DEL', 'DUP', 'INV', 'INS', 'TRA']
+RDCSWEM000000091678_R_SV [3634, 626, 870, 231, 1525]
+RDCSWEM000000076351_R_SV [4029, 717, 852, 241, 1608]
+RDCSWEM000000086688_R_SV [3554, 632, 802, 190, 1419]
+RDCSWEM000000074941_R_SV [4491, 778, 1024, 331, 1723]
+RDCSWEM000000093082_R_SV [4573, 844, 1107, 345, 1735]
+RDCSWEM000000085409_R_SV [4736, 853, 1148, 365, 1772]
+RDCSWEM000000086626_R_SV [4196, 785, 980, 295, 1611]
+The counts of SV types in filtered files ['DEL', 'DUP', 'INV', 'INS', 'TRA']
+RDCSWEM000000091678_R_SV [1829, 19, 31, 240, 61]
+RDCSWEM000000076351_R_SV [1499, 13, 35, 190, 50]
+RDCSWEM000000086688_R_SV [1544, 23, 33, 230, 52]
+RDCSWEM000000074941_R_SV [1889, 30, 38, 294, 67]
+RDCSWEM000000093082_R_SV [2207, 36, 55, 343, 89]
+RDCSWEM000000085409_R_SV [2344, 40, 38, 364, 75]
+RDCSWEM000000086626_R_SV [2119, 26, 46, 330, 78]
+Number of variants in each genome [#SVs]
+BTA131_S7_L001_R_SV 1645
+BTA130_S6_L002_R_SV 1845
+BTA130_S6_L003_R_SV 1677
+BTA125_S1_L004_R_SV 1594
+BTA126_S2_L001_R_SV 1758
+BTA128_S4_L003_R_SV 1638
+BTA128_S4_L002_R_SV 1844
+RDCSWEM000000091678_R_SV 6886
+BTA133_S9_L004_R_SV 1434
+BTA127_S3_L002_R_SV 1461
+BTA127_S3_L003_R_SV 1362
+BTA129_S5_L001_R_SV 1412
+BTA132_S8_L001_R_SV 1296
+BTA128_S4_L004_R_SV 1729
+BTA127_S3_L004_R_SV 1363
+BTA133_S9_L002_R_SV 1504
+BTA133_S9_L003_R_SV 1414
+RDCSWEM000000076351_R_SV 7447
+RDCSWEM000000086688_R_SV 6597
+BTA130_S6_L004_R_SV 1614
+BTA125_S1_L002_R_SV 1649
+BTA125_S1_L003_R_SV 1540
+RDCSWEM000000074941_R_SV 8347
+BTA127_S3_L001_R_SV 1464
+BTA129_S5_L002_R_SV 1370
+BTA129_S5_L003_R_SV 1256
+BTA132_S8_L004_R_SV 1241
+BTA126_S2_L003_R_SV 1703
+BTA126_S2_L002_R_SV 1829
+BTA128_S4_L001_R_SV 1705
+RDCSWEM000000093082_R_SV 8604
+BTA130_S6_L001_R_SV 1706
+RDCSWEM000000085409_R_SV 8874
+BTA131_S7_L003_R_SV 1523
+BTA131_S7_L002_R_SV 1748
+BTA125_S1_L001_R_SV 1614
+RDCSWEM000000086626_R_SV 7867
+BTA131_S7_L004_R_SV 1615
+BTA133_S9_L001_R_SV 1537
+BTA129_S5_L004_R_SV 1321
+BTA126_S2_L004_R_SV 1652
+BTA132_S8_L003_R_SV 1212
+BTA132_S8_L002_R_SV 1318

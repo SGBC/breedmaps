@@ -140,31 +140,9 @@ for (i in 1:(length(file_names))) {
 }
 
 all_counts = all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME) %>% count()
-all_counts_file = paste(params$workingDir,
-                        params$resultsDir,
-                        "all_counts.tsv",
-                        sep = "")
-write.table(
-  x = all_counts,
-  file = all_counts_file,
-  quote = F,
-  sep = "\t",
-  row.names = F,
-  col.names = T
-)
+print(as.data.frame(all_counts))
 
 counts = as.data.frame(all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME, File) %>% count())
-counts_file = paste(params$workingDir,
-                    params$resultsDir,
-                    "all_counts.tsv",
-                    sep = "")
-write.table(
-  x = counts,
-  file = counts_file,
-  quote = F,
-  sep = "\t",
-  row.names = F,
-  col.names = T
-)
+print(as.data.frame(counts))
 
 
