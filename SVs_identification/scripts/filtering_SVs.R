@@ -9,6 +9,7 @@ if (!require("optparse")) {
 }
 library(optparse)
 library(tidyverse)
+library(ggplot2)
 
 ################################################################################
 ################################################################################
@@ -24,7 +25,7 @@ options <- list(
                 "scripts/"),
   make_option(c("-v", "--vcfDir"), help = "VCF directory", default = "data/vcf/"),
   make_option(c("-r", "--resultsDir"), help = "Result directory", default =
-                "results/"),
+                "results/filtered_variants/"),
   make_option(c("-f", "--functions"), help = "Function file name", default =
                 "functions.R")
 )
@@ -56,12 +57,12 @@ for (i in 1:length(vcf_files)) {
   
   # Filter out the IMPRECISE and LowQual SVs
   filt_var = df %>% dplyr::filter(FILTER == "PASS") %>% filter(PRECISE == TRUE)
+  filt_var = filt_var %>% dplyr::mutate(SV_LENGTH = as.integer(END) - as.integer(POS))
   
   # Write results to files
   filt_results = paste(
     params$workingDir,
     params$resultsDir,
-    "filtered_variants/",
     "precise_",
     vcf_names[[i]],
     ".tsv",
@@ -75,4 +76,20 @@ for (i in 1:length(vcf_files)) {
     row.names = F,
     col.names = T
   )
+  png(
+    filename = paste(
+      params$workingDir,
+      params$resultsDir,
+      "hist_",
+      vcf_names[[i]],
+      ".png",
+      sep = ""
+    )
+  )
+  hist(filt_var$SV_LENGTH,main=paste(vcf_names[[i]]," SV_LENGTH",sep=""), xlab="ID", ylab="LENGTH")
+  dev.off()
+
 }
+
+
+

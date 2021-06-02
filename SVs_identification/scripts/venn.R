@@ -80,7 +80,7 @@ for (i in 25:33) {
   venn = venn.diagram(
     x = input,
     category.names = c("L1", "L2", "L3", "L4"),
-    filename = paste(resultsDir, "BTA1", i, "_venn.png", sep = ""),
+    filename = paste(resultsDir, "BTA1", i, "_venn.jpg", sep = ""),
     fill = col,
     main = paste("BTA1", i, sep = "")
   )

@@ -115,7 +115,7 @@ plt.ylabel('Number of times each SV is found')
 plt.title('The number of times each SV has been found in the filtered VCF files')
 plt.savefig("BTA_counted_filtered_svs.png")
 
-top_svs = {k: v for (k, v) in count_filt.items() if v > 10}
+top_svs = {k: v for (k, v) in count_filt.items() if v > 25}
 df_count = pd.Series(top_svs)
 top_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in top_svs.keys()}
 df_genomes = pd.Series(top_svs_genomes)
