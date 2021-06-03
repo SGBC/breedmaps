@@ -59,9 +59,10 @@ Rscript ~/breedmaps/SVs_identification/scripts/vep_filtering.R
 
 
 cd ~/breedmaps/SVs_identification/results/vcf_analysis/
-python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_vcf.py
-python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_RDC_vcf.py
-python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_RDC.py
+python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_single_samples.py
+python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_combined_samples.py
+python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_RDC.py
+python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_comb_RDC.py
 
 gzip ~/breedmaps/SVs_identification/results/filtered_variants/*.tsv
 gzip ~/breedmaps/SVs_identification/results/annotated_variants/*.tsv

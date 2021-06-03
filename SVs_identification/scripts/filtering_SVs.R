@@ -41,7 +41,7 @@ source(paste(params$workingDir, params$scriptDir, params$functions, sep =
 
 # Load RDC VCF files
 vcf_path = paste(params$workingDir, params$vcfDir, sep = "")
-vcf_files = list.files(path = vcf_path, pattern = "*.vcf")
+vcf_files = list.files(path = vcf_path, pattern = "*vcf")
 vcf_names = list()
 
 for (i in 1:length(vcf_files)) {
@@ -76,19 +76,6 @@ for (i in 1:length(vcf_files)) {
     row.names = F,
     col.names = T
   )
-  png(
-    filename = paste(
-      params$workingDir,
-      params$resultsDir,
-      "hist_",
-      vcf_names[[i]],
-      ".png",
-      sep = ""
-    )
-  )
-  hist(filt_var$SV_LENGTH,main=paste(vcf_names[[i]]," SV_LENGTH",sep=""), xlab="ID", ylab="LENGTH")
-  dev.off()
-
 }
 
 

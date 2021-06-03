@@ -83,7 +83,7 @@ dataset_range = makeGRangesFromDataFrame(
 data_path = paste(params$workingDir,
                   params$dataDir,
                   sep = "")
-data_file_names = list.files(path = data_path, pattern = "precise_[A-Z]*")
+data_file_names = list.files(path = data_path, pattern = "precise_*")
 
 overlap_list = list()
 for (i in 1:(length(data_file_names))) {

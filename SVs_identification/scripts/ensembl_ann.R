@@ -110,7 +110,7 @@ rest_range = makeGRangesFromDataFrame(
 ########################################
 # Load VCF file
 vcf_path = paste(params$workingDir, params$dataDir, sep = "")
-vcf_files = list.files(path = vcf_path, pattern = "precise_[A-Z]*")
+vcf_files = list.files(path = vcf_path, pattern = "precise_*")
 vcf_names = list()
 df_list = list()
 range_list = list()

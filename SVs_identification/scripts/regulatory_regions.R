@@ -87,7 +87,7 @@ dataset_range = makeGRangesFromDataFrame(
 path = paste(params$workingDir,
              params$dataDir,
              sep = "")
-file_names = list.files(path = path, pattern = "precise_[A-Z]*")
+file_names = list.files(path = path, pattern = "precise_*")
 
 all_dfs = data.frame()
 for (i in 1:(length(file_names))) {
