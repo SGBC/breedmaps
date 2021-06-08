@@ -44,7 +44,7 @@ Rscript ~/breedmaps/SVs_identification/scripts/sv_datasets.R -e "~/breedmaps/SVs
 #  -e, --datasetPath    Dataset path in gff/gvf format  default ="data/eva/remapped/"
 
 
-for file in $(ls ~/breedmaps/SVs_identification/data/eva/remapped/*.gff)
+for file in $(ls -h ~/breedmaps/SVs_identification/data/eva/remapped/)
 do
     Rscript ~/breedmaps/SVs_identification/scripts/sv_datasets.R -e $file
 
@@ -57,6 +57,11 @@ Rscript ~/breedmaps/SVs_identification/scripts/vep_filtering.R
 #  -w, --workingDir     Base directory			        default="~/breedmaps/SVs_identification/"
 #  -d, --dataDir	    Dir for the filtered variants	default="results/filtered_variants/"
 
+for file in $(ls -h ~/breedmaps/SVs_identification/data/vcf/)
+do
+    Rscript ~/breedmaps/SVs_identification/scripts/counting_SV_occurence.R -n $file
+
+done
 
 cd ~/breedmaps/SVs_identification/results/vcf_analysis/
 python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_single_samples.py
@@ -64,9 +69,9 @@ python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_combined_sam
 python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_RDC.py
 python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_comb_RDC.py
 
-gzip ~/breedmaps/SVs_identification/results/filtered_variants/*.tsv
-gzip ~/breedmaps/SVs_identification/results/annotated_variants/*.tsv
-gzip ~/breedmaps/SVs_identification/results/regulatory_variants/*.tsv
-gzip ~/breedmaps/SVs_identification/results/datasets/*.tsv
+#gzip ~/breedmaps/SVs_identification/results/filtered_variants/*.tsv
+#gzip ~/breedmaps/SVs_identification/results/annotated_variants/*.tsv
+#gzip ~/breedmaps/SVs_identification/results/regulatory_variants/*.tsv
+#gzip ~/breedmaps/SVs_identification/results/datasets/*.tsv
 
 

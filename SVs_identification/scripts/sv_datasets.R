@@ -31,8 +31,10 @@ options <- list(
                 "~/breedmaps/SVs_identification/"),
   make_option(c("-a", "--annDir"), help = "Annotation directory", default =
                 "data/annotation/"),
-  make_option(c("-e", "--datasetPath"), help = "Dataset full path", default =
-                "~/breedmaps/SVs_identification/data/eva/remapped/remapped_nstd119_Menzi_et_al_2016.2017-04-24.Bos_taurus_UMD_3.1.1.Submitted.gff"),
+  make_option(c("-e", "--datasetDir"), help = "Dataset directory", default =
+                "data/eva/remapped/"),
+  make_option(c("-k", "--datasetName"), help = "Dataset name", default =
+                "remapped_nstd119_Menzi_et_al_2016.2017-04-24.Bos_taurus_UMD_3.1.1.Submitted.gff"),
   make_option(c("-s", "--scriptDir"), help = "script directory", default =
                 "scripts/"),
   make_option(c("-d", "--dataDir"), help = "Data directory for the filtered variants", default =
@@ -51,12 +53,9 @@ source(paste(params$workingDir, params$scriptDir, params$functions, sep =
 ######################################################################
 ######################################################################
 ######################################################################
+dataset_path = paste(params$workingDir, params$datasetDir, params$datasetName,sep="")
 
-
-dataset_file_name = stringr::str_split_fixed(params$datasetPath, "/", n = Inf)
-name = dataset_file_name[length(dataset_file_name)]
-
-dataset = as.data.frame(rtracklayer::import(params$datasetPath))
+dataset = as.data.frame(rtracklayer::import(dataset_path))
 dataset_cleaned = dataset %>% dplyr::rename(
   DATASET_CHROM = seqnames,
   DATASET_SOURCE = source,
@@ -113,24 +112,24 @@ for (i in 1:(length(data_file_names))) {
   overlap = findoverlap_dataframe(sv_range, dataset_range, svs, dataset_cleaned)
   #sv_range = ID1, dataset = ID2
   overlap_list[[i]] = overlap %>% dplyr::rename(SV_ID = ID1) %>% dplyr::select(-ID2)
-  filt_results = paste(
-    params$workingDir,
-    params$resultsDir,
-    name,
-    "_joined_with_",
-    data_file_names[[i]],
-    sep = ""
-  )
-  write.table(
-    x = overlap_list[[i]],
-    file = filt_results,
-    quote = F,
-    sep = "\t",
-    row.names = F,
-    col.names = T
-  )
+  # filt_results = paste(
+  #   params$workingDir,
+  #   params$resultsDir,
+  #   params$datasetName,
+  #   "_joined_with_",
+  #   data_file_names[[i]],
+  #   sep = ""
+  # )
+  # write.table(
+  #   x = overlap_list[[i]],
+  #   file = filt_results,
+  #   quote = F,
+  #   sep = "\t",
+  #   row.names = F,
+  #   col.names = T
+  # )
 }
-print(paste("#### Dataset: " , name, " ####",sep=""))
+print(paste("#### Dataset: " , params$datasetName, " ####",sep=""))
 
 print("FILE           # OVERLAPPING VARIANTS")
 #all_count = dim(overlap_list[[1]])[1]
