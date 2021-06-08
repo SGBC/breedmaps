@@ -45,7 +45,6 @@ vcf_files = list.files(path = vcf_path, pattern = "*vcf")
 vcf_names = list()
 
 for (i in 1:length(vcf_files)) {
-  i=1
   # Paste together the entire file path
   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
   

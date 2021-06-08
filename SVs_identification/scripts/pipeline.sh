@@ -38,7 +38,7 @@ Rscript ~/breedmaps/SVs_identification/scripts/regulatory_regions.R
 
 # Overlaps SVs from filtering_SVs.R with SVs registered in Ensembl (downloaded file)
 # Output is stored in specified folder (or default results/datasets/)
-Rscript ~/breedmaps/SVs_identification/scripts/sv_datasets.R -k "bos_taurus_structural_variations.gvf"
+Rscript ~/breedmaps/SVs_identification/scripts/sv_datasets.R -e "data/annotation/" -k "bos_taurus_structural_variations.gvf"
 
 # Add flag to specify if the files in a different directory than the default
 #  -w, --workingDir     Base directory			        default="~/breedmaps/SVs_identification/"
@@ -47,14 +47,14 @@ Rscript ~/breedmaps/SVs_identification/scripts/sv_datasets.R -k "bos_taurus_stru
 #  -d, --dataDir	    Dir for the filtered variants	default="results/datasets/"
 #  -r, --resultsDir	    Result directory		        default="results/annotated_variants"
 #  -f, --functions	    Function file name		        default="functions.R"
-#  -e, --datasetPath    Dataset path in gff/gvf format  default ="data/eva/remapped/"
+#  -e, --datasetPath    Dataset directory path in gff/gvf format  default ="data/eva/remapped/"
 #  -k --datasetName     Dataset file                default ="remapped_nstd119_Menzi_et_al_2016.2017-04-24.Bos_taurus_UMD_3.1.1.Submitted.gff"
 
 # Overlaps all datasets downloaded from EVA with same script used above
 # Each loaded SV file generates one output per dataset
 for file in $(ls -h ~/breedmaps/SVs_identification/data/eva/remapped/)
 do
-    Rscript ~/breedmaps/SVs_identification/scripts/sv_datasets.R -e $file
+    Rscript ~/breedmaps/SVs_identification/scripts/sv_datasets.R -k $file
 
 done
 

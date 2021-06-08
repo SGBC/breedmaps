@@ -28,23 +28,23 @@ for i in range(len(vcf_files_filt)):
 
 # # # -------- Plot -------- # # #
 # Plot the number of all variants in each file
-genome_names = []
+file_names = []
 num_var_raw = []
 plt.figure(1, figsize=(19.20,10.80))
-print("Number of variants in each genome [#SVs]")
+print("Number of variants in each file [#SVs]")
 
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
-    genome_name = functions.get_file_name(vcf_files_raw[i])
-    genome_names.append(genome_name)
+    file_name = functions.get_file_name(vcf_files_raw[i])
+    file_names.append(file_name)
     num_var_raw.append(len(sample))
-    print(genome_name, len(sample))
+    print(file_name, len(sample))
 
-plt.plot(genome_names, num_var_raw, '.')
-plt.title('Number of SVs found in each genome [#SVs]')
+plt.plot(file_names, num_var_raw, '.')
+plt.title('Number of SVs found in each file [#SVs]')
 plt.xticks(fontsize=4, rotation=45, ha='right')
 plt.ylabel('# SVs')
-plt.savefig('all_count_per_genome.png')
+plt.savefig('all_count_per_file.png')
 
 # Plot the number of filtered variants in each file
 num_var_filt = []
@@ -53,11 +53,11 @@ for i in range(len(vcf_filtered)):
     sample = vcf_filtered[i]
     num_var_filt.append(len(sample))
 
-plt.plot(genome_names, num_var_filt, '.')
-plt.title('Number of filtered SVs found in each genome')
+plt.plot(file_names, num_var_filt, '.')
+plt.title('Number of filtered SVs found in each file')
 plt.xticks(fontsize=4, rotation=45, ha='right')
 plt.ylabel('# SVs')
-plt.savefig('all_filt_count_per_genome.png')
+plt.savefig('all_filt_count_per_file.png')
 
 # Plot the number of each type of structural variation
 plt.figure(3, figsize=(19.20,10.80))
@@ -66,7 +66,7 @@ counts = [None] * len(vcf_raw)
 for i in range(len(vcf_raw)):
     sample = vcf_raw[i]
     counts[i] = functions.count_sv_type(sample)
-    functions.plot_stats(counts[i], genome_names[i])
+    functions.plot_stats(counts[i], file_names[i])
 
 plt.legend(loc='upper center', fontsize='xx-small', ncol=3)
 plt.title('Number of each SV type in all files')
@@ -81,7 +81,7 @@ counts = [None] * len(vcf_filtered)
 for i in range(len(vcf_filtered)):
     sample = vcf_filtered[i]
     counts[i] = functions.count_sv_type(sample)
-    functions.plot_stats(counts[i], genome_names[i])
+    functions.plot_stats(counts[i], file_names[i])
 
 plt.legend(loc='upper center', fontsize='xx-small', ncol=3)
 plt.title('Number of each SV type in the filtered files')
@@ -89,9 +89,13 @@ plt.xlabel('SV type')
 plt.ylabel('# SVs')
 plt.savefig("all_filtered_svs.png")
 
+##################
+# Counting how many times the SVs occur in the dataset(all vcf files loadedd)
+##################
 plt.figure(5, figsize=(19.20,10.80))
-
-count_raw, genome_pos_raw = functions.count_svs(vcf_raw, vcf_files_raw)
+# Count_svs counts how many times each location(chr:start:end) occurs in all files
+# It returns both counts and the position as two dict objects where the keys are the locations
+count_raw, file_pos_raw = functions.count_svs(vcf_raw, vcf_files_raw)
 sorted_count_raw = sorted(count_raw.items())
 chr_pos_raw, num_raw = zip(*sorted_count_raw)
 plt.plot(num_raw)
@@ -101,7 +105,9 @@ plt.title('The number of times each SV has been found in the raw VCF files')
 plt.savefig("all_counted_nonfiltered_svs.png")
 
 plt.figure(6, figsize=(19.20,10.80))
-count_filt, genome_pos_filt = functions.count_svs(vcf_filtered, vcf_files_filt)
+# Count_svs counts how many times each location(chr:start:end) occurs in all files
+# It returns both counts and the position as two dict objects where the keys are the locations
+count_filt, file_pos_filt = functions.count_svs(vcf_filtered, vcf_files_filt)
 sorted_count_filt = sorted(count_filt.items())
 chr_pos_filt, num_filt = zip(*sorted_count_filt)
 plt.plot(num_filt)
@@ -110,17 +116,25 @@ plt.ylabel('Number of times each SV is found')
 plt.title('The number of times each SV has been found in the filtered VCF files')
 plt.savefig("all_counted_filtered_svs.png")
 
-top_svs = {k: v for (k, v) in count_filt.items() if v > 11}
+# Extract the counts for each position to be outputted into a csv file
+# Only the filtered SVs are outputted into a csv file
+all_svs = {pos: count for (pos, count) in count_filt.items()}
+df_all = pd.Series(all_svs)
+all_svs_files = {pos: file for (pos, file) in file_pos_filt.items() if pos in all_svs.keys()}
+df_all_files = pd.Series(all_svs_files)
+merged_all_svs = pd.concat([df_all, df_all_files], axis=1)
+merged_all_svs.to_csv('all_counted_svs.csv', sep=',')
+
+# Do the same as above but filter out the low count SVs
+# Extract the SVs which occurs in 70 % of the files/individuals ( in this case 11 files/individuals)
+top_svs = {pos: count for (pos, count) in count_filt.items() if count > 11}
 df_count = pd.Series(top_svs)
-top_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in top_svs.keys()}
-df_genomes = pd.Series(top_svs_genomes)
-merged_top_svs = pd.concat([df_count, df_genomes], axis=1)
+# Fetch the files for each high count SV
+top_svs_files = {pos: file for (pos, file) in file_pos_filt.items() if pos in top_svs.keys()}
+df_files = pd.Series(top_svs_files)
+# Paste together the counts and the files/individuals
+merged_top_svs = pd.concat([df_count, df_files], axis=1)
 merged_top_svs.to_csv('all_top_svs.csv', sep=',')
 
-all_svs = {k: v for (k, v) in count_filt.items()}
-df_all = pd.Series(all_svs)
-all_svs_genomes = {k: v for (k, v) in genome_pos_filt.items() if k in all_svs.keys()}
-df_all_genomes = pd.Series(all_svs_genomes)
-merged_all_svs = pd.concat([df_all, df_all_genomes], axis=1)
-merged_all_svs.to_csv('all_counted_svs.csv', sep=',')
+
 

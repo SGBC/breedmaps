@@ -1,5 +1,5 @@
-##################  Summerizing overlaps for each SVs  ############################
-# This script summerize the numer of overlaps for each external dataset, regulatory regions and Ensembl annotation
+##################  Summarizing overlaps for each SVs  ############################
+# This script summarize the number of overlaps for each external dataset, regulatory regions and Ensembl annotation
 # It groups by SV_ID which is unique for each file/individual
 
 
@@ -113,7 +113,7 @@ regl_path = paste(
   params$workingDir,
   params$resDir,
   params$reglDir,
-  "regl_",
+  "regl_precise_",
   name,
   ".tsv",
   sep = ""
@@ -125,8 +125,10 @@ regl_df = read.table(
   sep = "\t",
   header = T,
   stringsAsFactors = F
-)
-#%>% dplyr::select(ID, gene_id) %>% dplyr::rename(SV_ID = ID, ID_rest = gene_id)
+) 
+# The regulatory regions does not have ID so one is created to be able to count
+regl_df$ID_regl = rownames(regl_df)
+regl_df = regl_df %>% dplyr::select(SV_ID, ID_regl)
 
 ##################  Load the SVs overlapping with datasets  ############################
 # Load the result file for each dataset(known SVs from Ensembl and studies in EVA), output from the sv_datasets.R
@@ -136,7 +138,7 @@ dataset_path = paste(params$workingDir,
                      sep = "")
 d1_path = paste(
   dataset_path,
-  "bos_taurus_structural_variations.gvf_joined_with_precise_",
+  "bos_taurus_structural_variations.gvf_precise_",
   name,
   ".tsv",
   sep = ""
@@ -151,7 +153,7 @@ d1_df = read.table(
 
 d2_path = paste(
   dataset_path,
-  "remapped_estd223_Boussaha_et_al_2015.2015-11-02.Bos_taurus_UMD_3.1.Submitted.gff_joined_with_precise_",
+  "remapped_estd223_Boussaha_et_al_2015.2015-11-02.Bos_taurus_UMD_3.1.Submitted.gff_precise_",
   name,
   ".tsv",
   sep = ""
@@ -166,7 +168,7 @@ d2_df = read.table(
 
 d3_path = paste(
   dataset_path,
-  "remapped_estd234_Mesbah-Uddin_et_al_2017.2018-06-01.Bos_taurus_UMD_3.1.Submitted.gff_joined_with_precise_",
+  "remapped_estd234_Mesbah-Uddin_et_al_2017.2018-06-01.Bos_taurus_UMD_3.1.Submitted.gff_precise_",
   name,
   ".tsv",
   sep = ""
@@ -181,7 +183,7 @@ d3_df = read.table(
 
 d4_path = paste(
   dataset_path,
-  "remapped_nstd56_Liu_et_al_2010.2016-07-08.Bos_taurus_UMD_3.1.1.Remapped.gff_joined_with_precise_",
+  "remapped_nstd56_Liu_et_al_2010.2016-07-08.Bos_taurus_UMD_3.1.1.Remapped.gff_precise_",
   name,
   ".tsv",
   sep = ""
@@ -196,7 +198,7 @@ d4_df = read.table(
 
 d5_path = paste(
   dataset_path,
-  "remapped_nstd61_Hou_et_al_2011b.2016-07-11.Bos_taurus_UMD_3.1.1.Remapped.gff_joined_with_precise_",
+  "remapped_nstd61_Hou_et_al_2011b.2016-07-11.Bos_taurus_UMD_3.1.1.Remapped.gff_precise_",
   name,
   ".tsv",
   sep = ""
@@ -211,7 +213,7 @@ d5_df = read.table(
 
 d6_path = paste(
   dataset_path,
-  "remapped_nstd69_Bickhart_et_al_2012.2016-07-05.Bos_taurus_UMD_3.1.1.Remapped.gff_joined_with_precise_",
+  "remapped_nstd69_Bickhart_et_al_2012.2016-07-05.Bos_taurus_UMD_3.1.1.Remapped.gff_precise_",
   name,
   ".tsv",
   sep = ""
@@ -226,7 +228,7 @@ d6_df = read.table(
 
 d7_path = paste(
   dataset_path,
-  "remapped_nstd135_Karimi_et_al_2016.2017-02-08.Bos_taurus_UMD_3.1.1.Remapped.gff_joined_with_precise_",
+  "remapped_nstd135_Karimi_et_al_2016.2017-02-08.Bos_taurus_UMD_3.1.1.Remapped.gff_precise_",
   name,
   ".tsv",
   sep = ""
@@ -260,7 +262,8 @@ d7_count = as.data.frame(d7_df %>% group_by(SV_ID) %>% count()) %>% dplyr::renam
 join_gene = full_join(gene_count, exon_count, by="SV_ID")
 join_tran = full_join(join_gene, tran_count, by="SV_ID")
 join_rest = full_join(join_tran, rest_count, by="SV_ID")
-join1 = full_join(join_rest, d1_count, by = "SV_ID")
+join_regl = full_join(join_rest, regl_df, by="SV_ID")
+join1 = full_join(join_regl, d1_count, by = "SV_ID")
 join2 = full_join(join1, d2_count, by = "SV_ID")
 join3 = full_join(join2, d3_count, by = "SV_ID")
 join4 = full_join(join3, d4_count, by = "SV_ID")

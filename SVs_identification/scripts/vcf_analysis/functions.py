@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 def read_delly_vcf(path):
     """Reads VCF files but specifically modified for VCF files created by DELLY. Returns a dataframe"""
+    # Extracts the PRECISE/IMPRECISE flag and the END column from the INFO field and saves it as seperate columns
     with open(path, 'r') as f:
         # Read lines that is not a header line
         lines = [l for l in f if not l.startswith('##')]
@@ -20,19 +21,6 @@ def read_delly_vcf(path):
     df[['4', 'END']] = df['END_full'].str.split('=', 1, expand=True)
     df = df.drop(['EXTRA', '1', '2', '3', '4', 'END_full'], axis=1)
     return df
-
-
-def read_vcf(path):
-    """Reads VCF files and returns it as a data frame"""
-    with open(path, 'r') as f:
-        # Read lines that is not a header line
-        lines = [l for l in f if not l.startswith('##')]
-    return pd.read_csv(
-        io.StringIO(''.join(lines)),
-        dtype={'#CHROM': str, 'POS': int, 'ID': str, 'REF': str, 'ALT': str,
-               'QUAL': str, 'FILTER': str, 'INFO': str},
-        sep='\t'
-    ).rename(columns={'#CHROM': 'CHROM'})
 
 
 def read_gtf(path):
@@ -119,12 +107,14 @@ def count_sv_type(sample):
 def count_svs(vcf_list, vcf_files):
     """Counts how many SV is in each location. Returns one dict object with positions as keys and counts as values and
     one dict with positions and what genomes have SVs there"""
+    # The scripts loops each file and looks for all positions and summerizes the counts of each location
     counts = {}
     genomes_pos = {}
     for i in range(len(vcf_list)):
         genome = get_file_name(vcf_files[i])
         for row in range(len(vcf_list[i])):
             # Combine the chromosome and the start position to be able compare positions
+            # The breakends will only handle the initial position, not the position on another chromosome
             chrom = vcf_list[i].iloc[row]['CHROM']
             pos = vcf_list[i].iloc[row]['POS']
             end = vcf_list[i].iloc[row]['END']
