@@ -1,9 +1,16 @@
 # ADDING GENE ANNOTATION FROM ENSEMBL
+# Takes the automatic annotation file from Ensembl(locally stored) and overlaps with precise SVs
+# The annotation is divided into four groups since it is too computational heavy if all annotation is run at the same time.
+# Keep in mind that a lot of input SVs will fill up the RAM on small computers
+
+# There is a printed output of the count of each annotation type, calculated per file.
+# Four output files per input files, e.g. filt_ann_gene_"file name".tsv
 
 if (!require("tidyverse")) {
   install.packages("tidyverse")
 }
 
+# If installing with Biocmanager in R-Studio server, ask administrator for help
 if (!require("BiocManager")) {
   install.packages("BiocManager")
   BiocManager::install()
@@ -54,6 +61,7 @@ source(paste(params$workingDir, params$scriptDir, params$functions, sep =
 ann_path = paste(params$workingDir, params$annDir, params$annFile, sep =
                    "")
 ann_df = as.data.frame(rtracklayer::import(ann_path))
+# Gene includes all Ensembl annotation (not only genes)
 ann_df = ann_df %>% dplyr::rename(
   gene_chrom = seqnames,
   gene_start = start,
@@ -67,7 +75,7 @@ ann_df = ann_df %>% dplyr::rename(
 ########################################
 ########################################
 ########################################
-# Set up the genomic ranges and data frames
+# Set up the genomic ranges and data frames into 4 dataframes (genes, transcripts, exons and rest)
 # The overlap function requires that the ID for the two overlapping data sets have ID1 or ID2 for the ID
 gene_df = ann_df %>% filter(gene_type == "gene") %>% dplyr::rename(ID2 = gene_id)
 gene_range = makeGRangesFromDataFrame(
@@ -108,12 +116,14 @@ rest_range = makeGRangesFromDataFrame(
 ########################################
 ########################################
 ########################################
-# Load VCF file
+# Load the precise SVs (output from filtering_SVs.R)
 vcf_path = paste(params$workingDir, params$dataDir, sep = "")
 vcf_files = list.files(path = vcf_path, pattern = "precise_*")
 vcf_names = list()
 df_list = list()
 range_list = list()
+
+# The printed output is the same as the counting_SV_occurence.R
 print("##### ENSEMBL ANNOTATION #####")
 for (i in 1:length(vcf_files)) {
   vcf_file = paste(vcf_path, vcf_files[i], sep = "")
@@ -129,8 +139,9 @@ for (i in 1:length(vcf_files)) {
     header = T,
     stringsAsFactors = F
   )
+  # Rename for use of the overlap function
   filt_var = df %>% dplyr::rename(ID1 = ID)
-  
+  # Create a GenomicRange from the precise SVs outputted from filtering_SVs.R
   vcf_range = makeGRangesFromDataFrame(
     filt_var,
     seqnames.field = "CHROM",
@@ -138,6 +149,7 @@ for (i in 1:length(vcf_files)) {
     end.field = "END",
   )
   
+  # The findoverlap_dataframe is imported from functions.R
   overlap_gene = findoverlap_dataframe(vcf_range, gene_range, filt_var, gene_df) %>%
     dplyr::rename(ID = ID1, gene_id = ID2)
   overlap_tran = findoverlap_dataframe(vcf_range, tran_range, filt_var, tran_df) %>%
@@ -146,6 +158,7 @@ for (i in 1:length(vcf_files)) {
     dplyr::rename(ID = ID1, gene_id = ID2)
   overlap_rest = findoverlap_dataframe(vcf_range, rest_range, filt_var, rest_df) %>%
     dplyr::rename(ID = ID1, gene_id = ID2)
+  # Prints the counts for each annotation type for each file
   print(paste("FILE: ", name ,sep=""))
   print("GENE_BIOTYPE COUNT")
   print(as.data.frame(overlap_gene %>% group_by(gene_type)%>%count()))
@@ -153,6 +166,7 @@ for (i in 1:length(vcf_files)) {
   print(as.data.frame(overlap_exon %>% group_by(gene_type)%>%count()))
   print(as.data.frame(overlap_rest %>% group_by(gene_type)%>%count()))
   
+  # Write to file (4 files)
   filt_results = paste(params$workingDir,
                        params$resultsDir,
                        "filt_ann_gene_",

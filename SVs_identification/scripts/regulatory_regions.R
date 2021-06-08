@@ -1,4 +1,5 @@
-# Overlapping with existing annotation
+# Overlapping with regulatory regions
+# Overlaps the precise SVs with regulatory regions(taken from ChromHMM_REPC.bed Fang et al. https://doi.org/10.1186/s12915-019-0687-8)
 
 if (!require("tidyverse")) {
   install.packages("tidyverse")
@@ -12,9 +13,6 @@ if (!require("BiocManager")) {
 if (!require("GenomicRanges")) {
   BiocManager::install("GenomicRanges")
 }
-if (!require("rtracklayer")) {
-  BiocManager::install("rtracklayer")
-}
 
 if (!require("optparse")) {
   install.packages("optparse")
@@ -22,7 +20,6 @@ if (!require("optparse")) {
 library(optparse)
 library(tidyverse)
 library(GenomicRanges)
-library(rtracklayer)
 
 
 # Create inputs from the command line and save the options
@@ -51,12 +48,11 @@ source(paste(params$workingDir, params$scriptDir, params$functions, sep =
 ######################################################################
 ######################################################################
 ######################################################################
-
+# Load the regulatory regions from BED file. Will be named as "DATASET_"
 dataset_path = paste(params$workingDir,
                      params$annDir,
                      params$reglFile,
                      sep = "")
-#dataset_range = rtracklayer::import(dataset_path, format="bed")
 
 dataset = read.table(
   file = dataset_path,
@@ -71,6 +67,7 @@ dataset_renamed = dataset %>% dplyr::rename(
   DATASET_END = V3,
   BIOLOGICAL_NAME = V4
 )
+# Alters the CHR column to match the same format as our data
 dataset_cleaned = dataset_renamed %>% dplyr::mutate(DATASET_CHROM = stringr::str_split_fixed(dataset_renamed$DATASET_CHROM, "chr", n = 2)[, 2])
 dataset_range = makeGRangesFromDataFrame(
   dataset_cleaned,
@@ -83,12 +80,11 @@ dataset_range = makeGRangesFromDataFrame(
 ######################################################################
 ######################################################################
 ######################################################################
-
+# Load our data from filtering_SVs.R. This data is referred as "SV_"
 path = paste(params$workingDir,
              params$dataDir,
              sep = "")
 file_names = list.files(path = path, pattern = "precise_*")
-
 all_dfs = data.frame()
 for (i in 1:(length(file_names))) {
   full_path = paste(params$workingDir,
@@ -111,18 +107,20 @@ for (i in 1:(length(file_names))) {
     start.field = "SV_START",
     end.field = "SV_END",
   )
+  # Creates an ID2 from the row number (since no ID exists in the BED file)
   dataset_cleaned$ID2 = rownames(dataset_cleaned)
+  # findoverlap_datafram is imported from functions.R
   overlap = findoverlap_dataframe(sv_range, dataset_range, svs, dataset_cleaned)
   #sv_range = ID1, dataset = ID2
-  overlap_cleaned = overlap %>% dplyr::rename(SV_ID = ID1) %>% dplyr::select(-ID2) %>% unique()
-  if (i == 1) {
-    overlap_cleaned$File = file_names[i]
-    all_dfs = overlap_cleaned
-  }
-  else {
-    overlap_cleaned$File = file_names[i]
-    all_dfs = full_join(all_dfs, overlap_cleaned)
-  }
+  overlap_cleaned = overlap %>% dplyr::rename(SV_ID = ID1) %>% dplyr::select(-ID2)
+  # if (i == 1) {
+  #   overlap_cleaned$File = file_names[i]
+  #   all_dfs = overlap_cleaned
+  # }
+  # else {
+  #   overlap_cleaned$File = file_names[i]
+  #   all_dfs = full_join(all_dfs, overlap_cleaned)
+  # }
   filt_results = paste(params$workingDir,
                        params$resultsDir,
                        "regl_",
@@ -139,10 +137,10 @@ for (i in 1:(length(file_names))) {
   
 }
 
-all_counts = all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME) %>% count()
-print(as.data.frame(all_counts))
-
-counts = as.data.frame(all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME, File) %>% count())
-print(as.data.frame(counts))
-
+# all_counts = all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME) %>% count()
+# print(as.data.frame(all_counts))
+# 
+# counts = as.data.frame(all_dfs %>% dplyr::group_by(BIOLOGICAL_NAME, File) %>% count())
+# print(as.data.frame(counts))
+# 
 

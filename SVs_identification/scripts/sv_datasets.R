@@ -66,7 +66,7 @@ dataset_cleaned = dataset %>% dplyr::rename(
   DATASET_SV_LENGTH = width
 )
 dataset_unique = dataset_cleaned %>% dplyr::select(DATASET_CHROM, DATASET_START, DATASET_END, DATASET_STRAND, DATASET_SV_TYPE) %>% unique()
-
+# Creates ranges from the dataset using package GenomicRanges
 dataset_range = makeGRangesFromDataFrame(
   dataset_unique,
   seqnames.field = "DATASET_CHROM",
@@ -78,7 +78,7 @@ dataset_range = makeGRangesFromDataFrame(
 ######################################################################
 ######################################################################
 ######################################################################
-
+# Load the filtered SVs outputted from filtering_SVs.R
 data_path = paste(params$workingDir,
                   params$dataDir,
                   sep = "")
@@ -112,32 +112,24 @@ for (i in 1:(length(data_file_names))) {
   overlap = findoverlap_dataframe(sv_range, dataset_range, svs, dataset_cleaned)
   #sv_range = ID1, dataset = ID2
   overlap_list[[i]] = overlap %>% dplyr::rename(SV_ID = ID1) %>% dplyr::select(-ID2)
-  # filt_results = paste(
-  #   params$workingDir,
-  #   params$resultsDir,
-  #   params$datasetName,
-  #   "_joined_with_",
-  #   data_file_names[[i]],
-  #   sep = ""
-  # )
-  # write.table(
-  #   x = overlap_list[[i]],
-  #   file = filt_results,
-  #   quote = F,
-  #   sep = "\t",
-  #   row.names = F,
-  #   col.names = T
-  # )
+  filt_results = paste(
+    params$workingDir,
+    params$resultsDir,
+    params$datasetName,
+    "_",
+    data_file_names[[i]],
+    sep = ""
+  )
+  write.table(
+    x = overlap_list[[i]],
+    file = filt_results,
+    quote = F,
+    sep = "\t",
+    row.names = F,
+    col.names = T
+  )
 }
-print(paste("#### Dataset: " , params$datasetName, " ####",sep=""))
 
-print("FILE           # OVERLAPPING VARIANTS")
-#all_count = dim(overlap_list[[1]])[1]
 
-for (i in 1:length(data_file_names)){
-  print(paste(data_file_names[i],"           ", dim(overlap_list[[i]])[1],sep=""))
-  #all_count = all_count + dim(overlap_list[[i]])[1]
-}
-#print(paste("Total variants overlapping for dataset: ", all_count, sep=""))
 
 

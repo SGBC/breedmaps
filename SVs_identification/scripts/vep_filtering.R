@@ -1,4 +1,9 @@
-# Filtering VEP output
+# Filtering web-based variant effect predictor (VEP) output
+# Upload the VCF file to https://www.ensembl.org/Tools/VEP, before running script
+# Download the result in txt format
+# The output will be printed in the terminal, no output file
+
+# Note! The SVs will not be filtered here (as in filtering_SVs.R)
 
 # Check if the required packages are installed
 if (!require("tidyverse")) {

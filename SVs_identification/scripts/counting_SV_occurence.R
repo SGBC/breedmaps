@@ -1,4 +1,6 @@
-##################  Find interesting SVs  ############################
+##################  Summerizing overlaps for each SVs  ############################
+# This script summerize the numer of overlaps for each external dataset, regulatory regions and Ensembl annotation
+# It groups by SV_ID which is unique for each file/individual
 
 
 if (!require("tidyverse")) {
@@ -22,6 +24,8 @@ options <- list(
                 "annotated_variants/"),
   make_option(c("-d", "--datasetDir"), help = "Datasets results directory", default =
                 "datasets/"),
+  make_option(c("-g", "--reglDir"), help = "Regulatory regions results directory", default =
+                "regulatory_variants/"),
   make_option(c("-n", "--fileName"), help = "File name/individual", default =
                 "combined_BTA125_S1_R_SV.vcf")
 )
@@ -29,11 +33,10 @@ options <- list(
 
 params <- parse_args(OptionParser(option_list = options))
 
-##################  Load the annotated precise SVs  ############################
-
+##################  Load the annotated SVs  ############################
+# Extract name for result file
 name = strsplit(params$fileName, "\\.")[[1]][1]
-
-
+# Load the Ensembl annotated SVs, output from ensembl_ann.R
 gene_path = paste(
   params$workingDir,
   params$resDir,
@@ -43,7 +46,6 @@ gene_path = paste(
   ".tsv",
   sep = ""
 )
-
 gene_df = read.table(
   file = gene_path,
   quote = "",
@@ -106,13 +108,32 @@ rest_df = read.table(
   stringsAsFactors = F
 ) %>% dplyr::select(ID, gene_id) %>% dplyr::rename(SV_ID = ID, ID_rest = gene_id)
 
-##################  Load the precise SVs overlapping with datasets  ############################
+# Load the overlapping regulatory regions, output from regulatory_regions.R
+regl_path = paste(
+  params$workingDir,
+  params$resDir,
+  params$reglDir,
+  "regl_",
+  name,
+  ".tsv",
+  sep = ""
+)
 
+regl_df = read.table(
+  file = regl_path,
+  quote = "",
+  sep = "\t",
+  header = T,
+  stringsAsFactors = F
+)
+#%>% dplyr::select(ID, gene_id) %>% dplyr::rename(SV_ID = ID, ID_rest = gene_id)
+
+##################  Load the SVs overlapping with datasets  ############################
+# Load the result file for each dataset(known SVs from Ensembl and studies in EVA), output from the sv_datasets.R
 dataset_path = paste(params$workingDir,
                      params$resDir,
                      params$datasetDir,
                      sep = "")
-
 d1_path = paste(
   dataset_path,
   "bos_taurus_structural_variations.gvf_joined_with_precise_",
