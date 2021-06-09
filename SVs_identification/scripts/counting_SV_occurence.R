@@ -36,6 +36,25 @@ params <- parse_args(OptionParser(option_list = options))
 ##################  Load the annotated SVs  ############################
 # Extract name for result file
 name = strsplit(params$fileName, "\\.")[[1]][1]
+
+sv_path = paste(
+  params$workingDir,
+  params$resDir,
+  params$filtDir,
+  "precise_",
+  name,
+  ".tsv",
+  sep = ""
+)
+sv_df = read.table(
+  file = sv_path,
+  quote = "",
+  sep = "\t",
+  header = T,
+  stringsAsFactors = F
+) %>% dplyr::select(ID) %>% dplyr::rename(SV_ID = ID)
+
+
 # Load the Ensembl annotated SVs, output from ensembl_ann.R
 gene_path = paste(
   params$workingDir,
@@ -259,8 +278,8 @@ d6_count = as.data.frame(d6_df %>% group_by(SV_ID) %>% count()) %>% dplyr::renam
 d7_count = as.data.frame(d7_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(nstd135 = n)
 
 ##################  Join all of the counts for each SV  ############################
-
-join_gene = full_join(gene_count, exon_count, by="SV_ID")
+join_gene = full_join(sv_df ,gene_count, by="SV_ID")
+join_exon = full_join(join_gene, exon_count, by="SV_ID")
 join_tran = full_join(join_gene, tran_count, by="SV_ID")
 join_rest = full_join(join_tran, rest_count, by="SV_ID")
 join_regl = full_join(join_rest, regl_count, by="SV_ID")
