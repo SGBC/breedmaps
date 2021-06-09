@@ -244,25 +244,26 @@ d7_df = read.table(
 
 ##################  Count each file for the SVs  ############################
 
-gene_count = as.data.frame(gene_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(gene_count = n)
-exon_count = as.data.frame(exon_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(exon_count = n)
-tran_count = as.data.frame(tran_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(tran_count = n)
-rest_count = as.data.frame(rest_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(rest_count = n)
+gene_count = as.data.frame(gene_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(Genes = n)
+exon_count = as.data.frame(exon_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(Exons = n)
+tran_count = as.data.frame(tran_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(Transcipts = n)
+rest_count = as.data.frame(rest_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(Rest_of_ann = n)
+regl_count = as.data.frame(regl_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(Regulatory_regions = n)
 
-d1_count = as.data.frame(d1_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(df1_count = n)
-d2_count = as.data.frame(d2_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(df2_count = n)
-d3_count = as.data.frame(d3_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(df3_count = n)
-d4_count = as.data.frame(d4_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(df4_count = n)
-d5_count = as.data.frame(d5_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(df5_count = n)
-d6_count = as.data.frame(d6_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(df6_count = n)
-d7_count = as.data.frame(d7_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(df7_count = n)
+d1_count = as.data.frame(d1_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(Ensembl_SVs = n)
+d2_count = as.data.frame(d2_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(estd223 = n)
+d3_count = as.data.frame(d3_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(estd234 = n)
+d4_count = as.data.frame(d4_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(nstd56 = n)
+d5_count = as.data.frame(d5_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(nstd61 = n)
+d6_count = as.data.frame(d6_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(nstd69 = n)
+d7_count = as.data.frame(d7_df %>% group_by(SV_ID) %>% count()) %>% dplyr::rename(nstd135 = n)
 
 ##################  Join all of the counts for each SV  ############################
 
 join_gene = full_join(gene_count, exon_count, by="SV_ID")
 join_tran = full_join(join_gene, tran_count, by="SV_ID")
 join_rest = full_join(join_tran, rest_count, by="SV_ID")
-join_regl = full_join(join_rest, regl_df, by="SV_ID")
+join_regl = full_join(join_rest, regl_count, by="SV_ID")
 join1 = full_join(join_regl, d1_count, by = "SV_ID")
 join2 = full_join(join1, d2_count, by = "SV_ID")
 join3 = full_join(join2, d3_count, by = "SV_ID")
@@ -277,7 +278,7 @@ join7[is.na(join7)] = 0
 result_path = paste(params$workingDir,
                     params$resDir,
                     "counts_per_file/",
-                    "SV_count_",
+                    "SV_overlap_count_",
                     name,
                     ".tsv",
                     sep = "")

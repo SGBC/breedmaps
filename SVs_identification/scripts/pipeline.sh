@@ -79,17 +79,17 @@ Rscript ~/breedmaps/SVs_identification/scripts/vep_filtering.R
 #  -d, --dataDir	    Dir for the filtered variants	default="results/filtered_variants/"
 
 
-cd ~/breedmaps/SVs_identification/results/vcf_analysis/
+cd ~/breedmaps/SVs_identification/results/summery_count/
 # The input for the python script are the vcf and the filtered SVs from filtering_SVs.R
 # The file structure is relative to the home folder but can be changed in the scripts individually
-python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_single_samples.py
-python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_combined_samples.py
-python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_RDC.py
-python3 ~/breedmaps/SVs_identification/scripts/vcf_analysis/sum_BTA_comb_RDC.py
+python3 ~/breedmaps/SVs_identification/scripts/summery_count/sum_BTA_single_samples.py
+python3 ~/breedmaps/SVs_identification/scripts/summery_count/sum_BTA_combined_samples.py
+python3 ~/breedmaps/SVs_identification/scripts/summery_count/sum_RDC.py
+python3 ~/breedmaps/SVs_identification/scripts/summery_count/sum_BTA_comb_RDC.py
 
-#gzip ~/breedmaps/SVs_identification/results/filtered_variants/*.tsv
-#gzip ~/breedmaps/SVs_identification/results/annotated_variants/*.tsv
-#gzip ~/breedmaps/SVs_identification/results/regulatory_variants/*.tsv
-#gzip ~/breedmaps/SVs_identification/results/datasets/*.tsv
+gzip ~/breedmaps/SVs_identification/results/filtered_variants/*.tsv
+gzip ~/breedmaps/SVs_identification/results/annotated_variants/*.tsv
+gzip ~/breedmaps/SVs_identification/results/regulatory_variants/*.tsv
+gzip ~/breedmaps/SVs_identification/results/datasets/*.tsv
 
 
