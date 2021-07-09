@@ -8,7 +8,7 @@ Various tools were used based on different SV strategies. Currently, only Delly 
 - BWA-MEM is used for mapping the reads against the reference genome (ARS-UCD1.2).
 - Produced SAM files are then converted to BAM files using the SAMTOOLS.
 - Duplicated reads are then marked for the BAM file using PICARD software.
-- Finally Delly software is used calling the SV's.
+- Finally Delly software is used for calling the SV's.
 ## How to run the pipeline
 Before executing the pipeline there are three things that need to be fixed.
 1. Path for the samples(R1,R2).
