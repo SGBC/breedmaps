@@ -1,7 +1,7 @@
 #!/usr/bin/env/ nextflow
 params.ref = "/proj/breedmap/NOBACKUP/indexes/ARS-UCD1.2_Btau5.0.1Y.fa.gz"
-reads_raw = channel.fromFilePairs('/proj/breedmap/scilifelab_30_bulls_2019/ALL/*{1,2}_001.fastq.gz')
-params.outdir = "/proj/breedmap/NOBACKUP/scilife_results"
+reads_raw = channel.fromFilePairs('/proj/breedmap/NOBACKUP/simulation_2021_07_05/reads/*{1,2}.fq')
+params.outdir = "/proj/breedmap/NOBACKUP/sim_results_july"
 params.REF = "/proj/breedmap/NOBACKUP/REF/ARS-UCD1.2_Btau5.0.1Y.fa.gz"
 
 process fastp {
@@ -18,19 +18,18 @@ process fastp {
 
 
 process indexing_aligning {
-	cpus = 24
- 	memory = 120.GB 
+
 	publishDir "${params.outdir}/indexed_aligned", mode: 'copy'
 	input :
 	
 	path ref from params.ref
-	tuple pair_id, file(reads) from reads_ch
+	set pair_id, file(read_1), file(read_2) from reads_ch
 	output: 
 	file("*")
 	set val(pair_id),file("${pair_id}_aligned_reads.sam") into aligned_ch
 	script:
 	"""
-	bwa mem /proj/breedmap/NOBACKUP/indexes/ARS-UCD1.2_Btau5.0.1Y.fa.gz ${reads} > ${pair_id}_aligned_reads.sam
+	bwa mem /proj/breedmap/NOBACKUP/indexes/ARS-UCD1.2_Btau5.0.1Y.fa.gz ${read_1} ${read_2} > ${pair_id}_aligned_reads.sam
 	
 	"""
 } 
@@ -42,12 +41,17 @@ process samtobam_sort {
 	output:
 	set pair_id, file("${pair_id}_aligned_reads_sorted.bam"), \
 	file("${pair_id}_aligned_reads_sorted.bam.bai") into bam_ch	
+	file("*")
 	script:
 	"""
-	module load samtools
 	samtools view -h -b -S ${reads} > ${pair_id}_aligned_reads.bam
+	bamtools stats -in ${pair_id}_aligned_reads.bam -insert > ${pair_id}_bamtool_stats.txt
 	samtools sort ${pair_id}_aligned_reads.bam -o ${pair_id}_aligned_reads_sorted.bam
-	samtools index ${pair_id}_aligned_reads_sorted.bam
+	samtools stats ${pair_id}_aligned_reads_sorted.bam | grep "insert size average" > ${pair_id}_mean_insert_bfr_mrkdp.txt
+	samtools index ${pair_id}_aligned_reads_sorted.bam	
+	echo ${reads} >> ${pair_id}_config_bfr_mrdkp.txt
+        awk 'NR==1 {print \$5}' ${pair_id}_mean_insert_bfr_mrkdp.txt >> ${pair_id}_config_bfr_mrdkp.txt
+        echo ${pair_id}_SV_pindel >> ${pair_id}_config_bfr_mrkdp.txt
 	"""
 }
 
@@ -55,7 +59,7 @@ process samtobam_sort {
 
 
 process markedups {
-	publishDir "${params.outdir}/markedup", mode:'copy' 
+	 
 	input:
 	set val(pair_id), file(bamfile), file(baifile) from bam_ch
 	output:
@@ -65,7 +69,6 @@ process markedups {
 	file("${pair_id}_sorted_duplicates_rm.bam.bai") into marked_index_ch
 	script:
 	"""
-	module load samtools
 	java -jar /opt/sw/picard/1.137/picard.jar MarkDuplicates I=${bamfile} O=${pair_id}_sorted_duplicates_rm.bam M=${pair_id}_markedup_metrics.txt 
 	samtools index ${pair_id}_sorted_duplicates_rm.bam
 	
@@ -125,6 +128,30 @@ process Analyze_covariates {
 }
 
 */
+
+
+
+process insert_sizes {
+        publishDir "${params.outdir}/Insert_size_metrics", mode:'copy'
+        input:
+        tuple pair_id, file(bam_file) from markedup_bam_ch2
+        output:
+        file("*")
+        script:
+        """
+        samtools stats ${bam_file} | grep "insert size average" > ${pair_id}_mean_insert.txt
+        echo ${bam_file} >> ${pair_id}_config.txt
+        awk 'NR==1 {print \$5}' ${pair_id}_mean_insert.txt >> ${pair_id}_config.txt
+        echo ${pair_id}_SV_pindel >> ${pair_id}_config.txt
+        """
+
+}
+
+
+
+
+
+
 process delly_variants {
 	publishDir "${params.outdir}/bcf_output", mode:'copy'
 	input:
