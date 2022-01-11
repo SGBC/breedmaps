@@ -1,8 +1,10 @@
 #!/usr/bin/env/ nextflow
+
 params.ref = "/proj/breedmap/NOBACKUP/indexes/ARS-UCD1.2_Btau5.0.1Y.fa.gz"
-reads_raw = channel.fromFilePairs('/proj/breedmap/NOBACKUP/simulation_2021_07_05/reads/*{1,2}.fq')
-params.outdir = "/proj/breedmap/NOBACKUP/sim_results_july"
+reads_raw = channel.fromFilePairs('/proj/breedmap/data/*{1,2}_001.fastq.gz')
+params.outdir = "/proj/breedmap/results"
 params.REF = "/proj/breedmap/NOBACKUP/REF/ARS-UCD1.2_Btau5.0.1Y.fa.gz"
+
 
 process fastp {
 	input : 
@@ -18,6 +20,8 @@ process fastp {
 
 
 process indexing_aligning {
+	cpus = 12
+	memory = 120.GB
 
 	publishDir "${params.outdir}/indexed_aligned", mode: 'copy'
 	input :
@@ -26,10 +30,11 @@ process indexing_aligning {
 	set pair_id, file(read_1), file(read_2) from reads_ch
 	output: 
 	file("*")
+
 	set val(pair_id),file("${pair_id}_aligned_reads.sam") into aligned_ch
 	script:
 	"""
-	bwa mem /proj/breedmap/NOBACKUP/indexes/ARS-UCD1.2_Btau5.0.1Y.fa.gz ${read_1} ${read_2} > ${pair_id}_aligned_reads.sam
+	bwa mem -t 10 /proj/breedmap/NOBACKUP/indexes/ARS-UCD1.2_Btau5.0.1Y.fa.gz ${read_1} ${read_2} > ${pair_id}_aligned_reads.sam
 	
 	"""
 } 
@@ -65,8 +70,10 @@ process markedups {
 	output:
 	set pair_id, file("${pair_id}_sorted_duplicates_rm.bam") into markedup_bam_ch
 	set pair_id, file("${pair_id}_sorted_duplicates_rm.bam") into markedup_bam_ch2
+	 set pair_id, file("${pair_id}_sorted_duplicates_rm.bam") into markedup_bam_ch3
 	set pair_id, file("${pair_id}_markedup_metrics.txt") into marked_metrics_ch
 	file("${pair_id}_sorted_duplicates_rm.bam.bai") into marked_index_ch
+	file("${pair_id}_sorted_duplicates_rm.bam.bai") into marked_index_ch2
 	script:
 	"""
 	java -jar /opt/sw/picard/1.137/picard.jar MarkDuplicates I=${bamfile} O=${pair_id}_sorted_duplicates_rm.bam M=${pair_id}_markedup_metrics.txt 
@@ -130,11 +137,10 @@ process Analyze_covariates {
 */
 
 
-
 process insert_sizes {
         publishDir "${params.outdir}/Insert_size_metrics", mode:'copy'
         input:
-        tuple pair_id, file(bam_file) from markedup_bam_ch2
+        set pair_id, file(bam_file) from markedup_bam_ch2
         output:
         file("*")
         script:
@@ -146,11 +152,6 @@ process insert_sizes {
         """
 
 }
-
-
-
-
-
 
 process delly_variants {
 	publishDir "${params.outdir}/bcf_output", mode:'copy'
@@ -166,11 +167,8 @@ process delly_variants {
 	
 	"""
 }
-
-
-
 process bcf_to_vcf {
-	publishDir "${params.outdir}/variant_calling", mode:'copy'
+	publishDir "${params.outdir}/delly_variants", mode:'copy'
 	input: 
 	set pair_id, file(reads_bcf) from delly_bcf_ch
 	output:
@@ -179,6 +177,23 @@ process bcf_to_vcf {
 	"""
 	bcftools view ${reads_bcf} > ${pair_id}_SV.vcf	
 	"""
+}
+
+
+process gridss_variants {
+        publishDir "${params.outdir}/gridss_variants", mode: 'copy'
+        input:
+        path REF from params.REF
+	set pair_id, path(marked_bam) from markedup_bam_ch3
+	file(baifile) from marked_index_ch2
+
+        output:
+        file("*")
+
+        script:
+        """
+        gridss -r ${REF} -o ${pair_id}_SV.vcf -j /proj/breedmap/gridss-2.12.2-gridss-jar-with-dependencies.jar ${marked_bam}
+        """
 }
 
 /*
